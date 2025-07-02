@@ -4,6 +4,7 @@ import Navbar from './components/navbar'
 import Home from './pages/Home'
 import React, { useEffect, useState } from 'react'
 
+import Footer from './components/Footer'
 function App() {
   const [message, setMessage] = useState('')
 
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
+      <Footer /> 
     </BrowserRouter>
   )
 }
