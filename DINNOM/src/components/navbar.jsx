@@ -4,19 +4,23 @@ import searchIcon from '../assets/navbar/images.png'
 import cartIcon from '../assets/navbar/shopping-cart-icon-illustration-free-vector.jpg'
 import hamburgerIcon from '../assets/navbar/three-lines-hamburger-menu-option-line-icon-symbol-app-list-drop-down-more-sidebar-side-bar-expand-application-website-drawer-page-info-graphic-vector.jpg'
 import userIcon from '../assets/navbar/user-profile-icon-free-vector.jpg'
-import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ toggleSidebar }) => {
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow flex items-center justify-between px-8 py-5 z-50 h-24">
-      {/* Left: Hamburger + Links */}
+      {/* Left: Hamburger + Nav Links */}
       <div className="flex items-center space-x-8">
-        {/* Hamburger Icon (always visible) */}
-        <button className="p-2 mr-6">
-          <img src={hamburgerIcon} alt="Menu" className="w-9 h-9 object-contain" />
+        {/* Hamburger Icon */}
+        <button onClick={toggleSidebar} className="p-2 mr-6">
+          <img
+            src={hamburgerIcon}
+            alt="Menu"
+            className="w-9 h-9 object-contain"
+          />
         </button>
-        {/* Nav Links */}
-        <div className="flex space-x-8">
+
+        {/* Nav Links (hidden on small screens) */}
+        <div className="hidden md:flex space-x-8">
           <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</a>
           <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</a>
           <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Kids</a>
@@ -30,7 +34,6 @@ const Navbar = () => {
 
       {/* Right: Search, Cart, User */}
       <div className="flex items-center space-x-4">
-        {/* Search Bar */}
         <div className="flex items-center bg-[#f3f3f3] rounded-full px-4 py-2 w-56 md:w-80">
           <input
             type="text"
@@ -39,17 +42,17 @@ const Navbar = () => {
           />
           <img src={searchIcon} alt="Search" className="w-7 h-7 object-contain" />
         </div>
-        {/* Cart Icon links to wishlist */}
-        <Link to="/wishlist" className="p-2 hover:bg-gray-100 rounded-full">
+        {/* Cart Icon */}
+        <a href="#" className="p-2 hover:bg-gray-100 rounded-full">
           <img src={cartIcon} alt="Cart" className="w-8 h-8 object-contain" />
-        </Link>
+        </a>
         {/* User Icon */}
         <a href="#" className="p-2 hover:bg-gray-100 rounded-full">
           <img src={userIcon} alt="User" className="w-8 h-8 object-contain" />
         </a>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
