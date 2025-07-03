@@ -3,6 +3,7 @@ import './styles/App.css'
 import Navbar from './components/navbar'
 import Home from './pages/Home'
 import React, { useEffect, useState } from 'react'
+import Wishlist from './pages/wishlist'
 
 import Footer from './components/Footer'
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <div className="text-center text-blue-700 font-bold mt-4">{message}</div>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
       <Footer /> 
     </BrowserRouter>

@@ -4,6 +4,7 @@ import searchIcon from '../assets/navbar/images.png'
 import cartIcon from '../assets/navbar/shopping-cart-icon-illustration-free-vector.jpg'
 import hamburgerIcon from '../assets/navbar/three-lines-hamburger-menu-option-line-icon-symbol-app-list-drop-down-more-sidebar-side-bar-expand-application-website-drawer-page-info-graphic-vector.jpg'
 import userIcon from '../assets/navbar/user-profile-icon-free-vector.jpg'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -38,10 +39,10 @@ const Navbar = () => {
           />
           <img src={searchIcon} alt="Search" className="w-7 h-7 object-contain" />
         </div>
-        {/* Cart Icon */}
-        <a href="#" className="p-2 hover:bg-gray-100 rounded-full">
+        {/* Cart Icon links to wishlist */}
+        <Link to="/wishlist" className="p-2 hover:bg-gray-100 rounded-full">
           <img src={cartIcon} alt="Cart" className="w-8 h-8 object-contain" />
-        </a>
+        </Link>
         {/* User Icon */}
         <a href="#" className="p-2 hover:bg-gray-100 rounded-full">
           <img src={userIcon} alt="User" className="w-8 h-8 object-contain" />
