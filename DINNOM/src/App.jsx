@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './styles/App.css'
-import Navbar from './components/navbar'
-import Home from './pages/Home'
-import React, { useEffect, useState } from 'react'
-import Wishlist from './pages/wishlist'
-=======
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './styles/App.css';
 import Navbar from './components/navbar';
 import Sidebar from './components/sidebar';
 import Home from './pages/Home';
 import React, { useEffect, useState } from 'react';
+import Wishlist from './components/wishlist';
 import Footer from './components/Footer';
->>>>>>> 4a53dd0222fb7af40e6f375d4e570a0f063b8022
 
 function App() {
   const [message, setMessage] = useState('');
@@ -30,15 +22,6 @@ function App() {
 
   return (
     <BrowserRouter>
-<<<<<<< HEAD
-      <Navbar />
-      <div className="text-center text-blue-700 font-bold mt-4">{message}</div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-      </Routes>
-      <Footer /> 
-=======
       {/* Navbar with sidebar toggle */}
       <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
@@ -50,13 +33,11 @@ function App() {
         <div className="text-center text-blue-700 font-bold mt-4">{message}</div>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/wishlist" element={<Wishlist />} />
         </Routes>
       </div>
 
       <Footer />
->>>>>>> 4a53dd0222fb7af40e6f375d4e570a0f063b8022
     </BrowserRouter>
   );
 }
-
-export default App;

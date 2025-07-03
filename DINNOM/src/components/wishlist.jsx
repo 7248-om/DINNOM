@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Navbar from '../components/navbar'
+import Navbar from './navbar'
 import emptyCart from '../assets/navbar/empty cart.png'
 
 const initialWishlistItems = [
