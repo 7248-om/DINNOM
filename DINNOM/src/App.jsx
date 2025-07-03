@@ -3,12 +3,13 @@ import './styles/App.css';
 import Navbar from './components/navbar';
 import Sidebar from './components/sidebar';
 import Home from './pages/Home';
+import Login from './pages/Login';
 import React, { useEffect, useState } from 'react';
 import Wishlist from './components/wishlist';
 import Footer from './components/Footer';
 
 function App() {
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ function App() {
       .then((res) => res.text())
       .then((data) => {
         console.log('Winners:', data);
-        setMessage(data);
+        // setMessage(data);
       });
   }, []);
 
@@ -30,11 +31,16 @@ function App() {
 
       {/* Main content */}
       <div className="pt-24 px-4">
-        <div className="text-center text-blue-700 font-bold mt-4">{message}</div>
+        {/* <div className="text-center text-blue-700 font-bold mt-4">{message}</div> */}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-        </Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/login" element={
+          <div className="px-4"> {/* remove pt-24 here */}
+            <Login />
+          </div>
+        } />
+      </Routes>
       </div>
 
       <Footer />

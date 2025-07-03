@@ -1,10 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import logo from '../assets/navbar/only logo.jpeg'
-import searchIcon from '../assets/navbar/images.png'
-import cartIcon from '../assets/navbar/shopping-cart-icon-illustration-free-vector.jpg'
-import hamburgerIcon from '../assets/navbar/three-lines-hamburger-menu-option-line-icon-symbol-app-list-drop-down-more-sidebar-side-bar-expand-application-website-drawer-page-info-graphic-vector.jpg'
-import userIcon from '../assets/navbar/user-profile-icon-free-vector.jpg'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/navbar/only logo.jpeg';
+import searchIcon from '../assets/navbar/images.png';
+import cartIcon from '../assets/navbar/shopping-cart-icon-illustration-free-vector.jpg';
+import hamburgerIcon from '../assets/navbar/three-lines-hamburger-menu-option-line-icon-symbol-app-list-drop-down-more-sidebar-side-bar-expand-application-website-drawer-page-info-graphic-vector.jpg';
+import userIcon from '../assets/navbar/user-profile-icon-free-vector.jpg';
 
 const Navbar = ({ toggleSidebar }) => {
   return (
@@ -25,12 +25,21 @@ const Navbar = ({ toggleSidebar }) => {
           <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</a>
           <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</a>
           <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Kids</a>
+
+          <Link
+            to="/login"
+            className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition"
+          >
+            Login
+          </Link>
         </div>
       </div>
 
       {/* Center: Logo */}
       <div className="absolute left-1/2 transform -translate-x-1/2">
-        <img src={logo} alt="Logo" className="h-16 w-auto" />
+        <Link to="/">
+          <img src={logo} alt="Logo" className="h-16 w-auto" />
+        </Link>
       </div>
 
       {/* Right: Search, Cart, User */}
@@ -43,14 +52,16 @@ const Navbar = ({ toggleSidebar }) => {
           />
           <img src={searchIcon} alt="Search" className="w-7 h-7 object-contain" />
         </div>
-        {/* Cart Icon links to wishlist */}
+
+        {/* Wishlist icon */}
         <Link to="/wishlist" className="p-2 hover:bg-gray-100 rounded-full">
           <img src={cartIcon} alt="Cart" className="w-8 h-8 object-contain" />
         </Link>
-        {/* User Icon */}
-        <a href="#" className="p-2 hover:bg-gray-100 rounded-full">
+
+        {/* User icon — optionally link to login */}
+        <Link to="/login" className="p-2 hover:bg-gray-100 rounded-full">
           <img src={userIcon} alt="User" className="w-8 h-8 object-contain" />
-        </a>
+        </Link>
       </div>
     </nav>
   );
