@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Navbar from './navbar'
+import { Link } from 'react-router-dom'
 import emptyCart from '../assets/navbar/empty cart.png'
 
 const initialWishlistItems = [
@@ -36,7 +36,6 @@ const Wishlist = () => {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <Navbar />
       <div className="max-w-4xl mx-auto pt-32 pb-12 px-4 flex-1 w-full">
         {/* Stylish "My Cart" heading */}
         <div className="flex justify-center mb-10">
@@ -56,9 +55,15 @@ const Wishlist = () => {
             <div className="text-center text-gray-100 text-2xl font-extrabold mb-2 drop-shadow-lg">
               Please add something
             </div>
-            <div className="text-center text-gray-200 italic text-lg font-extrabold drop-shadow-lg">
+            <div className="text-center text-gray-200 italic text-lg font-extrabold drop-shadow-lg mb-6">
               even the carts have emotions ...
             </div>
+            <Link
+              to="/"
+              className="mt-4 px-8 py-3 bg-white text-black font-bold rounded-full text-lg hover:bg-gray-200 transition shadow"
+            >
+              Back to Home
+            </Link>
           </div>
         ) : (
           <>
@@ -93,7 +98,13 @@ const Wishlist = () => {
                 </div>
               ))}
             </div>
-            <div className="flex justify-end mt-10">
+            <div className="flex justify-between items-center mt-10">
+              <Link
+                to="/"
+                className="bg-white text-black font-bold px-8 py-4 rounded-full text-lg hover:bg-gray-200 transition shadow"
+              >
+                Back to Home
+              </Link>
               <button className="bg-white text-black font-bold px-10 py-4 rounded-full text-lg hover:bg-gray-200 transition shadow-lg">
                 Proceed to Book
               </button>

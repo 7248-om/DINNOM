@@ -60,6 +60,15 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
+        {/* Close button */}
+        <button
+          onClick={closeSidebar}
+          className="absolute top-4 right-4 text-3xl font-bold text-gray-700 hover:text-black focus:outline-none"
+          aria-label="Close sidebar"
+        >
+          &times;
+        </button>
+
         {/* Logo */}
         <div className="mb-8">
           <img src="https://via.placeholder.com/150x40?text=LOGO" alt="Logo" className="mx-auto" />
