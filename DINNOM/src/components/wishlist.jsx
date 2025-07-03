@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import emptyCart from '../assets/navbar/empty cart.png'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Silk from '../components/Silk'; // adjust path if needed
+import emptyCart from '../assets/navbar/empty cart.png';
 
 const initialWishlistItems = [
   {
@@ -17,7 +18,7 @@ const initialWishlistItems = [
     image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
     quantity: 1
   }
-]
+];
 
 const Wishlist = () => {
   const [wishlistItems, setWishlistItems] = useState(initialWishlistItems);
@@ -35,9 +36,20 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div className="relative min-h-screen overflow-hidden text-white">
+      {/* 🔮 Silk 3D Background */}
+      <div className="absolute inset-0 -z-10">
+        <Silk
+          speed={5}
+          scale={1}
+          color="#7B7481"
+          noiseIntensity={1.5}
+          rotation={0}
+        />
+      </div>
+
+      {/* Wishlist Content */}
       <div className="max-w-4xl mx-auto pt-32 pb-12 px-4 flex-1 w-full">
-        {/* Stylish "My Cart" heading */}
         <div className="flex justify-center mb-10">
           <span
             className="text-4xl md:text-5xl font-extrabold tracking-widest uppercase bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent drop-shadow-lg"
@@ -49,6 +61,7 @@ const Wishlist = () => {
             My Cart
           </span>
         </div>
+
         {wishlistItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center mt-20">
             <img src={emptyCart} alt="Empty Cart" className="w-52 h-52 object-contain mb-6 opacity-90" />
@@ -75,6 +88,7 @@ const Wishlist = () => {
                     <div className="text-xl font-bold">{item.name}</div>
                     <div className="text-lg text-gray-300 mt-2">{item.price}</div>
                   </div>
+
                   {/* Quantity Counter */}
                   <div className="flex items-center mr-4">
                     <button
@@ -88,6 +102,7 @@ const Wishlist = () => {
                       className="bg-gray-700 text-white px-3 py-1 rounded-r-full text-xl font-bold hover:bg-gray-600"
                     >+</button>
                   </div>
+
                   {/* Remove Button */}
                   <button
                     className="text-gray-400 hover:text-red-500 text-2xl font-bold px-2"
@@ -98,6 +113,8 @@ const Wishlist = () => {
                 </div>
               ))}
             </div>
+
+            {/* Bottom Buttons */}
             <div className="flex justify-between items-center mt-10">
               <Link
                 to="/"
@@ -112,7 +129,8 @@ const Wishlist = () => {
           </>
         )}
       </div>
-      {/* Marker line at the bottom */}
+
+      {/* Footer */}
       <div className="w-full bg-white py-6 flex justify-center items-center mt-auto shadow-inner">
         <span
           className="text-2xl md:text-4xl font-black tracking-[0.35em] text-black uppercase"
@@ -125,7 +143,7 @@ const Wishlist = () => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Wishlist
+export default Wishlist;
