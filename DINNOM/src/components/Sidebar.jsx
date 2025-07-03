@@ -1,26 +1,30 @@
 import React, { useState } from 'react';
+import BounceCards from './BounceCards';
+import men1 from '../assets/Men/shirts/men1.jpg';
+import men2 from '../assets/Men/shirts/men2.jpg';
+import men3 from '../assets/Men/shirts/men3.jpg';
+import men4 from '../assets/Men/shirts/men5.jpg';
 
 const tabData = {
   Men: [
-    { name: 'New Arrivals', image: 'https://via.placeholder.com/80' },
-    { name: 'Cotton Linen', image: 'https://via.placeholder.com/80' },
-    { name: 'Korean Edit', image: 'https://via.placeholder.com/80' },
-    { name: 'Hot Merch', image: 'https://via.placeholder.com/80' },
-    { name: 'Supima™', image: 'https://via.placeholder.com/80' },
+    { name: 'New Arrivals', image: men1 },
+    { name: 'Cotton Linen', image: men2 },
+    { name: 'Korean Edit', image: men3 },
+    { name: 'Hot Merch', image: men4 },
   ],
   Women: [
-    { name: 'Dresses', image: 'https://via.placeholder.com/80' },
-    { name: 'Tees', image: 'https://via.placeholder.com/80' },
-    { name: 'Loungewear', image: 'https://via.placeholder.com/80' },
-    { name: 'Graphic Tees', image: 'https://via.placeholder.com/80' },
-    { name: 'Tops', image: 'https://via.placeholder.com/80' },
+    { name: 'Dresses', image: 'https://via.placeholder.com/400' },
+    { name: 'Tees', image: 'https://via.placeholder.com/500' },
+    { name: 'Loungewear', image: 'https://via.placeholder.com/600' },
+    { name: 'Graphic Tees', image: 'https://via.placeholder.com/700' },
+    { name: 'Tops', image: 'https://via.placeholder.com/300' },
   ],
   Kids: [
-    { name: 'Marvel', image: 'https://via.placeholder.com/80' },
-    { name: 'Cartoons', image: 'https://via.placeholder.com/80' },
-    { name: 'Superhero Tees', image: 'https://via.placeholder.com/80' },
-    { name: 'Bottoms', image: 'https://via.placeholder.com/80' },
-    { name: 'Jackets', image: 'https://via.placeholder.com/80' },
+    { name: 'Marvel', image: 'https://via.placeholder.com/400' },
+    { name: 'Cartoons', image: 'https://via.placeholder.com/500' },
+    { name: 'Superhero Tees', image: 'https://via.placeholder.com/600' },
+    { name: 'Bottoms', image: 'https://via.placeholder.com/700' },
+    { name: 'Jackets', image: 'https://via.placeholder.com/300' },
   ],
 };
 
@@ -89,21 +93,28 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
           ))}
         </div>
 
-        {/* Tab images */}
-        <div className="flex gap-4 overflow-x-auto mb-8">
-          {tabData[activeTab].map((item, idx) => (
-            <div key={idx} className="flex flex-col items-center text-sm w-20">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-20 h-20 object-cover rounded mb-1"
-              />
-              <span className="text-center">{item.name}</span>
-            </div>
-          ))}
+        {/* Bounce Cards */}
+        <div className="flex justify-center mb-8">
+          <BounceCards
+            className="custom-bounceCards"
+            images={tabData[activeTab].map((item) => item.image)}
+            containerWidth={320}
+            containerHeight={220}
+            animationDelay={0.6}
+            animationStagger={0.08}
+            easeType="elastic.out(1, 0.5)"
+            transformStyles={[
+              "rotate(5deg) translate(-150px)",
+              "rotate(0deg) translate(-70px)",
+              "rotate(-5deg)",
+              "rotate(5deg) translate(70px)",
+              "rotate(-5deg) translate(150px)",
+            ]}
+            enableHover={true}
+          />
         </div>
 
-        {/* Dropdown sections */}
+        {/* Dropdown Sections */}
         <div className="space-y-6">
           {dropdowns.map((section) => (
             <div key={section}>
