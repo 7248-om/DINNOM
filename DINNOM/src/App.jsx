@@ -1,21 +1,53 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './styles/App.css'
-import Navbar from './components/navbar'
-import Home from './pages/Home'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './styles/App.css';
+import Navbar from './components/navbar';
+import Sidebar from './components/sidebar';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import React, { useEffect, useState } from 'react';
+import Wishlist from './components/wishlist';
+import Footer from './components/Footer';
+
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    fetch('http://localhost:5050/')
+      .then((res) => res.text())
+      .then((data) => {
+        console.log('Winners:', data);
+      });
+  }, []);
+
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
+      {/* Navbar with sidebar toggle */}
+      <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
-        <Route path="/" element={<Home />} />
+      {/* Sidebar receives state + close handler */}
+      <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
 
-      
-        <Route path="/home" element={<Home />} />
+      {/* Main content */}
+      <div className="pt-24 px-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route
+            path="/login"
+            element={
+              <div className="px-4">
+                <Login />
+              </div>
+            }
+          />
+        </Routes>
+      </div>
 
-      </Routes>
+      {/* Footer */}
+      <Footer />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
