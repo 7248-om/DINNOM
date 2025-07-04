@@ -94,25 +94,28 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
         </div>
 
         {/* Bounce Cards */}
-        <div className="flex justify-center mb-8">
-          <BounceCards
-            className="custom-bounceCards"
-            images={tabData[activeTab].map((item) => item.image)}
-            containerWidth={320}
-            containerHeight={220}
-            animationDelay={0.6}
-            animationStagger={0.08}
-            easeType="elastic.out(1, 0.5)"
-            transformStyles={[
-              "rotate(5deg) translate(-150px)",
-              "rotate(0deg) translate(-70px)",
-              "rotate(-5deg)",
-              "rotate(5deg) translate(70px)",
-              "rotate(-5deg) translate(150px)",
-            ]}
-            enableHover={true}
-          />
-        </div>
+<div className="relative w-full overflow-hidden mb-8">
+  <div className="mx-auto max-w-[320px]">
+    <BounceCards
+      className="custom-bounceCards"
+      images={tabData[activeTab].map((item) => item.image)}
+      containerWidth={320}
+      containerHeight={220}
+      animationDelay={0.6}
+      animationStagger={0.08}
+      easeType="elastic.out(1, 0.5)"
+      transformStyles={[
+        "rotate(5deg) translate(-60px)",  // reduced translate
+        "rotate(0deg) translate(-20px)",
+        "rotate(-5deg)",
+        "rotate(5deg) translate(20px)",
+        "rotate(-5deg) translate(60px)",
+      ]}
+      enableHover={true}
+    />
+  </div>
+</div>
+
 
         {/* Dropdown Sections */}
         <div className="space-y-6">
