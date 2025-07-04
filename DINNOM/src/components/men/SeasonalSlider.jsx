@@ -1,26 +1,35 @@
 import React, { useState, useEffect } from "react";
 
+// Import images from src/assets
+import ms1 from "../assets/Men/seasonal/ms1.jpeg";
+import ms2 from "../assets/Men/seasonal/ms2.webp";
+import ms3 from "../assets/Men/seasonal/ms3.jpeg";
+import ms4 from "../assets/Men/seasonal/ms4.avif";
+
 const slides = [
   {
-    image: "/images/parachute1.jpg",
-    title: "AIR LIGHT",
-    subtitle: "PARACHUTE PANTS",
-    tagline: "MAKE MONSOON YOUR RUNWAY",
-    link: "/products/parachute1",
+    image: ms1,
+    title: "MODERN MANIFESTO",
+    subtitle: "TAILORED FUTURISM",
+    tagline: "DEFINE YOUR PRESENCE.",
   },
   {
-    image: "/images/parachute2.jpg",
-    title: "STREET VIBE",
-    subtitle: "CARGO DROP",
-    tagline: "GO BOLD OR GO HOME",
-    link: "/products/parachute2",
+    image: ms2,
+    title: "ICONIC CHIC",
+    subtitle: "LUXURY LEATHER ESSENTIALS",
+    tagline: "EFFORTLESSLY BOLD.",
   },
   {
-    image: "/images/parachute3.jpg",
-    title: "EFFORTLESS COOL",
-    subtitle: "UTILITY TROUSERS",
-    tagline: "DRESSED TO FLEX",
-    link: "/products/parachute3",
+    image: ms3,
+    title: "NIGHT MOVES",
+    subtitle: "THE REBEL JACKET",
+    tagline: "OWN THE STREETS.",
+  },
+  {
+    image: ms4,
+    title: "URBAN PULSE",
+    subtitle:  "THE EVERYDAY STATEMENT",
+    tagline: "ADVENTURE AWAITS.",
   },
 ];
 
@@ -35,98 +44,60 @@ const SeasonalSlider = () => {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  // Auto-play every 5 seconds
+  const goToSlide = (index) => {
+    setCurrent(index);
+  };
+
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
-    return () => clearInterval(interval); // Cleanup
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "40px" }}>
-      <h2 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "20px" }}>SEASONAL</h2>
+    <div className="w-full mt-10 text-center">
+      <h2 className="text-3xl font-bold mb-6 tracking-widest">SEASONAL</h2>
 
-      <div
-        style={{
-          position: "relative",
-          maxWidth: "100%",
-          height: "70vh",
-          margin: "auto",
-          overflow: "hidden",
-          borderRadius: "10px",
-        }}
-      >
+      <div className="relative w-full h-[70vh] max-w-[1200px] mx-auto overflow-hidden rounded-2xl">
         {/* Left Arrow */}
         <button
           onClick={prevSlide}
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "10px",
-            transform: "translateY(-50%)",
-            fontSize: "2rem",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            zIndex: 2,
-            color: "#fff",
-          }}
+          className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white text-4xl z-10 hover:scale-110 transition"
         >
           &#10094;
         </button>
 
         {/* Slide */}
-        <a
-          href={slides[current].link}
-          style={{
-            display: "block",
-            width: "100%",
-            height: "100%",
-            backgroundImage: `url(${slides[current].image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            transition: "all 0.5s ease-in-out",
-            textDecoration: "none",
-          }}
+        <div
+          className="w-full h-full bg-cover bg-center transition-all duration-500"
+          style={{ backgroundImage: `url(${slides[current].image})` }}
         >
-          <div
-            style={{
-              background: "rgba(0, 0, 0, 0.5)",
-              color: "white",
-              padding: "20px",
-              textAlign: "left",
-              maxWidth: "90%",
-              position: "absolute",
-              bottom: "20px",
-              left: "20px",
-              borderRadius: "8px",
-            }}
-          >
-            <p style={{ fontSize: "1rem", margin: 0, letterSpacing: "1px" }}>{slides[current].title}</p>
-            <h2 style={{ fontSize: "1.5rem", fontWeight: "bold", margin: "5px 0" }}>{slides[current].subtitle}</h2>
-            <p style={{ fontSize: "1rem", fontStyle: "italic", color: "#ddd", margin: 0 }}>
-              {slides[current].tagline}
-            </p>
+          <div className="absolute bottom-6 left-6 bg-black/60 text-white p-4 rounded-lg max-w-[90%] text-left">
+            <p className="text-sm tracking-wide">{slides[current].title}</p>
+            <h2 className="text-xl font-bold">{slides[current].subtitle}</h2>
+            <p className="text-sm italic text-gray-300">{slides[current].tagline}</p>
           </div>
-        </a>
+        </div>
 
         {/* Right Arrow */}
         <button
           onClick={nextSlide}
-          style={{
-            position: "absolute",
-            top: "50%",
-            right: "10px",
-            transform: "translateY(-50%)",
-            fontSize: "2rem",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            zIndex: 2,
-            color: "#fff",
-          }}
+          className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white text-4xl z-10 hover:scale-110 transition"
         >
           &#10095;
         </button>
+      </div>
+
+      {/* Pagination Dots */}
+      <div className="flex justify-center mt-4 space-x-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              current === index ? "bg-white" : "bg-gray-400"
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
