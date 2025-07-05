@@ -10,7 +10,7 @@ const videoList = [vid1, vid2, vid3, vid4, vid5];
 
 const SummerSection = () => {
   return (
-    <section className="py-10 px-6">
+    <section className="py-10 px-6 bg-white">
       {/* Header */}
       <div className="flex justify-between items-center flex-wrap mb-5">
         <h2 className="text-2xl font-semibold">
@@ -22,7 +22,7 @@ const SummerSection = () => {
       </div>
 
       {/* Video Scroll */}
-      <div className="flex overflow-x-auto gap-5 scroll-smooth">
+      <div className="flex overflow-x-auto gap-5 scroll-smooth scrollbar-hide pb-2">
         {videoList.map((src, index) => (
           <div
             key={index}

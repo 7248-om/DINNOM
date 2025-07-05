@@ -1,22 +1,64 @@
 import React from 'react';
-import womenImg from "../assets/generation/women.jpg";
-import menImg from "../assets/generation/men.webp";
-import kidsImg from "../assets/generation/kids.webp";
+import Tilt from 'react-parallax-tilt';
 
-const GenerationSection = () => {
+import womenImg from '../assets/women/seasonal/ws5.webp';
+import menImg from '../assets/men/men categories/oversized_categories.png';
+import sneakersImg from '../assets/men/sneakers/images (6).jpg';
+
+const GenerationShowcase = () => {
+  const categories = [
+    {
+      name: 'Women',
+      img: womenImg,
+      link: '/women'
+    },
+    {
+      name: 'Men',
+      img: menImg,
+      link: '/men'
+    },
+    {
+      name: 'Sneakers',
+      img: sneakersImg,
+      link: '/kids'
+    }
+  ];
+
   return (
-    <div className="text-center">
-      <h2 className="text-[2.5rem] font-medium mb-8">For every generation.</h2>
-      <div className="flex justify-center gap-10 flex-wrap">
-        {[{ img: womenImg, label: 'Women' }, { img: menImg, label: 'Men' }, { img: kidsImg, label: 'Kids +' }].map((item, idx) => (
-          <div className="flex flex-col items-center max-w-[350px]" key={idx}>
-            <img src={item.img} alt={item.label} className="w-[300px] h-[450px] object-cover" />
-            <p className="mt-2 text-[1.1rem] font-medium">{item.label}</p>
-          </div>
-        ))}
+    <div className="py-24 bg-white">
+      <div className="py-20 text-black text-center">
+        <h2
+          className="text-4xl md:text-6xl font-extrabold tracking-tight mb-12 transition-transform duration-300 hover:scale-105"
+        >
+          For every generation.
+        </h2>
+
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 px-6">
+          {categories.map((cat, i) => (
+            <Tilt
+              key={i}
+              tiltMaxAngleX={10}
+              tiltMaxAngleY={10}
+              scale={1.05}
+              transitionSpeed={1500}
+              className="w-[240px] md:w-[280px] rounded-xl overflow-hidden shadow-xl hover:shadow-2xl group cursor-pointer"
+            >
+              <a href={cat.link} className="block relative">
+                <img
+                  src={cat.img}
+                  alt={cat.name}
+                  className="w-full h-[360px] object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-lg font-medium py-2 text-center">
+                  {cat.name}
+                </div>
+              </a>
+            </Tilt>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default GenerationSection;
+export default GenerationShowcase;
