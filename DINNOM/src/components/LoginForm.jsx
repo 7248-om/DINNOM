@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Particles from './Particles';
 import Tilt from 'react-parallax-tilt';
 
@@ -66,6 +67,13 @@ const LoginForm = () => {
               >
                 PROCEED
               </button>
+              <Link
+    to="/"
+    className="w-full block py-2 rounded font-semibold border border-white bg-white text-black hover:bg-black hover:text-white transition text-center"
+    style={{ textDecoration: "none" }}
+  >
+    Go back to Home
+  </Link>
             </form>
 
             <div className="mt-4 text-sm text-center text-white/70">
