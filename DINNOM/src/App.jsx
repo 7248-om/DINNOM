@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import React, { useEffect, useState } from 'react';
 import Wishlist from './components/wishlist';
 import Footer from './components/Footer';
-
+import CustomCursor from './components/CustomCursor';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -21,6 +21,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <CustomCursor />
       {/* Navbar with sidebar toggle */}
       <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 

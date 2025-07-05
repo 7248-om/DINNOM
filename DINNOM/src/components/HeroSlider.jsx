@@ -1,20 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import coverImage from '../assets/videos/ChatGPT Image Jul 5, 2025 at 07_32_51 PM.png'; // Make sure to put your image in the right path
+import React, { useEffect, useRef } from 'react';
+import coverImage from '../assets/videos/ChatGPT Image Jul 5, 2025 at 07_32_51 PM.png';
 
 const HeroSlider = () => {
   const imageRef = useRef(null);
-  const [scale, setScale] = useState(1);
+  const scaleRef = useRef(1);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const newScale = 1 + scrollY * 0.0005; // Adjust zoom sensitivity here
-      if (imageRef.current) {
-        setScale(Math.min(newScale, 1.2)); // Cap max zoom
-      }
+      const newScale = Math.min(1 + scrollY * 0.0005, 1.2);
+      scaleRef.current = newScale;
+
+      requestAnimationFrame(() => {
+        if (imageRef.current) {
+          imageRef.current.style.transform = `scale(${scaleRef.current})`;
+        }
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -24,8 +28,7 @@ const HeroSlider = () => {
         ref={imageRef}
         src={coverImage}
         alt="NOIRÉ Cover"
-        style={{ transform: `scale(${scale})` }}
-        className="w-full h-full object-cover transition-transform duration-100"
+        className="w-full h-full object-cover transition-transform duration-200 ease-out will-change-transform"
       />
     </section>
   );
