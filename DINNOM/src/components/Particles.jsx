@@ -197,9 +197,14 @@ const Particles = ({
       cancelAnimationFrame(animationFrameId);
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
     };
-  },);
+  }, []);
 
-  return <div ref={containerRef} className={`absolute inset-0 z-0 ${className}`} />;
+  return (
+    <div
+      ref={containerRef}
+      className={`absolute inset-0 z-0 pointer-events-auto ${className}`}
+    />
+  );
 };
 
 export default Particles;

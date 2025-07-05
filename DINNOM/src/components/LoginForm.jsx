@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Particles from './Particles';
+import Tilt from 'react-parallax-tilt';
 
 const LoginForm = () => {
   const [phone, setPhone] = useState('');
@@ -10,11 +11,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black text-white">
-      {/* Background Particles Layer */}
-      <div className="absolute inset-0 z-0">
+    <div className="relative min-h-screen w-full overflow-hidden bg-black">
+      {/* Particles Background */}
+      <div className="absolute inset-0 z-0 pointer-events-auto">
         <Particles
-          particleColors={['#ffffff', '#ffffff']}
+          particleColors={["#ffffff", "#ffffff"]}
           particleCount={350}
           particleSpread={5}
           speed={0.05}
@@ -25,59 +26,53 @@ const LoginForm = () => {
         />
       </div>
 
-      {/* Login Form Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
-        <div className="bg-black bg-opacity-70 p-8 rounded shadow-md w-96 border border-white">
-          <h2 className="text-center font-semibold text-lg mb-4 text-white">
-            Login with <span className="text-white font-bold">Your Brand</span>
-          </h2>
+      {/* Tilted Login Card */}
+      <div className="relative z-10 flex justify-center items-center min-h-screen px-4 pointer-events-none">
+        <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} glareEnable={true} glareMaxOpacity={0.2} className="pointer-events-auto">
+          <div className="bg-white/10 backdrop-blur-md border border-white/30 shadow-2xl p-10 rounded-3xl w-[22rem] text-white">
+            <h2 className="text-center font-semibold text-2xl mb-6">
+              Login with <span className="font-bold">Your Brand</span>
+            </h2>
 
-          <div className="flex border rounded overflow-hidden mb-6 border-white">
-            <button className="w-1/2 py-2 bg-black text-white font-medium border-r border-white">LOGIN</button>
-            <button className="w-1/2 py-2 bg-black text-white font-medium">REGISTER</button>
-          </div>
+            <div className="flex border border-white/40 rounded mb-6 overflow-hidden">
+              <button className="w-1/2 py-2 bg-white/10 hover:bg-white/20 transition font-medium border-r border-white/30">LOGIN</button>
+              <button className="w-1/2 py-2 bg-white/10 hover:bg-white/20 transition font-medium">REGISTER</button>
+            </div>
 
-          <div className="flex justify-between mb-4">
-            <button className="border rounded px-4 py-2 flex items-center w-1/2 mr-2 border-white text-white bg-black">
-              <img
-                src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png"
-                alt="fb"
-                className="w-5 h-5 mr-2"
+            <div className="flex justify-between mb-4 gap-2">
+              <button className="flex-1 border border-white/30 rounded px-4 py-2 flex items-center justify-center bg-white/5 hover:bg-white/10 transition">
+                <img src="https://img.icons8.com/ios-filled/24/ffffff/facebook-new.png" alt="fb" className="mr-2" />
+                Facebook
+              </button>
+              <button className="flex-1 border border-white/30 rounded px-4 py-2 flex items-center justify-center bg-white/5 hover:bg-white/10 transition">
+                <img src="https://img.icons8.com/ios-filled/24/ffffff/google-logo.png" alt="google" className="mr-2" />
+                Google
+              </button>
+            </div>
+
+            <div className="text-center text-sm text-white/70 mb-4">— OR —</div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text"
+                placeholder="Enter Phone Number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full border border-white/30 rounded px-4 py-2 bg-transparent text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
               />
-              Facebook
-            </button>
-            <button className="border rounded px-4 py-2 flex items-center w-1/2 ml-2 border-white text-white bg-black">
-              <img
-                src="https://img.icons8.com/ios-filled/50/ffffff/google-logo.png"
-                alt="google"
-                className="w-5 h-5 mr-2"
-              />
-              Google
-            </button>
+              <button
+                type="submit"
+                className="w-full bg-white text-black py-2 rounded font-semibold hover:bg-black hover:text-white border border-white transition"
+              >
+                PROCEED
+              </button>
+            </form>
+
+            <div className="mt-4 text-sm text-center text-white/70">
+              New User? <a href="#" className="text-white underline font-medium">Create Account</a>
+            </div>
           </div>
-
-          <div className="text-center text-sm text-white mb-3">— OR —</div>
-
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Enter Phone Number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full border rounded px-4 py-2 mb-3 bg-black text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-white"
-            />
-            <button
-              type="submit"
-              className="w-full bg-black border border-white text-white py-2 rounded font-semibold hover:bg-white hover:text-black transition"
-            >
-              PROCEED
-            </button>
-          </form>
-
-          <div className="mt-4 text-sm text-center text-white">
-            New User? <a href="#" className="text-white font-medium underline">Create Account</a>
-          </div>
-        </div>
+        </Tilt>
       </div>
     </div>
   );
