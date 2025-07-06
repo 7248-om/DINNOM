@@ -1,14 +1,13 @@
 import React, { useRef, useEffect } from "react";
 
 // Import videos from assets
-import vid1 from "../../assets/Men/videos/vid1.mp4";
-import vid2 from "../../assets/Men/videos/vid2.mp4";
-import vid3 from "../../assets/Men/videos/vid3.mp4";
-import vid4 from "../../assets/Men/videos/vid4.mp4";
-import vid5 from "../../assets/Men/videos/vid5.mp4";
-import vid6 from "../../assets/Men/videos/vid6.mp4";
+import vid1 from "../../assets/women/videos/vid1.mp4";
+import vid2 from "../../assets/women/videos/vid2.mp4";
+import vid3 from "../../assets/women/videos/vid3.mp4";
+import vid4 from "../../assets/women/videos/vid4.mp4";
+import vid5 from "../../assets/women/videos/vid5.mp4";
 
-const videoData = [vid1, vid2, vid3, vid4, vid5, vid6];
+const videoData = [vid1, vid2, vid3, vid4, vid5];
 
 const WatchAndShopSlider = () => {
   const sliderRef = useRef(null);
@@ -23,7 +22,7 @@ const WatchAndShopSlider = () => {
   };
 
   useEffect(() => {
-    const currentVideoRefs = [...videoRefs.current];
+    const currentVideoRefs = [...videoRefs.current]; // Clone current refs
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -53,9 +52,7 @@ const WatchAndShopSlider = () => {
 
   return (
     <div className="py-10 px-4">
-      <h2 className="text-center text-3xl font-bold tracking-widest mb-6">
-        WATCH AND SHOP
-      </h2>
+      <h2 className="text-center text-3xl font-bold tracking-widest mb-6">WATCH AND SHOP</h2>
 
       <div className="relative">
         <button
