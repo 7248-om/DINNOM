@@ -1,15 +1,16 @@
 import React from 'react'
-const images = [
-  require('../../assets/categories/women components/1.png'),
-  require('../../assets/categories/women components/2.png'),
-  require('../../assets/categories/women components/3.png'),
-  require('../../assets/categories/women components/4.png'),
-  require('../../assets/categories/women components/5.png'),
-  require('../../assets/categories/women components/6.png'),
-  require('../../assets/categories/women components/7.png'),
-  require('../../assets/categories/women components/8.png'),
-  require('../../assets/categories/women components/9.png'),
-];
+import img1 from '../../assets/categories/women components/10.png'
+import img2 from '../../assets/categories/women components/11.png'
+import img3 from '../../assets/categories/women components/12.png'
+import img4 from '../../assets/categories/women components/13.png'
+import img5 from '../../assets/categories/women components/14.png'
+import img6 from '../../assets/categories/women components/15.png'
+import img7 from '../../assets/categories/women components/16.png'
+import img8 from '../../assets/categories/women components/17.png'
+import img9 from '../../assets/categories/women components/18.png'
+
+const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
+
 const WomenCategories = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center py-8">

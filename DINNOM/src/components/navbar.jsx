@@ -13,7 +13,7 @@ const Navbar = ({ toggleSidebar }) => {
         </button>
         <div className="hidden md:flex space-x-8">
           <a href="/men" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</a>
-          <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</a>
+          <a href="/women" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</a>
           <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Kids</a>
         </div>
       </div>
