@@ -9,6 +9,7 @@ import Wishlist from './components/wishlist';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import Men from './pages/Men';
+import Women from './pages/Women';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -44,6 +45,7 @@ function App() {
             }
           />
           <Route path="/men" element={<Men />} />
+          <Route path="/women" element={<Women />} />
         </Routes>
       </div>
 

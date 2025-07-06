@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Importing all category images
+
 import img1 from '../../assets/categories/menCategories/1.png';
 import img2 from '../../assets/categories/menCategories/2.png';
 import img3 from '../../assets/categories/menCategories/3.png';
