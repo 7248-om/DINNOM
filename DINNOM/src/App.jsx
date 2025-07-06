@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import Wishlist from './components/wishlist';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
+import Men from './pages/Men';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -42,6 +43,7 @@ function App() {
               </div>
             }
           />
+          <Route path="/men" element={<Men />} />
         </Routes>
       </div>
 

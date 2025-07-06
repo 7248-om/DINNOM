@@ -1,8 +1,8 @@
 import React from "react";
 import Navbar from "../components/navbar"; // Adjust the path as needed
-import MenCategories from "../components/men categories";
-import SeasonalSlider from "../components/SeasonalSlider";
-import WatchAndShop from "../components/WatchAndShop";
+import MenCategories from "../components/men/men_categories";
+import SeasonalSlider from "../components/men/SeasonalSlider";
+import WatchAndShop from "../components/men/WatchAndShopSlider";
 
 const Men = () => {
   return (

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 // Import images from src/assets
-import ms1 from "../assets/Men/seasonal/ms1.webp";
-import ms2 from "../assets/Men/seasonal/ms2.jpg";
-import ms3 from "../assets/Men/seasonal/ms3.jpg";
-import ms4 from "../assets/Men/seasonal/ms4.jpg";
+import ms1 from "../../assets/Men/seasonal/ms1.jpeg";
+import ms2 from "../../assets/Men/seasonal/ms2.webp";
+import ms3 from "../../assets/Men/seasonal/ms3.jpeg";
+import ms4 from "../../assets/Men/seasonal/ms4.avif";
 
 const slides = [
   {
