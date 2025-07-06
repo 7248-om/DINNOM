@@ -24,31 +24,33 @@ const WatchAndShopSlider = () => {
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const video = entry.target;
-          if (entry.isIntersecting) {
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
+  const currentVideoRefs = [...videoRefs.current]; // Clone current refs
 
-    videoRefs.current.forEach((video) => {
-      if (video) observer.observe(video);
-    });
-
-    return () => {
-      videoRefs.current.forEach((video) => {
-        if (video) observer.unobserve(video);
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
       });
-      observer.disconnect();
-    };
-  }, []);
+    },
+    { threshold: 0.6 }
+  );
+
+  currentVideoRefs.forEach((video) => {
+    if (video) observer.observe(video);
+  });
+
+  return () => {
+    currentVideoRefs.forEach((video) => {
+      if (video) observer.unobserve(video);
+    });
+    observer.disconnect();
+  };
+}, []);
 
   return (
     <div className="py-10 px-4">
