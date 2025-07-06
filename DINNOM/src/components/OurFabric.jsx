@@ -31,7 +31,7 @@ const FabricSection = () => {
   };
 
   return (
-    <div className="py-32">
+    <div className="">
       <section
         ref={sectionRef}
         className="relative min-h-screen bg-fixed bg-center bg-cover flex items-center justify-center text-center"
