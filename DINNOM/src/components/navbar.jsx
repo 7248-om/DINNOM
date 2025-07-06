@@ -14,7 +14,7 @@ const Navbar = ({ toggleSidebar }) => {
         <div className="hidden md:flex space-x-8">
           <a href="/men" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</a>
           <a href="/women" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</a>
-          <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Kids</a>
+          <a href="/footwear" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Footwear</a>
         </div>
       </div>
       <div className="absolute left-1/2 transform -translate-x-1/2">
