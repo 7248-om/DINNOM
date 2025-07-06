@@ -45,11 +45,15 @@ const WatchAndShopSlider = () => {
   const videoRefs = useRef([]);
 
   const scrollLeft = () => {
-    sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    if (sliderRef.current) { // Add null check for safety
+      sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
   };
 
   const scrollRight = () => {
-    sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    if (sliderRef.current) { // Add null check for safety
+      sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -58,6 +62,8 @@ const WatchAndShopSlider = () => {
         entries.forEach((entry) => {
           const video = entry.target;
           if (entry.isIntersecting) {
+            // Using .catch() to prevent unhandled promise rejections
+            // if play() is called before the video is ready or user gesture is missing.
             video.play().catch(() => {});
           } else {
             video.pause();
@@ -67,16 +73,23 @@ const WatchAndShopSlider = () => {
       { threshold: 0.6 }
     );
 
-    videoRefs.current.forEach((video) => {
+    // Capture the current value of videoRefs.current
+    // This array of video elements will be stable for this effect's lifecycle
+    const currentVideoElements = videoRefs.current;
+
+    currentVideoElements.forEach((video) => {
       if (video) observer.observe(video);
     });
 
     return () => {
-      videoRefs.current.forEach((video) => {
+      // Use the captured array for cleanup
+      currentVideoElements.forEach((video) => {
         if (video) observer.unobserve(video);
       });
+      // Disconnect the observer itself when the component unmounts
+      observer.disconnect();
     };
-  }, []);
+  }, []); // Empty dependency array as this effect only runs once on mount/unmount
 
   return (
     <div style={{ padding: "40px 20px", maxWidth: "100%" }}>
@@ -111,8 +124,18 @@ const WatchAndShopSlider = () => {
             gap: "16px",
             padding: "20px 40px",
             scrollBehavior: "smooth",
+            // Add scrollbar styling for better UX on webkit browsers (Chrome, Safari)
+            WebkitOverflowScrolling: "touch",
+            scrollbarWidth: "none", /* Firefox */
+            msOverflowStyle: "none" /* IE and Edge */
           }}
         >
+          {/* Hide scrollbar for webkit */}
+          <style>{`
+            ::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
           {videoData.map((item, index) => (
             <div
               key={index}
@@ -126,6 +149,7 @@ const WatchAndShopSlider = () => {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                flexShrink: 0, // Prevent items from shrinking
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "scale(1.05)";
@@ -137,6 +161,9 @@ const WatchAndShopSlider = () => {
               }}
             >
               <video
+                // It's important to clear the ref array first or handle removal
+                // if videoData changes, otherwise old refs might persist.
+                // For a static videoData, this is fine.
                 ref={(el) => (videoRefs.current[index] = el)}
                 src={item.video}
                 muted

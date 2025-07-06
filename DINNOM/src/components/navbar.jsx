@@ -12,7 +12,7 @@ const Navbar = ({ toggleSidebar }) => {
           <BsJustify className="w-9 h-9 text-gray-700" />
         </button>
         <div className="hidden md:flex space-x-8">
-          <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</a>
+          <a href="/men" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</a>
           <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</a>
           <a href="#" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Kids</a>
         </div>
