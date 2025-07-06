@@ -5,7 +5,7 @@ import ws1 from "../../assets/women/seasonal/ws1.webp";
 import ws2 from "../../assets/women/seasonal/ws2.jpg";
 import ws3 from "../../assets/women/seasonal/ws3.jpg";
 import ws4 from "../../assets/women/seasonal/ws4.jpg";
-import ws5 from "../../assets/women/seasonal/ws5.jpg";
+import ws5 from "../../assets/women/seasonal/ws5.webp";
 const slides = [
   {
     image: ws1,
