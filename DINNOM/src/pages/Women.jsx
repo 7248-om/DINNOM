@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../components/navbar'
-import WomenCategories from '../components/Women/women categories'
+import WomenCategories from '../components/women/women categories'
 import Seasonalslides from '../components/Women/SeasonalSliderw'
 import WatchandShop from '../components/Women/WatchAndShopSlider'
 import Footer from '../components/Footer'

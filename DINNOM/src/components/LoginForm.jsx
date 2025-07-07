@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Particles from './Particles';
 import Tilt from 'react-parallax-tilt';
+import { auth, provider, signInWithPopup } from '../firebase';
 
 const LoginForm = () => {
   const [phone, setPhone] = useState('');
@@ -9,6 +10,17 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`Logging in with phone: ${phone}`);
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      alert(`Logged in as ${user.displayName}`);
+      // You can redirect or set user state here
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -45,7 +57,11 @@ const LoginForm = () => {
                 <img src="https://img.icons8.com/ios-filled/24/ffffff/facebook-new.png" alt="fb" className="mr-2" />
                 Facebook
               </button>
-              <button className="flex-1 border border-white/30 rounded px-4 py-2 flex items-center justify-center bg-white/5 hover:bg-white/10 transition">
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="flex-1 border border-white/30 rounded px-4 py-2 flex items-center justify-center bg-white/5 hover:bg-white/10 transition"
+              >
                 <img src="https://img.icons8.com/ios-filled/24/ffffff/google-logo.png" alt="google" className="mr-2" />
                 Google
               </button>
@@ -68,12 +84,12 @@ const LoginForm = () => {
                 PROCEED
               </button>
               <Link
-    to="/"
-    className="w-full block py-2 rounded font-semibold border border-white bg-white text-black hover:bg-black hover:text-white transition text-center"
-    style={{ textDecoration: "none" }}
-  >
-    Go back to Home
-  </Link>
+                to="/"
+                className="w-full block py-2 rounded font-semibold border border-white bg-white text-black hover:bg-black hover:text-white transition text-center"
+                style={{ textDecoration: "none" }}
+              >
+                Go back to Home
+              </Link>
             </form>
 
             <div className="mt-4 text-sm text-center text-white/70">
