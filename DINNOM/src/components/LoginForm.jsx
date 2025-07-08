@@ -17,7 +17,6 @@ const LoginForm = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       alert(`Logged in as ${user.displayName}`);
-      // You can redirect or set user state here
     } catch (error) {
       alert(error.message);
     }
