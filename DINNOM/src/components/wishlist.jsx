@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Silk from '../components/Silk'; // adjust path if needed
+import Silk from '../components/Silk';
 import emptyCart from '../assets/navbar/empty cart.png';
 
-const initialWishlistItems = [
-  {
-    id: 1,
-    name: "Black Oversized T-Shirt",
-    price: "₹999",
-    image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
-    quantity: 1
-  },
-  {
-    id: 2,
-    name: "Monochrome Hoodie",
-    price: "₹1,499",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
-    quantity: 1
-  }
-];
+const userEmail = "user@example.com"; // Replace with actual logged-in user's email
 
 const Wishlist = () => {
-  const [wishlistItems, setWishlistItems] = useState(initialWishlistItems);
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleRemove = (id) => {
+  // Fetch wishlist from backend
+  useEffect(() => {
+    async function fetchWishlist() {
+      try {
+        const res = await fetch(`http://localhost:5050/api/wishlist?email=${userEmail}`);
+        const data = await res.json();
+        setWishlistItems(data.wishlist || []);
+      } catch (err) {
+        setWishlistItems([]);
+      }
+      setLoading(false);
+    }
+    fetchWishlist();
+  }, []);
+
+  // Remove item from wishlist (frontend + backend)
+  const handleRemove = async (id) => {
     setWishlistItems(wishlistItems.filter(item => item.id !== id));
+    // Optionally, call backend to remove from DB as well
+    await fetch('http://localhost:5050/api/wishlist/remove', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: userEmail, productId: id }),
+    });
   };
 
   const handleQuantity = (id, delta) => {
@@ -33,6 +41,7 @@ const Wishlist = () => {
         ? { ...item, quantity: Math.max(1, item.quantity + delta) }
         : item
     ));
+    // Optionally, update quantity in backend as well
   };
 
   return (
@@ -62,7 +71,9 @@ const Wishlist = () => {
           </span>
         </div>
 
-        {wishlistItems.length === 0 ? (
+        {loading ? (
+          <div className="text-center text-lg text-gray-200">Loading...</div>
+        ) : wishlistItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center mt-20">
             <img src={emptyCart} alt="Empty Cart" className="w-52 h-52 object-contain mb-6 opacity-90" />
             <div className="text-center text-gray-100 text-2xl font-extrabold mb-2 drop-shadow-lg">
