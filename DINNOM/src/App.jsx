@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import Men from './pages/Men';
 import Women from './pages/Women';
+import Intro from './components/Intro';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -24,6 +25,9 @@ function App() {
   return (
     <BrowserRouter>
     <CustomCursor />
+
+      {/* Intro animation */}
+      <Intro />
       {/* Navbar with sidebar toggle */}
       <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
