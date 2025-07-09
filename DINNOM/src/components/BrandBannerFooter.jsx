@@ -1,4 +1,4 @@
-import brandImage from '../assets/videos/banner2.png';
+import brandImage from '../assets/videos/banner3.png';
 
 const BrandBanner = () => {
   return (
