@@ -13,9 +13,10 @@ const Home = () => {
       <ScrollSections />
       <TailoredSpace />
       <FabricSection />
-      <GridMoodBoard />
       <GenerationSection />
+      <GridMoodBoard />
       <SummerSection />
+      
     </div>
   );
 };
