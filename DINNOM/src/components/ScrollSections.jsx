@@ -17,7 +17,6 @@ const sections = [
   { title: "SPEAK STREET", subtitle: "Culture & Noise", image: img3 },
   { title: "LABELLED", subtitle: "Identity & Branding", image: img4 },
 ];
-
 export default function ScrollGallery() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -26,69 +25,136 @@ export default function ScrollGallery() {
   });
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [prevIndex, setPrevIndex] = useState(0);
+
+  // SECTION RANGES for progress
+//   const sectionRanges = [0, 0.37, 0.62, 0.87, 1];
+
+  // Compute fill progress for each section
+  const section1Progress = useTransform(scrollYProgress, [0.0, 0.37], [0, 1]);
+const section2Progress = useTransform(scrollYProgress, [0.37, 0.62], [0, 1]);
+const section3Progress = useTransform(scrollYProgress, [0.62, 0.87], [0, 1]);
+const section4Progress = useTransform(scrollYProgress, [0.87, 1.0], [0, 1]);
+
+const sectionProgress = [
+  section1Progress,
+  section2Progress,
+  section3Progress,
+  section4Progress,
+];
+
 
   useEffect(() => {
-    return scrollYProgress.on("change", (latest) => {
-      const index = Math.floor(latest * sections.length);
-      const clamped = Math.max(0, Math.min(sections.length - 1, index));
-      if (clamped !== activeIndex) {
-        setPrevIndex(activeIndex);
-        setActiveIndex(clamped);
+    let lastValue = 0;
+    const unsubscribe = scrollYProgress.on("change", (v) => {
+      const direction = v > lastValue ? "down" : "up";
+      lastValue = v;
+
+      if (direction === "down") {
+        if (v >= 0.87) setActiveIndex(3);
+        else if (v >= 0.62) setActiveIndex(2);
+        else if (v >= 0.37) setActiveIndex(1);
+        else setActiveIndex(0);
+      } else {
+        if (v < 0.37) setActiveIndex(0);
+        else if (v < 0.62) setActiveIndex(1);
+        else if (v < 0.87) setActiveIndex(2);
+        else setActiveIndex(3);
       }
     });
-  }, [scrollYProgress, activeIndex]);
 
-  const direction = activeIndex > prevIndex ? "up" : "down";
+    return () => unsubscribe();
+  }, [scrollYProgress]);
 
-  // ✅ FIXED: useTransform only used outside .map
-  const y0 = useTransform(scrollYProgress, [0.0, 0.25], ["100%", "0%"]);
-  const y1 = useTransform(scrollYProgress, [0.25, 0.5], ["100%", "0%"]);
-  const y2 = useTransform(scrollYProgress, [0.5, 0.75], ["100%", "0%"]);
-  const y3 = useTransform(scrollYProgress, [0.75, 1.0], ["100%", "0%"]);
-
-  const imageTransforms = [y0, y1, y2, y3];
+  const yTransforms = [
+    useTransform(scrollYProgress, [0.25, 0.5], ["100%", "0%"]),
+    useTransform(scrollYProgress, [0.5, 0.75], ["100%", "0%"]),
+    useTransform(scrollYProgress, [0.75, 1], ["100%", "0%"]),
+  ];
 
   return (
-    <div ref={containerRef} className="h-[400vh] relative bg-black">
+    <div className="h-[400vh] relative bg-black" ref={containerRef}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
-        {/* Image Layers */}
+        {/* Image Layer */}
         <div className="absolute inset-0 z-0">
-          {sections.map((section, i) => (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${img1})`, zIndex: 1 }}
+          />
+          {[img2, img3, img4].map((img, i) => (
             <Motion.div
               key={i}
               className="absolute inset-0 bg-cover bg-center"
               style={{
-                backgroundImage: `url(${section.image})`,
-                y: imageTransforms[i],
-                zIndex: i,
+                backgroundImage: `url(${img})`,
+                y: yTransforms[i],
+                zIndex: i + 2,
               }}
             />
           ))}
         </div>
 
-        {/* Text Section */}
-        <div className="absolute top-[35%] left-[6vw] z-50 w-[90%] text-white pointer-events-none">
-          <div className="relative h-[160px] overflow-hidden">
+        {/* Title Content */}
+        <div className="absolute top-[30%] left-[6vw] z-50 w-[80%] text-white pointer-events-none">
+          <div className="relative h-[200px] overflow-hidden">
             <AnimatePresence mode="wait">
               <Motion.div
                 key={sections[activeIndex].title}
-                initial={{ y: direction === "up" ? 100 : -100 }}
-                animate={{ y: 0 }}
-                exit={{ y: direction === "up" ? -100 : 100 }}
-                transition={{ duration: 0.45, ease: "easeInOut" }}
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -100, opacity: 0 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="absolute"
               >
-                <h1 className="text-7xl font-bold uppercase">
+                <h1 className="text-8xl font-extrabold uppercase leading-[1.1]">
                   {sections[activeIndex].title}
                 </h1>
-                <p className="text-2xl mt-3">
+                <p className="text-3xl mt-4 opacity-80">
                   {sections[activeIndex].subtitle}
                 </p>
               </Motion.div>
             </AnimatePresence>
           </div>
+        </div>
+
+        {/* Progress Circles */}
+        <div className="absolute top-[70%] right-[6vw] z-50 space-y-4 text-white text-right">
+         {sections.map((section, i) => (
+  <div key={i} className="flex items-center gap-3 justify-end">
+    <span
+      className={`text-sm font-semibold uppercase ${
+        activeIndex === i ? "text-white" : "text-gray-400"
+      }`}
+    >
+      {section.title}
+    </span>
+    <svg width="28" height="28" viewBox="0 0 36 36">
+      <circle
+        cx="18"
+        cy="18"
+        r="16"
+        stroke="rgba(255, 255, 255, 0.15)"
+        strokeWidth="2"
+        fill="none"
+      />
+      <Motion.circle
+        cx="18"
+        cy="18"
+        r="16"
+        stroke="#ffffff"
+        strokeWidth="4"
+        fill="none"
+        strokeLinecap="round"
+        strokeDasharray="100"
+        strokeDashoffset="0"
+        style={{
+          pathLength: sectionProgress[i],
+        }}
+      />
+    </svg>
+  </div>
+))}
+
         </div>
       </div>
     </div>
