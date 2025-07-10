@@ -1,6 +1,6 @@
 import React from "react";
-import img3 from "../assets/Men/images/img3.webp";
-import img4 from "../assets/Men/images/img4.png";
+import img3 from "../../assets/Men/images/img3.webp";
+import img4 from "../../assets/Men/images/img4.png";
 
 const MenCategoryShowcase1 = () => {
   return (
@@ -39,7 +39,7 @@ const MenCategoryShowcase1 = () => {
       </div>
 
       {/* Bottom right label image */}
-      <div className="absolute bottom-6 right-6 w-44 md:w-64 z-0">
+      <div className="absolute bottom-6 right-16 w-44 md:w-64 z-0">
         <img
           src={img4}
           alt="Label"

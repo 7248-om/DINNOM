@@ -2,7 +2,11 @@ import React from "react";
 import Navbar from "../components/navbar"; // Adjust the path as needed
 
 import IntroTransition from '../components/IntroTransition';
-import MenCategoryShowcase1 from "../components/MenCategoryShowcase1";
+import MenCategoryShowcase1 from "../components/men/MenCategoryShowcase1";
+import MenCategoryShowcase2 from "../components/men/MenCategoryShowcase2";
+import MenCategoryShowcase3 from "../components/men/MenCategoryShowcase3";
+import MenCategoryShowcase4 from "../components/men/MenCategoryShowcase4";
+import MenCategoryShowcase5 from "../components/men/MenCategoryShowcase5";
 import img2 from '../assets/Men/images/img2.png';
 
 const Men = () => {
@@ -10,6 +14,10 @@ const Men = () => {
     <div className="w-full">
       <IntroTransition image={img2} text="MEN'S COLLECTION" />
       <MenCategoryShowcase1 />
+      <MenCategoryShowcase2 />
+      <MenCategoryShowcase3 />
+      <MenCategoryShowcase4 />
+      <MenCategoryShowcase5 />
     </div>
   );
 };
