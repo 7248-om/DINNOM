@@ -1,7 +1,20 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const User = require('./models/User');
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import admin from 'firebase-admin';
+
+import authRoutes from './routes/auth.js';
+import { protect } from './middleware/authMiddleware.js';
+import User from './models/User.js';
+
+import serviceAccount from './serviceAccountKey.json' assert { type: 'json' };
+
+dotenv.config();
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 const app = express();
 const PORT = 5050;
@@ -15,35 +28,37 @@ mongoose.connect(MONGO_URI)
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/auth', authRoutes);
+
 app.get('/', (req, res) => {
   res.json(['diya', 'nidhi', 'om', 'nihar']);
 });
 
-// Add to wishlist
-app.post('/api/wishlist', async (req, res) => {
-  const { email, product } = req.body;
+
+app.post('/api/wishlist', protect, async (req, res) => {
+  const { product } = req.body;
   try {
     const user = await User.findOneAndUpdate(
-      { email },
+      { _id: req.user.id }, 
       { $addToSet: { wishlist: product } },
-      { upsert: true, new: true }
+      { new: true }
     );
-    res.json(user);
+    res.json(user.wishlist);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// Add bill
-app.post('/api/bill', async (req, res) => {
-  const { email, bill } = req.body;
+
+app.post('/api/bill', protect, async (req, res) => {
+  const { bill } = req.body;
   try {
     const user = await User.findOneAndUpdate(
-      { email },
+      { _id: req.user.id },
       { $push: { bill } },
-      { upsert: true, new: true }
+      { new: true }
     );
-    res.json(user);
+    res.json(user.bill);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
