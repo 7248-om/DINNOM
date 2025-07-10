@@ -1,34 +1,53 @@
 import React from "react";
 import Navbar from "../components/navbar"; // Adjust the path as needed
-import MenCategories from "../components/men/men_categories";
-import SeasonalSlider from "../components/men/SeasonalSlider";
-import WatchAndShop from "../components/men/WatchAndShopSlider";
+
+import IntroTransition from '../components/IntroTransition';
+import MenCategoryShowcase1 from "../components/MenCategoryShowcase1";
+import img2 from '../assets/Men/images/img2.png';
 
 const Men = () => {
   return (
-    <div className="bg-white text-black">
-      <Navbar />
-
-      {/* Categories */}
-      <section className="my-8">
-        <MenCategories />
-      </section>
-
-
-      {/* Seasonal Picks */}
-      <section className="my-8">
-        <SeasonalSlider />
-      </section>
-
-      {/* Watch and Shop */}
-      <section className="my-8">
-        <WatchAndShop />
-      </section>
+    <div className="w-full">
+      <IntroTransition image={img2} text="MEN'S COLLECTION" />
+      <MenCategoryShowcase1 />
     </div>
   );
 };
 
 export default Men;
+
+
+
+
+// import MenCategories from "../components/men/men_categories";
+// import SeasonalSlider from "../components/men/SeasonalSlider";
+// import WatchAndShop from "../components/men/WatchAndShopSlider";
+
+//  const Men = () => {
+//   return (
+//     <div className="bg-white text-black">
+//       <Navbar />
+
+//       {/* Categories */}
+//       <section className="my-8">
+//         <MenCategories />
+//       </section>
+
+
+//       {/* Seasonal Picks */}
+//       <section className="my-8">
+//         <SeasonalSlider />
+//       </section>
+
+//       {/* Watch and Shop */}
+//       <section className="my-8">
+//         <WatchAndShop />
+//       </section>
+//     </div>
+//   );
+// };
+
+// export default Men; 
 
 
 

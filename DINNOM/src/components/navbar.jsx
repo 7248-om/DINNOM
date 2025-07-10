@@ -11,17 +11,21 @@ const Navbar = ({ toggleSidebar }) => {
         <button onClick={toggleSidebar} className="p-2 mr-6 flex items-center justify-center">
           <BsJustify className="w-9 h-9 text-gray-700" />
         </button>
+        
         <div className="hidden md:flex space-x-8">
-          <a href="/men" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</a>
-          <a href="/women" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</a>
-          <a href="/footwear" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Footwear</a>
+          
+          <Link to="/men" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</Link>
+          <Link to="/women" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</Link>
+          <Link to="/footwear" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Footwear</Link>
         </div>
       </div>
+
       <div className="absolute left-1/2 transform -translate-x-1/2">
         <Link to="/">
           <img src={logo} alt="Logo" className="h-16 w-auto" />
         </Link>
       </div>
+
       <div className="flex items-center space-x-4">
         <div className="flex items-center bg-[#f3f3f3] rounded-full px-4 py-2 w-56 md:w-80">
           <input
