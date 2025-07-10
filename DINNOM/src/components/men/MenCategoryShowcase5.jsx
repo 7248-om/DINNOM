@@ -34,14 +34,6 @@ const MenCategoryShowcase5 = () => {
             CAPS & ACCESSORIES
           </h1>
         </div>
-
-        {/* Bottom right metadata (optional) */}
-        <div className="absolute bottom-8 right-8 text-black text-xs space-x-4">
-          <span>Search</span>
-          <span>ENG</span>
-          <span>US</span>
-          <span>10-07-2025</span>
-        </div>
       </div>
     </div>
   );
