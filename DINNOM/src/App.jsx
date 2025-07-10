@@ -15,7 +15,8 @@ import Women from './pages/Women';
 
 import Intro from './components/Intro';
 import BrandImageSection from './components/BrandBannerFooter'; // <-- import this
-//  b1a32a5b47c684f3307c91c0012e541410062d99
+
+
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
