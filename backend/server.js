@@ -1,16 +1,16 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import admin from 'firebase-admin';
 
-import authRoutes from './routes/auth.js';
+import authRoutes from './auth.js';
 import { protect } from './middleware/authMiddleware.js';
 import User from './models/User.js';
 
-import serviceAccount from './serviceAccountKey.json' assert { type: 'json' };
-
-dotenv.config();
+import serviceAccount from './serviceAccountKey.json' with { type: 'json' };
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -19,7 +19,7 @@ admin.initializeApp({
 const app = express();
 const PORT = 5050;
 
-const MONGO_URI = 'mongodb://localhost:27017'; 
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/dinnom';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB connected!'))
