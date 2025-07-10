@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './styles/App.css';
 import Navbar from './components/navbar';
 import Sidebar from './components/sidebar';
@@ -10,10 +10,17 @@ import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import Men from "./pages/Men";
 import Women from './pages/Women';
+HEAD
 
+
+import Intro from './components/Intro';
+import BrandImageSection from './components/BrandBannerFooter'; // <-- import this
+ b1a32a5b47c684f3307c91c0012e541410062d99
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation(); // <--- for route check
+  const isHome = location.pathname === '/' || location.pathname === '/home'; // home route check
 
   useEffect(() => {
     fetch('http://localhost:5050/')
@@ -24,15 +31,12 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-    <CustomCursor />
-      {/* Navbar with sidebar toggle */}
+    <>
+      <CustomCursor />
+      <Intro />
       <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-
-      {/* Sidebar receives state + close handler */}
       <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
 
-      {/* Main content */}
       <div className="pt-24 px-4">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -51,10 +55,19 @@ function App() {
         </Routes>
       </div>
 
-      {/* Footer */}
+      {/* Footer Always */}
       <Footer />
-    </BrowserRouter>
+
+      {/* NOIRÉ Banner only on Home */}
+      {isHome && <BrandImageSection />}
+    </>
   );
 }
 
-export default App;
+export default function AppWrapper() {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
