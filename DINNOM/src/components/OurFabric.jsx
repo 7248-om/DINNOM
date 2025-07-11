@@ -1,20 +1,48 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Tilt from 'react-parallax-tilt';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const FabricSection = () => {
   const sectionRef = useRef(null);
-  const [scrollY, setScrollY] = useState(0);
+  const bgRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const progress = Math.max(0, Math.min(1, 1 - rect.top / window.innerHeight));
-      setScrollY(progress);
-    };
+    const section = sectionRef.current;
+    const bg = bgRef.current;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Parallax background scroll effect
+    gsap.to(bg, {
+      y: 80,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+
+    // Lines fade in on scroll
+    const lines = section.querySelectorAll('.fade-line');
+    lines.forEach((line, i) => {
+      gsap.fromTo(
+        line,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          delay: i * 0.1,
+          scrollTrigger: {
+            trigger: line,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
   }, []);
 
   const lines = [
@@ -24,59 +52,52 @@ const FabricSection = () => {
     'good standard manufacturing processes.',
   ];
 
-  const getOpacity = (index) => {
-    const delay = index * 0.15;
-    const visible = scrollY - delay;
-    return Math.min(1, Math.max(0, visible * 2));
-  };
-
   return (
-    <div className="">
-      <section
-        ref={sectionRef}
-        className="relative min-h-screen bg-fixed bg-center bg-cover flex items-center justify-center text-center"
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      {/* Background div */}
+      <div
+        ref={bgRef}
+        className="absolute inset-0 bg-center bg-cover"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1950&q=80')",
         }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
+      </div>
 
-        <Tilt
-          tiltMaxAngleX={10}
-          tiltMaxAngleY={10}
-          glareEnable={false}
-          className="relative z-10 px-6 max-w-3xl"
+      {/* Foreground content */}
+      <Tilt
+        tiltMaxAngleX={5}
+        tiltMaxAngleY={5}
+        glareEnable={false}
+        scale={1.02}
+        transitionSpeed={250}
+        className="relative z-10 px-6 max-w-3xl text-white text-center"
+      >
+        <button className="bg-white text-black font-semibold px-4 py-2 rounded-full text-sm mb-6">
+          Our Fabrics
+        </button>
+
+        <div className="text-3xl md:text-5xl font-bold leading-snug space-y-4">
+          {lines.map((line, i) => (
+            <span key={i} className="fade-line block">
+              {line}
+            </span>
+          ))}
+        </div>
+
+        <a
+          href="#"
+          className="inline-block mt-6 text-sm border-b border-white hover:translate-x-1 transition-transform"
         >
-          <button className="bg-white text-black font-semibold px-4 py-2 rounded-full text-sm mb-6">
-            Our Fabrics
-          </button>
-
-          <div className="text-3xl md:text-5xl font-bold leading-snug space-y-4">
-            {lines.map((line, i) => (
-              <span
-                key={i}
-                className="block"
-                style={{
-                  opacity: getOpacity(i),
-                  color: 'white',
-                  transition: 'opacity 0.5s ease',
-                }}
-              >
-                {line}
-              </span>
-            ))}
-          </div>
-
-          <a
-            href="#"
-            className="inline-block mt-6 text-sm border-b border-white hover:translate-x-1 transition-transform text-white"
-          >
-            ALL FABRICS →
-          </a>
-        </Tilt>
-      </section>
-    </div>
+          ALL FABRICS →
+        </a>
+      </Tilt>
+    </section>
   );
 };
 

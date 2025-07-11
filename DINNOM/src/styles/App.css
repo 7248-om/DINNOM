@@ -30,3 +30,6 @@
 .animate-wave {
   animation: waveMove 10s linear infinite;
 }
+.custom-cursor {
+  cursor: none;
+}
