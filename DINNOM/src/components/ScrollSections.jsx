@@ -17,6 +17,7 @@ const sections = [
   { title: "SPEAK STREET", subtitle: "Culture & Noise", image: img3 },
   { title: "LABELLED", subtitle: "Identity & Branding", image: img4 },
 ];
+
 export default function ScrollGallery() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -26,22 +27,17 @@ export default function ScrollGallery() {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // SECTION RANGES for progress
-//   const sectionRanges = [0, 0.37, 0.62, 0.87, 1];
-
-  // Compute fill progress for each section
   const section1Progress = useTransform(scrollYProgress, [0.0, 0.37], [0, 1]);
-const section2Progress = useTransform(scrollYProgress, [0.37, 0.62], [0, 1]);
-const section3Progress = useTransform(scrollYProgress, [0.62, 0.87], [0, 1]);
-const section4Progress = useTransform(scrollYProgress, [0.87, 1.0], [0, 1]);
+  const section2Progress = useTransform(scrollYProgress, [0.37, 0.62], [0, 1]);
+  const section3Progress = useTransform(scrollYProgress, [0.62, 0.87], [0, 1]);
+  const section4Progress = useTransform(scrollYProgress, [0.87, 1.0], [0, 1]);
 
-const sectionProgress = [
-  section1Progress,
-  section2Progress,
-  section3Progress,
-  section4Progress,
-];
-
+  const sectionProgress = [
+    section1Progress,
+    section2Progress,
+    section3Progress,
+    section4Progress,
+  ];
 
   useEffect(() => {
     let lastValue = 0;
@@ -74,7 +70,6 @@ const sectionProgress = [
   return (
     <div className="h-[400vh] relative bg-black" ref={containerRef}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-
         {/* Image Layer */}
         <div className="absolute inset-0 z-0">
           <div
@@ -106,10 +101,10 @@ const sectionProgress = [
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="absolute"
               >
-                <h1 className="text-8xl font-extrabold uppercase leading-[1.1]">
+                <h1 className="text-8xl font-sans font-extrabold uppercase leading-[1.1] tracking-tight">
                   {sections[activeIndex].title}
                 </h1>
-                <p className="text-3xl mt-4 opacity-80">
+                <p className="text-3xl mt-4 font-sans opacity-80">
                   {sections[activeIndex].subtitle}
                 </p>
               </Motion.div>
@@ -119,42 +114,41 @@ const sectionProgress = [
 
         {/* Progress Circles */}
         <div className="absolute top-[70%] right-[6vw] z-50 space-y-4 text-white text-right">
-         {sections.map((section, i) => (
-  <div key={i} className="flex items-center gap-3 justify-end">
-    <span
-      className={`text-sm font-semibold uppercase ${
-        activeIndex === i ? "text-white" : "text-gray-400"
-      }`}
-    >
-      {section.title}
-    </span>
-    <svg width="28" height="28" viewBox="0 0 36 36">
-      <circle
-        cx="18"
-        cy="18"
-        r="16"
-        stroke="rgba(255, 255, 255, 0.15)"
-        strokeWidth="2"
-        fill="none"
-      />
-      <Motion.circle
-        cx="18"
-        cy="18"
-        r="16"
-        stroke="#ffffff"
-        strokeWidth="4"
-        fill="none"
-        strokeLinecap="round"
-        strokeDasharray="100"
-        strokeDashoffset="0"
-        style={{
-          pathLength: sectionProgress[i],
-        }}
-      />
-    </svg>
-  </div>
-))}
-
+          {sections.map((section, i) => (
+            <div key={i} className="flex items-center gap-3 justify-end">
+              <span
+                className={`text-sm font-sans uppercase font-semibold ${
+                  activeIndex === i ? "text-white" : "text-gray-400"
+                }`}
+              >
+                {section.title}
+              </span>
+              <svg width="28" height="28" viewBox="0 0 36 36">
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  stroke="rgba(255, 255, 255, 0.15)"
+                  strokeWidth="2"
+                  fill="none"
+                />
+                <Motion.circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  stroke="#ffffff"
+                  strokeWidth="4"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeDasharray="100"
+                  strokeDashoffset="0"
+                  style={{
+                    pathLength: sectionProgress[i],
+                  }}
+                />
+              </svg>
+            </div>
+          ))}
         </div>
       </div>
     </div>
