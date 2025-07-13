@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AiOutlineInstagram, AiOutlineYoutube, AiOutlineFacebook } from "react-icons/ai";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -94,12 +95,13 @@ const Footer = () => {
           gap: 12px;           /* spacing between icons */
           align-items: center; /* vertical center */
         }
-        .social-icons img {
+        .social-icons svg {
           width: 24px;
+          height: 24px;
           cursor: pointer;
           transition: transform 0.3s;
         }
-        .social-icons img:hover {
+        .social-icons svg:hover {
           transform: scale(1.2);
         }
         .footer-bottom {
@@ -136,9 +138,6 @@ const Footer = () => {
             width: 100%;
             max-width: 100%;
           }
-          .social-icons img {
-            margin: 0;
-          }
         }
       `}</style>
 
@@ -161,20 +160,14 @@ const Footer = () => {
             <a href="#">Privacy Policy</a>
 
             <div className="social-icons">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/174/174855.png"
-                alt="Instagram"
+              <AiOutlineInstagram
                 onClick={() => window.open("https://instagram.com", "_blank")}
               />
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
-                alt="YouTube"
+              <AiOutlineYoutube
                 onClick={() => window.open("https://youtube.com", "_blank")}
               />
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3046/3046122.png"
-                alt="TikTok"
-                onClick={() => window.open("https://tiktok.com", "_blank")}
+              <AiOutlineFacebook
+                onClick={() => window.open("https://facebook.com", "_blank")}
               />
             </div>
           </div>
