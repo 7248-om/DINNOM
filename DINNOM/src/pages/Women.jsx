@@ -30,8 +30,8 @@
 import React from 'react'
 import Navbar from '../components/navbar'
 import WomenCategories from '../components/women/women categories'
-import Seasonalslides from '../components/Women/SeasonalSliderw'
-import WatchandShop from '../components/Women/WatchAndShopSlider'
+import Seasonalslides from '../components/women/SeasonalSliderw'
+import WatchandShop from '../components/women/WatchAndShopSlider'
 import Footer from '../components/Footer'
 
 const Women = () => {

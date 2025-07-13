@@ -1,5 +1,5 @@
 import React from "react";
-import img1 from "../../assets/Women/images/img1.webp"; // Main model image
+import img1 from "../../assets/Women/images/img1.png"; // Main model image
 import img2 from "../../assets/Women/images/img2.png";  // Label image
 
 const WomenCategoryShowcase1 = () => {

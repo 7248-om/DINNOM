@@ -1,5 +1,5 @@
 import React from "react";
-import pantsImg from "../../assets/Women/images/pants.png";
+import pantsImg from "../../assets/Women/images/pants.jpeg";
 import skirtsImg from "../../assets/Women/images/skirts.png";
 import shortsImg from "../../assets/Women/images/shorts.png";
 
