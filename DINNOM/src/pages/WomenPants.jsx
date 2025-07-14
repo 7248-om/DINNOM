@@ -1,31 +1,31 @@
 import React from 'react';
 import CategoriesExpand from '../components/CategoriesExpand';
 
-// Import images from 2_pants,skirts
-import wp1a from '../assets/women/2_pants,skirts/wp1a.webp';
-import wp1b from '../assets/women/2_pants,skirts/wp1b.webp';
-import wp2a from '../assets/women/2_pants,skirts/wp2a.webp';
-import wp2b from '../assets/women/2_pants,skirts/wp2b.webp';
-import wp3a from '../assets/women/2_pants,skirts/wp3a.webp';
-import wp3b from '../assets/women/2_pants,skirts/wp3b.webp';
-import wp4a from '../assets/women/2_pants,skirts/wp4a.webp';
-import wp4b from '../assets/women/2_pants,skirts/wp4b.webp';
-import wp5a from '../assets/women/2_pants,skirts/wp5a.webp';
-import wp5b from '../assets/women/2_pants,skirts/wp5b.webp';
-import wp6a from '../assets/women/2_pants,skirts/wp6a.webp';
-import wp6b from '../assets/women/2_pants,skirts/wp6b.webp';
-import wp7a from '../assets/women/2_pants,skirts/wp7a.webp';
-import wp7b from '../assets/women/2_pants,skirts/wp7b.webp';
-import wp8a from '../assets/women/2_pants,skirts/wp8a.webp';
-import wp8b from '../assets/women/2_pants,skirts/wp8b.webp';
-import wp9a from '../assets/women/2_pants,skirts/wp9a.webp';
-import wp9b from '../assets/women/2_pants,skirts/wp9b.webp';
-import wp10a from '../assets/women/2_pants,skirts/wp10a.webp';
-import wp10b from '../assets/women/2_pants,skirts/wp10b.webp';
-import wp11a from '../assets/women/2_pants,skirts/wp11a.webp';
-import wp11b from '../assets/women/2_pants,skirts/wp11b.webp';
-import wp12a from '../assets/women/2_pants,skirts/wp12a.webp';
-import wp12b from '../assets/women/2_pants,skirts/wp12b.webp';
+// Import images from 2_pants_skirts
+import wp1a from '../assets/women/2_pants_skirts/wp1a.webp';
+import wp1b from '../assets/women/2_pants_skirts/wp1b.webp';
+import wp2a from '../assets/women/2_pants_skirts/wp2a.webp';
+import wp2b from '../assets/women/2_pants_skirts/wp2b.webp';
+import wp3a from '../assets/women/2_pants_skirts/wp3a.webp';
+import wp3b from '../assets/women/2_pants_skirts/wp3b.webp';
+import wp4a from '../assets/women/2_pants_skirts/wp4a.webp';
+import wp4b from '../assets/women/2_pants_skirts/wp4b.webp';
+import wp5a from '../assets/women/2_pants_skirts/wp5a.webp';
+import wp5b from '../assets/women/2_pants_skirts/wp5b.webp';
+import wp6a from '../assets/women/2_pants_skirts/wp6a.webp';
+import wp6b from '../assets/women/2_pants_skirts/wp6b.webp';
+import wp7a from '../assets/women/2_pants_skirts/wp7a.webp';
+import wp7b from '../assets/women/2_pants_skirts/wp7b.webp';
+import wp8a from '../assets/women/2_pants_skirts/wp8a.webp';
+import wp8b from '../assets/women/2_pants_skirts/wp8b.webp';
+import wp9a from '../assets/women/2_pants_skirts/wp9a.webp';
+import wp9b from '../assets/women/2_pants_skirts/wp9b.webp';
+import wp10a from '../assets/women/2_pants_skirts/wp10a.webp';
+import wp10b from '../assets/women/2_pants_skirts/wp10b.webp';
+import wp11a from '../assets/women/2_pants_skirts/wp11a.webp';
+import wp11b from '../assets/women/2_pants_skirts/wp11b.webp';
+import wp12a from '../assets/women/2_pants_skirts/wp12a.webp';
+import wp12b from '../assets/women/2_pants_skirts/wp12b.webp';
 
 
 const womenPants = [
