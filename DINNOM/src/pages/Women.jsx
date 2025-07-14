@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/navbar"; // Adjust path if needed
 
-import IntroTransition from '../components/IntroTransition';
+import IntroTransition from '../components/IntroTransitionWomen';
 import WomenCategoryShowcase1 from "../components/women/WomenCategoryShowcase1";
 import WomenCategoryShowcase2 from "../components/women/WomenCategoryShowcase2";
 import WomenCategoryShowcase3 from "../components/women/WomenCategoryShowcase3";
