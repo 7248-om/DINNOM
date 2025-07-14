@@ -1,41 +1,41 @@
 import React from 'react';
 import CategoriesExpand from '../components/CategoriesExpand';
 
-import wc1a from '../assets/women/6_caps-accessories/wc1a.jpg';
-import wc1b from '../assets/women/6_caps-accessories/wc1b.jpg'; // If no hover image, use same as wc1a
+import wc1a from '../assets/women/6_caps,access/wc1a.png';
+import wc1b from '../assets/women/6_caps,access/wc1b.png'; // If no hover image, use same as wc1a
 
-import wc2a from '../assets/women/6_caps-accessories/wc2a.jpg';
-import wc2b from '../assets/women/6_caps-accessories/wc2b.jpg';
+import wc2a from '../assets/women/6_caps,access/wc2a.png';
+import wc2b from '../assets/women/6_caps,access/wc2b.png';
 
-import wc3a from '../assets/women/6_caps-accessories/wc3a.jpg';
-import wc3b from '../assets/women/6_caps-accessories/wc3b.jpg'; // if none, use wc3a
+import wc3a from '../assets/women/6_caps,access/wc3a.png';
+import wc3b from '../assets/women/6_caps,access/wc3b.png'; // if none, use wc3a
 
-import wc4a from '../assets/women/6_caps-accessories/wc4a.jpg';
-import wc4b from '../assets/women/6_caps-accessories/wc4b.jpg';
+import wc4a from '../assets/women/6_caps,access/wc4a.png';
+import wc4b from '../assets/women/6_caps,access/wc4b.png';
 
-import wc5a from '../assets/women/6_caps-accessories/wc5a.jpg';
-import wc5b from '../assets/women/6_caps-accessories/wc5b.jpg';
+import wc5a from '../assets/women/6_caps,access/wc5a.png';
+import wc5b from '../assets/women/6_caps,access/wc5b.png';
 
-import wc6a from '../assets/women/6_caps-accessories/wc6a.jpg';
-import wc6b from '../assets/women/6_caps-accessories/wc6b.jpg';
+import wc6a from '../assets/women/6_caps,access/wc6a.png';
+import wc6b from '../assets/women/6_caps,access/wc6b.png';
 
-import wc7a from '../assets/women/6_caps-accessories/wc7a.jpg';
-import wc7b from '../assets/women/6_caps-accessories/wc7b.jpg';
+import wc7a from '../assets/women/6_caps,access/wc7a.png';
+import wc7b from '../assets/women/6_caps,access/wc7b.png';
 
-import wc8a from '../assets/women/6_caps-accessories/wc8a.jpg';
-import wc8b from '../assets/women/6_caps-accessories/wc8b.jpg';
+import wc8a from '../assets/women/6_caps,access/wc8a.png';
+import wc8b from '../assets/women/6_caps,access/wc8b.png';
 
-import wc9a from '../assets/women/6_caps-accessories/wc9a.jpg';
-import wc9b from '../assets/women/6_caps-accessories/wc9b.jpg';
+import wc9a from '../assets/women/6_caps,access/wc9a.png';
+import wc9b from '../assets/women/6_caps,access/wc9b.png';
 
-import wc10a from '../assets/women/6_caps-accessories/wc10a.jpg';
-import wc10b from '../assets/women/6_caps-accessories/wc10b.jpg';
+import wc10a from '../assets/women/6_caps,access/wc10a.png';
+import wc10b from '../assets/women/6_caps,access/wc10b.png';
 
-import wc11a from '../assets/women/6_caps-accessories/wc11a.jpg';
-import wc11b from '../assets/women/6_caps-accessories/wc11b.jpg';
+import wc11a from '../assets/women/6_caps,access/wc11a.png';
+import wc11b from '../assets/women/6_caps,access/wc11b.png';
 
-import wc12a from '../assets/women/6_caps-accessories/wc12a.jpg';
-import wc12b from '../assets/women/6_caps-accessories/wc12b.jpg';
+import wc12a from '../assets/women/6_caps,access/wc12a.png';
+import wc12b from '../assets/women/6_caps,access/wc12b.png';
 
 const womenCapsAccessories = [
   {

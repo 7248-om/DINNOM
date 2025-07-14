@@ -14,6 +14,8 @@ import WomenDresses from './pages/WomenDresses';
 import WomenTeesTops from './pages/WomenTeesTops';
 import WomenPants from './pages/WomenPants';
 import WomenHoodies from './pages/WomenHoodies';
+import WomenFootwear from './pages/WomenFootwear';
+import WomenCapsAccessories from './pages/WomenCapsAccessories';
 
 
 import Intro from './components/Intro';
@@ -60,6 +62,8 @@ function App() {
           <Route path="/women/tops" element={<WomenTeesTops />} />
           <Route path="/women/pants" element={<WomenPants />} />
           <Route path="/women/hoodies" element={<WomenHoodies />} />
+          <Route path="/women/footwear" element={<WomenFootwear />} />
+          <Route path="/women/capsaccessories" element={<WomenCapsAccessories />} />
         </Routes>
       </div>
 

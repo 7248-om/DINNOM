@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import img from "../../assets/women/images/caps-accessories-bg.png"; // Replace with your actual image path
 
 const WomenCategoryShowcase6 = () => {
+  const navigate = useNavigate();  // <-- initialize navigate
+
+  const handleClick = () => {
+    navigate("/women/capsaccessories");  // <-- navigate to footwear page
+  };
+
   return (
     <div className="relative w-full h-screen">
       {/* Full-screen background image */}
@@ -23,7 +30,9 @@ const WomenCategoryShowcase6 = () => {
           </p>
           
           {/* Button - Top right */}
-          <button className="bg-black text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-xs md:text-sm tracking-widest font-semibold uppercase hover:bg-gray-800 transition-colors">
+          <button 
+          onClick={handleClick}
+          className="bg-black text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-xs md:text-sm tracking-widest font-semibold uppercase hover:bg-gray-800 transition-colors">
             DISCOVER COLLECTION
           </button>
         </div>
