@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './styles/App.css';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 import Sidebar from './components/sidebar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import Men from "./pages/Men";
 import Women from './pages/Women';
-
+import WomenDresses from './pages/WomenDresses';
 
 
 import Intro from './components/Intro';
@@ -53,6 +53,7 @@ function App() {
           />
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
+          <Route path="/women/dresses" element={<WomenDresses />} />
         </Routes>
       </div>
 

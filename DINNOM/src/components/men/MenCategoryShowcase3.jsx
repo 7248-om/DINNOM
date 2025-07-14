@@ -15,7 +15,7 @@ const MenCategoryShowcase3 = () => {
       </div>
 
       {/* Right content section */}
-      <div className="absolute top-1/2 right-[6%] transform -translate-y-1/2">
+      <div className="absolute top-1/2 right-[3%] transform -translate-y-1/2">
         {/* Three-line heading */}
         <h2 className="text-6xl font-extrabold uppercase text-black mb-6 leading-tight">
           HOODIES,<br />
