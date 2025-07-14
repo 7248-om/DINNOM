@@ -1,31 +1,31 @@
 import React from 'react';
 import CategoriesExpand from '../components/CategoriesExpand';
 
-// Import images from 3_sweatshirts,hoodies,jackets,sweaters
-import ws1a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws1a.avif';
-import ws1b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws1b.avif';
-import ws2a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws2a.webp';
-import ws2b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws2b.webp';
-import ws3a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws3a.avif';
-import ws3b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws3b.avif';
-import ws4a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws4a.avif';
-import ws4b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws4b.avif';
-import ws5a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws5a.webp';
-import ws5b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws5b.webp';
-import ws6a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws6a.webp';
-import ws6b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws6b.webp';
-import ws7a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws7a.jpg';
-import ws7b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws7b.jpg';
-import ws8a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws8a.webp';
-import ws8b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws8b.webp';
-import ws9a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws9a.webp';
-import ws9b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws9b.webp';
-import ws10a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws10a.webp';
-import ws10b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws10b.webp';
-import ws11a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws11a.webp';
-import ws11b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws11b.webp';
-import ws12a from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws12a.webp';
-import ws12b from '../assets/women/3_sweatshirts,hoodies,jackets,sweaters/ws12b.webp';
+// Import images from 3_sweatshirts_hoodies_jackets_sweaters
+import ws1a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws1a.avif';
+import ws1b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws1b.avif';
+import ws2a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws2a.webp';
+import ws2b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws2b.webp';
+import ws3a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws3a.avif';
+import ws3b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws3b.avif';
+import ws4a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws4a.avif';
+import ws4b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws4b.avif';
+import ws5a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws5a.webp';
+import ws5b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws5b.webp';
+import ws6a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws6a.webp';
+import ws6b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws6b.webp';
+import ws7a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws7a.jpg';
+import ws7b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws7b.jpg';
+import ws8a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws8a.webp';
+import ws8b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws8b.webp';
+import ws9a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws9a.webp';
+import ws9b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws9b.webp';
+import ws10a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws10a.webp';
+import ws10b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws10b.webp';
+import ws11a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws11a.webp';
+import ws11b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws11b.webp';
+import ws12a from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws12a.webp';
+import ws12b from '../assets/women/3_sweatshirts_hoodies_jackets_sweaters/ws12b.webp';
 
 const womenHoodies = [
   { id: 1, name: 'Minimal Zip-Up Hoodie', price: 2600, image: ws1a, hoverImage: ws1b },

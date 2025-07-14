@@ -2,30 +2,30 @@ import React from 'react';
 import CategoriesExpand from '../components/CategoriesExpand';
 
 //Import images
-import wt1a from '../assets/women/1_shirts,tops,tees/wt1a.webp';
-import wt1b from '../assets/women/1_shirts,tops,tees/wt1b.webp';
-import wt2a from '../assets/women/1_shirts,tops,tees/wt2a.webp';
-import wt2b from '../assets/women/1_shirts,tops,tees/wt2b.webp';
-import wt3a from '../assets/women/1_shirts,tops,tees/wt3a.avif';
-import wt3b from '../assets/women/1_shirts,tops,tees/wt3b.avif';
-import wt4a from '../assets/women/1_shirts,tops,tees/wt4a.webp';
-import wt4b from '../assets/women/1_shirts,tops,tees/wt4b.webp';
-import wt5a from '../assets/women/1_shirts,tops,tees/wt5a.webp';
-import wt5b from '../assets/women/1_shirts,tops,tees/wt5b.webp';
-import wt6a from '../assets/women/1_shirts,tops,tees/wt6a.avif';
-import wt6b from '../assets/women/1_shirts,tops,tees/wt6b.avif';
-import wt7a from '../assets/women/1_shirts,tops,tees/wt7a.avif';
-import wt7b from '../assets/women/1_shirts,tops,tees/wt7b.avif';
-import wt8a from '../assets/women/1_shirts,tops,tees/wt8a.avif';
-import wt8b from '../assets/women/1_shirts,tops,tees/wt8b.avif';
-import wt9a from '../assets/women/1_shirts,tops,tees/wt9a.webp';
-import wt9b from '../assets/women/1_shirts,tops,tees/wt9b.webp';
-import wt10a from '../assets/women/1_shirts,tops,tees/wt10a.avif';
-import wt10b from '../assets/women/1_shirts,tops,tees/wt10b.avif';
-import wt11a from '../assets/women/1_shirts,tops,tees/wt11a.webp';
-import wt11b from '../assets/women/1_shirts,tops,tees/wt11b.webp';
-import wt12a from '../assets/women/1_shirts,tops,tees/wt12a.webp';
-import wt12b from '../assets/women/1_shirts,tops,tees/wt12b.webp';
+import wt1a from '../assets/women/1_shirts_tops_tees/wt1a.webp';
+import wt1b from '../assets/women/1_shirts_tops_tees/wt1b.webp';
+import wt2a from '../assets/women/1_shirts_tops_tees/wt2a.webp';
+import wt2b from '../assets/women/1_shirts_tops_tees/wt2b.webp';
+import wt3a from '../assets/women/1_shirts_tops_tees/wt3a.avif';
+import wt3b from '../assets/women/1_shirts_tops_tees/wt3b.avif';
+import wt4a from '../assets/women/1_shirts_tops_tees/wt4a.webp';
+import wt4b from '../assets/women/1_shirts_tops_tees/wt4b.webp';
+import wt5a from '../assets/women/1_shirts_tops_tees/wt5a.webp';
+import wt5b from '../assets/women/1_shirts_tops_tees/wt5b.webp';
+import wt6a from '../assets/women/1_shirts_tops_tees/wt6a.avif';
+import wt6b from '../assets/women/1_shirts_tops_tees/wt6b.avif';
+import wt7a from '../assets/women/1_shirts_tops_tees/wt7a.avif';
+import wt7b from '../assets/women/1_shirts_tops_tees/wt7b.avif';
+import wt8a from '../assets/women/1_shirts_tops_tees/wt8a.avif';
+import wt8b from '../assets/women/1_shirts_tops_tees/wt8b.avif';
+import wt9a from '../assets/women/1_shirts_tops_tees/wt9a.webp';
+import wt9b from '../assets/women/1_shirts_tops_tees/wt9b.webp';
+import wt10a from '../assets/women/1_shirts_tops_tees/wt10a.avif';
+import wt10b from '../assets/women/1_shirts_tops_tees/wt10b.avif';
+import wt11a from '../assets/women/1_shirts_tops_tees/wt11a.webp';
+import wt11b from '../assets/women/1_shirts_tops_tees/wt11b.webp';
+import wt12a from '../assets/women/1_shirts_tops_tees/wt12a.webp';
+import wt12b from '../assets/women/1_shirts_tops_tees/wt12b.webp';
 
 const womenTeesTops = [
   { id: 1, name: 'Classic Black Polo Shirt', price: 1800, image: wt1a, hoverImage: wt1b },

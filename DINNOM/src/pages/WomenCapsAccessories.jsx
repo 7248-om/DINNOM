@@ -1,41 +1,41 @@
 import React from 'react';
 import CategoriesExpand from '../components/CategoriesExpand';
 
-import wc1a from '../assets/women/6_caps,access/wc1a.png';
-import wc1b from '../assets/women/6_caps,access/wc1b.png'; // If no hover image, use same as wc1a
+import wc1a from '../assets/women/6_caps_access/wc1a.png';
+import wc1b from '../assets/women/6_caps_access/wc1b.png'; // If no hover image, use same as wc1a
 
-import wc2a from '../assets/women/6_caps,access/wc2a.png';
-import wc2b from '../assets/women/6_caps,access/wc2b.png';
+import wc2a from '../assets/women/6_caps_access/wc2a.png';
+import wc2b from '../assets/women/6_caps_access/wc2b.png';
 
-import wc3a from '../assets/women/6_caps,access/wc3a.png';
-import wc3b from '../assets/women/6_caps,access/wc3b.png'; // if none, use wc3a
+import wc3a from '../assets/women/6_caps_access/wc3a.png';
+import wc3b from '../assets/women/6_caps_access/wc3b.png'; // if none, use wc3a
 
-import wc4a from '../assets/women/6_caps,access/wc4a.png';
-import wc4b from '../assets/women/6_caps,access/wc4b.png';
+import wc4a from '../assets/women/6_caps_access/wc4a.png';
+import wc4b from '../assets/women/6_caps_access/wc4b.png';
 
-import wc5a from '../assets/women/6_caps,access/wc5a.png';
-import wc5b from '../assets/women/6_caps,access/wc5b.png';
+import wc5a from '../assets/women/6_caps_access/wc5a.png';
+import wc5b from '../assets/women/6_caps_access/wc5b.png';
 
-import wc6a from '../assets/women/6_caps,access/wc6a.png';
-import wc6b from '../assets/women/6_caps,access/wc6b.png';
+import wc6a from '../assets/women/6_caps_access/wc6a.png';
+import wc6b from '../assets/women/6_caps_access/wc6b.png';
 
-import wc7a from '../assets/women/6_caps,access/wc7a.png';
-import wc7b from '../assets/women/6_caps,access/wc7b.png';
+import wc7a from '../assets/women/6_caps_access/wc7a.png';
+import wc7b from '../assets/women/6_caps_access/wc7b.png';
 
-import wc8a from '../assets/women/6_caps,access/wc8a.png';
-import wc8b from '../assets/women/6_caps,access/wc8b.png';
+import wc8a from '../assets/women/6_caps_access/wc8a.png';
+import wc8b from '../assets/women/6_caps_access/wc8b.png';
 
-import wc9a from '../assets/women/6_caps,access/wc9a.png';
-import wc9b from '../assets/women/6_caps,access/wc9b.png';
+import wc9a from '../assets/women/6_caps_access/wc9a.png';
+import wc9b from '../assets/women/6_caps_access/wc9b.png';
 
-import wc10a from '../assets/women/6_caps,access/wc10a.png';
-import wc10b from '../assets/women/6_caps,access/wc10b.png';
+import wc10a from '../assets/women/6_caps_access/wc10a.png';
+import wc10b from '../assets/women/6_caps_access/wc10b.png';
 
-import wc11a from '../assets/women/6_caps,access/wc11a.png';
-import wc11b from '../assets/women/6_caps,access/wc11b.png';
+import wc11a from '../assets/women/6_caps_access/wc11a.png';
+import wc11b from '../assets/women/6_caps_access/wc11b.png';
 
-import wc12a from '../assets/women/6_caps,access/wc12a.png';
-import wc12b from '../assets/women/6_caps,access/wc12b.png';
+import wc12a from '../assets/women/6_caps_access/wc12a.png';
+import wc12b from '../assets/women/6_caps_access/wc12b.png';
 
 const womenCapsAccessories = [
   {
