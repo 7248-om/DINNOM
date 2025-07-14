@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // ✅ import Link
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const CategoriesExpand = ({ products }) => {
   return (
-    <div className="px-6 py-12 bg-white">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {products.map((product) => (
-          <HoverProductCard key={product.id} product={product} />
-        ))}
+    <div>
+      <Navbar />
+      <div className="px-6 py-12 bg-white">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {products.map((product) => (
+            <HoverProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -17,9 +21,8 @@ const HoverProductCard = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <Link
-      to={`/product/${product.id}`} 
-      className="flex flex-col items-center"
+    <div
+      className="flex flex-col items-center cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -34,7 +37,7 @@ const HoverProductCard = ({ product }) => {
         <p className="text-sm text-gray-800 font-medium">{product.name}</p>
         <p className="text-sm text-gray-500 mt-1">₹{product.price}</p>
       </div>
-    </Link>
+    </div>
   );
 };
 

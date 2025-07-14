@@ -1,8 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";  // <-- import this
 import imgLeft from "../../assets/women/images/footwear-left.png";  // Model image on left
 import imgLabel from "../../assets/women/images/brand-label.png";   // Bottom right label image
 
 const WomenCategoryShowcase5 = () => {
+  const navigate = useNavigate();  // <-- initialize navigate
+
+  const handleClick = () => {
+    navigate("/women/footwear");  // <-- navigate to footwear page
+  };
+
   return (
     <div className="relative w-full h-[680px] bg-white overflow-hidden">
       {/* Left model image - full height */}
@@ -30,7 +37,10 @@ const WomenCategoryShowcase5 = () => {
         </p>
 
         {/* Button */}
-        <button className="bg-black text-white px-8 py-3 rounded-full text-xs tracking-widest font-semibold hover:bg-gray-900 uppercase">
+        <button
+          onClick={handleClick}  // <-- add click handler here
+          className="bg-black text-white px-8 py-3 rounded-full text-xs tracking-widest font-semibold hover:bg-gray-900 uppercase"
+        >
           DISCOVER COLLECTION
         </button>
       </div>
