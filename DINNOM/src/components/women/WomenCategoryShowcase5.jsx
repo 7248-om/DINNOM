@@ -1,6 +1,6 @@
 import React from "react";
-import imgLeft from "../../assets/Women/images/footwear-left.png";  // Model image on left
-import imgLabel from "../../assets/Women/images/brand-label.png";   // Bottom right label image
+import imgLeft from "../../assets/women/images/footwear-left.png";  // Model image on left
+import imgLabel from "../../assets/women/images/brand-label.png";   // Bottom right label image
 
 const WomenCategoryShowcase5 = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import img1 from "../../assets/Women/images/img1.webp"; // Main model image
-import img2 from "../../assets/Women/images/img2.png";  // Label image
+import img1 from "../../assets/women/images/img1.png"; // Main model image
+import img2 from "../../assets/women/images/img2.png";  // Label image
 
 const WomenCategoryShowcase1 = () => {
   return (
@@ -32,7 +32,7 @@ const WomenCategoryShowcase1 = () => {
         </p>
 
         <button className="mt-6 px-8 py-3 bg-black text-white text-sm tracking-wide font-semibold uppercase rounded-full hover:bg-gray-900 transition-all">
-          EXPLORE COLLECTION
+          DISCOVER COLLECTION
         </button>
       </div>
 
