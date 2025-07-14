@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import img3 from "../../assets/Men/images/img3.webp";
 import img4 from "../../assets/Men/images/img4.png";
 
 const MenCategoryShowcase1 = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="relative w-full h-[680px] bg-white overflow-hidden">
       {/* Left model image */}
@@ -25,7 +28,7 @@ const MenCategoryShowcase1 = () => {
         </h2>
       </div>
 
-      {/* Description and Button - Left-aligned under heading */}
+      {/* Description and Button */}
       <div className="absolute top-[48%] right-[6%] text-left z-10 max-w-lg">
         <p className="text-gray-700 text-md">
           Discover our timeless collection of premium shirts, casual T-shirts,
@@ -33,7 +36,10 @@ const MenCategoryShowcase1 = () => {
           designed for all-day comfort and elevated looks.
         </p>
 
-        <button className="mt-6 px-8 py-3 bg-black text-white text-sm tracking-wide font-semibold uppercase rounded-full hover:bg-gray-900 transition-all">
+        <button
+          className="mt-6 px-8 py-3 bg-black text-white text-sm tracking-wide font-semibold uppercase rounded-full hover:bg-gray-900 transition-all"
+          onClick={() => navigate("/men-shirts")}
+        >
           DISCOVER COLLECTION
         </button>
       </div>

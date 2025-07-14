@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import img7 from "../../assets/Men/images/img7.png";
 import img8 from "../../assets/Men/images/img8.png";
 
 const MenCategoryShowcase3 = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="relative w-full h-[680px] bg-white overflow-hidden">
       {/* Left model image - full height */}
@@ -31,7 +34,10 @@ const MenCategoryShowcase3 = () => {
         </p>
 
         {/* Rounded button */}
-        <button className="bg-black text-white px-8 py-3 rounded-full text-xs tracking-widest font-semibold hover:bg-gray-900 uppercase">
+        <button
+          onClick={() => navigate("/men-hoodies-jackets")}
+          className="bg-black text-white px-8 py-3 rounded-full text-xs tracking-widest font-semibold hover:bg-gray-900 uppercase"
+        >
           DISCOVER COLLECTION
         </button>
       </div>
