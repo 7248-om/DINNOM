@@ -16,6 +16,10 @@ import WomenPants from './pages/WomenPants';
 import WomenHoodies from './pages/WomenHoodies';
 import WomenFootwear from './pages/WomenFootwear';
 import WomenCapsAccessories from './pages/WomenCapsAccessories';
+import MenShirtTShirtPolos from './pages/MenShirtTShirtPolos';
+import MenPantsShorts from './pages/MenPantsShorts';
+import MenHoodies from './pages/MenHoodies';
+
 
 
 import Intro from './components/Intro';
@@ -58,6 +62,9 @@ function App() {
           />
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
+            <Route path="/men-shirts" element={<MenShirtTShirtPolos />} />
+  <Route path="/men-pants-shorts" element={<MenPantsShorts />} />
+  <Route path="/men-hoodies-jackets" element={<MenHoodies />} />
           <Route path="/women/dresses" element={<WomenDresses />} />
           <Route path="/women/tops" element={<WomenTeesTops />} />
           <Route path="/women/pants" element={<WomenPants />} />

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
-import img1 from '../assets/Men/1_shirt_tshirt_polo/ms4a.png';
+import img1 from '../assets/Men/1shirts/ms4a.png';
 import img2 from '../assets/women/women_dresses/wdress1.png';
 import img3 from '../assets/women/women_jackets/wjackets4 .png';
 
