@@ -1,5 +1,5 @@
 import React from "react";
-import img from "../../assets/Women/images/caps-accessories-bg.png"; // Replace with your actual image path
+import img from "../../assets/women/images/caps-accessories-bg.png"; // Replace with your actual image path
 
 const WomenCategoryShowcase6 = () => {
   return (

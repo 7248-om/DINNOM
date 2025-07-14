@@ -27,7 +27,7 @@ const IntroTransition = ({ image }) => {
           }
         `}
       >
-        MEN
+        WOMEN
       </h1>
     </div>
   );

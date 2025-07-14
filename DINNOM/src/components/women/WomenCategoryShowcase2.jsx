@@ -1,7 +1,7 @@
 import React from "react";
-import pantsImg from "../../assets/Women/images/pants.jpeg";
-import skirtsImg from "../../assets/Women/images/skirts.png";
-import shortsImg from "../../assets/Women/images/shorts.png";
+import pantsImg from "../../assets/women/images/pants.jpeg";
+import skirtsImg from "../../assets/women/images/skirts.png";
+import shortsImg from "../../assets/women/images/shorts.png";
 
 const categories = [
   {
