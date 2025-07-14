@@ -7,7 +7,6 @@ const WomenCategoryShowcase4 = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log("Navigating to dresses...");
     navigate("/women/dresses");
   };
 
