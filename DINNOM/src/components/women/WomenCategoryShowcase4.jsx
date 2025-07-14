@@ -1,8 +1,16 @@
 import React from "react";
-import imgRight from "../../assets/women/images/dresses-right.png";
-import imgLeft from "../../assets/women/images/dresses-left.png";
+import { useNavigate } from "react-router-dom";
+import imgRight from "../../assets/Women/images/dresses-right.png";
+import imgLeft from "../../assets/Women/images/dresses-left.png";
 
 const WomenCategoryShowcase4 = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log("Navigating to dresses...");
+    navigate("/women/dresses");
+  };
+
   return (
     <div className="w-full bg-white px-8 md:px-16 py-0">
       <div className="flex flex-col md:flex-row items-end justify-between gap-0">
@@ -12,7 +20,10 @@ const WomenCategoryShowcase4 = () => {
           <p className="text-gray-700 max-w-md">
             Elegant and versatile, our dress collection ranges from casual daywear to sophisticated evening styles. Designed to flatter every figure and occasion.
           </p>
-          <button className="bg-black text-white px-6 py-3 font-semibold rounded-full uppercase tracking-wide text-sm hover:bg-gray-900 mb-4">
+          <button
+            onClick={handleClick}
+            className="bg-black text-white px-6 py-3 font-semibold rounded-full uppercase tracking-wide text-sm hover:bg-gray-900 mb-4"
+          >
             Discover Collection
           </button>
           <img
