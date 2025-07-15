@@ -16,7 +16,7 @@ const MenCategoryShowcase2 = () => {
             Discover our premium range of men's trousers and pants. Crafted for comfort, style, and everyday wear. Modern silhouettes meet timeless cuts.
           </p>
           <button
-            onClick={() => navigate("/men-pants-shorts")}
+            onClick={() => navigate("/men/pants")}
             className="bg-black text-white px-6 py-3 font-semibold rounded-full uppercase tracking-wide text-sm hover:bg-gray-900 mb-4"
           >
             Discover Collection

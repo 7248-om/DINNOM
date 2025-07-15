@@ -60,16 +60,21 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/wishlist" element={<Wishlist />} />
 
+
           <Route path="/login" element={<Login />} />
+
 
           <Route
             path="/login"
             element={
-              <div className="px-4"> 
+              <div className="px-4">
                 <Login />
               </div>
             }
           />
+
+
+
 
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
