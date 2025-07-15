@@ -1,9 +1,12 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Sidebar from "./sidebar";
 
 const CategoriesExpand = ({ products }) => {
-  // Preload hover images when the component mounts
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Preload hover images
   useEffect(() => {
     products.forEach((product) => {
       const img = new Image();
@@ -12,15 +15,22 @@ const CategoriesExpand = ({ products }) => {
   }, [products]);
 
   return (
-    <div>
-      <Navbar />
-      <div className="px-6 py-12 bg-white">
+    <div className="relative">
+      {/* Navbar with sidebar toggle */}
+      <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+
+      {/* Sidebar that overlaps current content */}
+      <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
+
+      {/* Main grid content */}
+      <div className="px-6 py-12 bg-white min-h-screen">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {products.map((product) => (
             <HoverProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>
+
       <Footer />
     </div>
   );

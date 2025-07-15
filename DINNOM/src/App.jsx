@@ -21,17 +21,13 @@ import MenPantsShorts from './pages/MenPantsShorts';
 import MenHoodies from './pages/MenHoodies';
 import AdminDashboard from './pages/admin';
 
-
-
 import Intro from './components/Intro';
-import BrandImageSection from './components/BrandBannerFooter'; // <-- import this
-
-
+import BrandImageSection from './components/BrandBannerFooter';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const location = useLocation(); // <--- for route check
-  const isHome = location.pathname === '/' || location.pathname === '/home'; // home route check
+  const location = useLocation();
+  const isHome = location.pathname === '/' || location.pathname === '/home';
 
   useEffect(() => {
     fetch('http://localhost:5050/')
@@ -41,50 +37,54 @@ function App() {
       });
   }, []);
 
+  // Lock scroll when sidebar is open
+  useEffect(() => {
+    document.body.style.overflow = sidebarOpen ? 'hidden' : 'auto';
+  }, [sidebarOpen]);
+
   return (
     <>
       <CustomCursor />
       <Intro />
-       <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+
+      {/* Always visible */}
+      <Navbar toggleSidebar={() => setSidebarOpen(true)} />
       <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
 
-      <div className="pt-24 px-4">
+      {/* Main content behind sidebar */}
+      <main className="pt-24 px-4 bg-white">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/wishlist" element={<Wishlist />} />
-          <Route
-            path="/login"
-            element={
-              <div className="px-4">
-                <Login />
-              </div>
-            }
-          />
+          <Route path="/login" element={<Login />} />
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
-            <Route path="/men-shirts" element={<MenShirtTShirtPolos />} />
-  <Route path="/men-pants-shorts" element={<MenPantsShorts />} />
-  <Route path="/men-hoodies-jackets" element={<MenHoodies />} />
+          <Route path="/men/shirts" element={<MenShirtTShirtPolos />} />
+          <Route path="/men/pants" element={<MenPantsShorts />} />
+          <Route path="/men/sweatshirts" element={<MenHoodies />} />
+          <Route path="/men/footwear" element={<div>Men Footwear Page</div>} />
+          <Route path="/men/cap" element={<div>Men Cap Page</div>} />
           <Route path="/women/dresses" element={<WomenDresses />} />
           <Route path="/women/tops" element={<WomenTeesTops />} />
           <Route path="/women/pants" element={<WomenPants />} />
-          <Route path="/women/hoodies" element={<WomenHoodies />} />
+          <Route path="/women/sweatshirts" element={<WomenHoodies />} />
           <Route path="/women/footwear" element={<WomenFootwear />} />
-          <Route path="/women/capsaccessories" element={<WomenCapsAccessories />} />
+          <Route path="/women/cap" element={<WomenCapsAccessories />} />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
-      </div>
 
-      {/* Footer Always */}
-      <Footer />
+        {/* Footer */}
+        <Footer />
+      </main>
 
-      {/* NOIRÉ Banner only on Home */}
+      {/* Brand Banner Only on Home */}
       {isHome && <BrandImageSection />}
     </>
   );
 }
 
+// Wrap with BrowserRouter
 export default function AppWrapper() {
   return (
     <BrowserRouter>
