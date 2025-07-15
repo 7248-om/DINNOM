@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './styles/App.css';
 import Sidebar from './components/sidebar';
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar';
 import Home from './pages/Home';
+import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import Login from './pages/Login';
 import React, { useEffect, useState } from 'react';
 import Wishlist from './components/wishlist';
@@ -29,6 +30,7 @@ import BrandImageSection from './components/BrandBannerFooter'; // <-- import th
 
 
 function App() {
+  const { user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation(); // <--- for route check
   const isHome = location.pathname === '/' || location.pathname === '/home'; // home route check
@@ -56,7 +58,7 @@ function App() {
           <Route
             path="/login"
             element={
-              <div className="px-4">
+              <div className="px-4"> 
                 <Login />
               </div>
             }
@@ -88,7 +90,9 @@ function App() {
 export default function AppWrapper() {
   return (
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </BrowserRouter>
   );
 }

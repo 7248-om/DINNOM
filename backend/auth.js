@@ -13,6 +13,7 @@ router.post('/google', async (req, res) => {
     try {
         const decodedToken = await admin.auth().verifyIdToken(idToken);
         const { name, picture, email, uid } = decodedToken;
+        console.log('Decoded Firebase token picture:', picture); // DEBUG: Check if picture URL is received from Google
 
         const user = await User.findOneAndUpdate(
             { googleId: uid }, 
@@ -30,6 +31,8 @@ router.post('/google', async (req, res) => {
         );
 
         const appToken = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+
+        console.log('User data sent to frontend:', user); // DEBUG:  Check user object before sending
 
         res.status(200).json({
             token: appToken,
