@@ -4,11 +4,12 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import admin from 'firebase-admin';
+import admin from 'firebase-admin'; 
 
 import authRoutes from './auth.js';
 import { protect } from './middleware/authMiddleware.js';
 import User from './models/User.js';
+import Order from './models/order.js';
 
 import serviceAccount from './serviceAccountKey.json' with { type: 'json' };
 
@@ -59,6 +60,34 @@ app.post('/api/bill', protect, async (req, res) => {
       { new: true }
     );
     res.json(user.bill);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/orders', protect, async (req, res) => {
+  const { orderItems, shippingAddress, totalAmount } = req.body;
+
+  if (!orderItems || orderItems.length === 0) {
+    return res.status(400).json({ message: 'No order items' });
+  }
+
+  try {
+    const order = new Order({
+      orderItems,
+      shippingAddress,
+      totalAmount,
+      user: req.user.id,
+    });
+
+    const createdOrder = await order.save();
+
+    // Optionally, you can add the order ID to the user's document
+    await User.findByIdAndUpdate(req.user.id, {
+        $push: { orders: createdOrder._id }
+    });
+
+    res.status(201).json(createdOrder);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

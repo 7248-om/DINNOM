@@ -7,9 +7,13 @@ const userSchema = new mongoose.Schema({
     wishlist: [{
         type: String, 
     }],
-    bill: [{
+    bill: [{ 
         type: Object
-    }]
+    }],
+    orders: [{ 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order'
+    }],
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
