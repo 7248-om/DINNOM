@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Particles from './Particles';
 import Tilt from 'react-parallax-tilt';
 import { auth, provider, signInWithPopup } from '../firebase';
+import { useAuth } from '../context/AuthContext';
 
 const LoginForm = () => {
   const [phone, setPhone] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate(); // This line was duplicated
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,8 +18,30 @@ const LoginForm = () => {
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      alert(`Logged in as ${user.displayName}`);
+      const firebaseUser = result.user;
+
+      // 1. Get the idToken from Firebase to send to the backend
+      const idToken = await firebaseUser.getIdToken();
+
+      // 2. Send the token to your backend
+      const response = await fetch('http://localhost:5050/api/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Authentication failed on the server.');
+      }
+
+      // 3. Get your custom app token and user data from your backend
+      const { token: appToken, user: userData } = await response.json();
+      console.log('User data received from backend:', userData); // DEBUG: Check if photoURL is in the user object
+      login(userData, appToken);
+      navigate('/');
     } catch (error) {
       alert(error.message);
     }

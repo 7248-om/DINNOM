@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './styles/App.css';
 import Sidebar from './components/sidebar';
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar';
 import Home from './pages/Home';
+import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import Login from './pages/Login';
 import React, { useEffect, useState } from 'react';
 import Wishlist from './components/wishlist';
@@ -25,6 +26,7 @@ import Intro from './components/Intro';
 import BrandImageSection from './components/BrandBannerFooter';
 
 function App() {
+  const { user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === '/' || location.pathname === '/home';
@@ -57,7 +59,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <div className="px-4">
+                <Login />
+              </div>
+            }
+          />
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
           <Route path="/men/shirts" element={<MenShirtTShirtPolos />} />
@@ -88,7 +97,9 @@ function App() {
 export default function AppWrapper() {
   return (
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </BrowserRouter>
   );
 }
