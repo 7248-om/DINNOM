@@ -26,8 +26,7 @@ const productSchema = new mongoose.Schema({
   // Gender: Male, Female
   gender: {
     type: String,
-    enum: ['Male', 'Female', 'Unisex'],
-    default: 'Unisex',
+    enum: ['Male', 'Female'],
   },
   //Product category (e.g., Shirts, Dresses, Footwear)
   category: {
@@ -56,6 +55,10 @@ const productSchema = new mongoose.Schema({
 
   // Array of available sizes (e.g., ['S', 'M', 'L'])
   sizes: {
+    type: [String],
+    default: [],
+  },
+  tags: {
     type: [String],
     default: [],
   },

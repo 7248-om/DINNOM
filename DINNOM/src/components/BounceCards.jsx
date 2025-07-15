@@ -5,7 +5,7 @@ export default function BounceCards({
   className = "",
   images = [],
   containerWidth = 400,
-  containerHeight = 400,
+  containerHeight = 500,
   animationDelay = 0.5,
   animationStagger = 0.06,
   easeType = "elastic.out(1, 0.8)",
@@ -119,7 +119,7 @@ export default function BounceCards({
       {images.map((src, idx) => (
         <div
           key={idx}
-          className={`card card-${idx} absolute w-[160px] aspect-square border-4 border-white rounded-[20px] overflow-hidden`}
+          className={`card card-${idx} absolute w-[160px] aspect-square border-4 border-white rounded-[20px] overflow-hidden flex items-center justify-center`}
           style={{
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.15)",
             transform: transformStyles[idx] || "none",
@@ -128,7 +128,7 @@ export default function BounceCards({
           onMouseLeave={resetSiblings}
         >
           <img
-            className="w-full h-full object-cover"
+            className="max-w-full max-h-full object-contain"
             src={src}
             alt={`card-${idx}`}
           />
