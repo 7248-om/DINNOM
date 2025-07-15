@@ -35,7 +35,7 @@ const MenCategoryShowcase3 = () => {
 
         {/* Rounded button */}
         <button
-          onClick={() => navigate("/men-hoodies-jackets")}
+          onClick={() => navigate("/men/sweatshirts")}
           className="bg-black text-white px-8 py-3 rounded-full text-xs tracking-widest font-semibold hover:bg-gray-900 uppercase"
         >
           DISCOVER COLLECTION

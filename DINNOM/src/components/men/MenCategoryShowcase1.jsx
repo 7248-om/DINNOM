@@ -38,7 +38,7 @@ const MenCategoryShowcase1 = () => {
 
         <button
           className="mt-6 px-8 py-3 bg-black text-white text-sm tracking-wide font-semibold uppercase rounded-full hover:bg-gray-900 transition-all"
-          onClick={() => navigate("/men-shirts")}
+          onClick={() => navigate("/men/shirts")}
         >
           DISCOVER COLLECTION
         </button>
