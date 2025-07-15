@@ -58,6 +58,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/wishlist" element={<Wishlist />} />
+
+
+          <Route path="/login" element={<Login />} />
+
+
           <Route
             path="/login"
             element={
@@ -66,6 +71,10 @@ function App() {
               </div>
             }
           />
+
+
+
+
           <Route path="/men" element={<Men />} />
           <Route path="/women" element={<Women />} />
           <Route path="/men/shirts" element={<MenShirtTShirtPolos />} />
