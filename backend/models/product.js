@@ -26,8 +26,7 @@ const productSchema = new mongoose.Schema({
   // Gender: Male, Female
   gender: {
     type: String,
-    enum: ['Male', 'Female', 'Unisex'],
-    default: 'Unisex',
+    enum: ['Male', 'Female'],
   },
   //Product category (e.g., Shirts, Dresses, Footwear)
   category: {
