@@ -36,8 +36,7 @@ const Admin = () => {
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formattedProduct = {
@@ -45,27 +44,77 @@ const Admin = () => {
       price: Number(product.price),
       stock: Number(product.stock),
       sizes: product.sizes.split(',').map(s => s.trim()),
-      tags: product.tags.split(',').map(t => t.trim())
+      tags: product.tags.split(',').map(t => t.trim()),
     };
 
-    console.log('Submitted Product:', formattedProduct);
+    try {
+      const response = await fetch('http://localhost:5050/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`  // send token if login is required
+        },
+        body: JSON.stringify(formattedProduct),
+      });
 
-    // You can now POST formattedProduct to your backend API
+      const data = await response.json();
 
-    setProduct({
-      productId: '',
-      name: '',
-      price: '',
-      description: '',
-      gender: '',
-      category: '',
-      stock: '',
-      mainImage: '',
-      hoverImage: '',
-      sizes: '',
-      tags: ''
-    });
+      if (response.ok) {
+        alert('Product added successfully!');
+        console.log('Server response:', data);
+        // Reset form
+        setProduct({
+          productId: '',
+          name: '',
+          price: '',
+          description: '',
+          gender: '',
+          category: '',
+          stock: '',
+          mainImage: '',
+          hoverImage: '',
+          sizes: '',
+          tags: ''
+        });
+      } else {
+        alert(`Error: ${data.error}`);
+      }
+
+    } catch (error) {
+      console.error('Error submitting product:', error);
+      alert('An error occurred while adding the product');
+    }
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const formattedProduct = {
+  //     ...product,
+  //     price: Number(product.price),
+  //     stock: Number(product.stock),
+  //     sizes: product.sizes.split(',').map(s => s.trim()),
+  //     tags: product.tags.split(',').map(t => t.trim())
+  //   };
+
+  //   console.log('Submitted Product:', formattedProduct);
+
+  //   // You can now POST formattedProduct to your backend API
+
+  //   setProduct({
+  //     productId: '',
+  //     name: '',
+  //     price: '',
+  //     description: '',
+  //     gender: '',
+  //     category: '',
+  //     stock: '',
+  //     mainImage: '',
+  //     hoverImage: '',
+  //     sizes: '',
+  //     tags: ''
+  //   });
+  // };
 
   return (
     <div className="min-h-screen bg-white text-black p-8 space-y-10">
