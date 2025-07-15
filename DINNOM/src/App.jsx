@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './styles/App.css';
-import Navbar from './components/Navbar';
 import Sidebar from './components/sidebar';
+import Navbar from './components/navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import React, { useEffect, useState } from 'react';
@@ -19,6 +19,7 @@ import WomenCapsAccessories from './pages/WomenCapsAccessories';
 import MenShirtTShirtPolos from './pages/MenShirtTShirtPolos';
 import MenPantsShorts from './pages/MenPantsShorts';
 import MenHoodies from './pages/MenHoodies';
+import AdminDashboard from './pages/admin';
 
 
 
@@ -44,7 +45,7 @@ function App() {
     <>
       <CustomCursor />
       <Intro />
-      <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+       <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
 
       <div className="pt-24 px-4">
@@ -71,6 +72,7 @@ function App() {
           <Route path="/women/hoodies" element={<WomenHoodies />} />
           <Route path="/women/footwear" element={<WomenFootwear />} />
           <Route path="/women/capsaccessories" element={<WomenCapsAccessories />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </div>
 

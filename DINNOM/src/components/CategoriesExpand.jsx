@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from "./Navbar";
+import Navbar from "./navbar";
 import Footer from "./Footer";
 
 const CategoriesExpand = ({ products }) => {
