@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     photoURL: { type: String },
     wishlist: [{
-        type: String, 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
     }],
     bill: [{ 
         type: Object

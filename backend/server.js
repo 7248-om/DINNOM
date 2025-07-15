@@ -10,7 +10,7 @@ import authRoutes from './auth.js';
 import { protect } from './middleware/authMiddleware.js';
 import User from './models/User.js';
 import Order from './models/order.js';
-
+import Product from './models/product.js';
 import serviceAccount from './serviceAccountKey.json' with { type: 'json' };
 
 admin.initializeApp({
@@ -90,6 +90,41 @@ app.post('/api/orders', protect, async (req, res) => {
     res.status(201).json(createdOrder);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/products', async (req, res) => {
+  try {
+    const products = await Product.find({});
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/products/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).json({ message: 'Product not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/products', protect, async (req, res) => {
+  // Note: In a real app, you'd want admin-only authorization here.
+  try {
+    // Use the `Product` model to create a new product from the request body
+    const product = new Product(req.body);
+    const createdProduct = await product.save();
+    res.status(201).json(createdProduct);
+  } catch (err) {
+    // Send a 400 Bad Request for validation errors
+    res.status(400).json({ error: err.message });
   }
 });
 
