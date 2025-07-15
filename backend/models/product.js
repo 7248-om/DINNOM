@@ -58,6 +58,10 @@ const productSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
+  tags: {
+    type: [String],
+    default: [],
+  },
 },
 {
   // Automatically add createdAt and updatedAt fields
