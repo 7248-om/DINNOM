@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 const CategoriesExpand = ({ products }) => {
+  // Preload hover images when the component mounts
+  useEffect(() => {
+    products.forEach((product) => {
+      const img = new Image();
+      img.src = product.hoverImage;
+    });
+  }, [products]);
+
   return (
     <div>
       <Navbar />
@@ -13,6 +21,7 @@ const CategoriesExpand = ({ products }) => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -1,7 +1,6 @@
 @import "tailwindcss/preflight";
 @import "tailwindcss/utilities";
 
-/* Only use Inter */
 .font-sans {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
@@ -15,7 +14,6 @@
 body {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  /* color: #fff; */
 }
 
 .font-playfair {

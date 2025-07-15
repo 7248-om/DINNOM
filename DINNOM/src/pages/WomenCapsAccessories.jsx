@@ -1,126 +1,90 @@
 import React from 'react';
 import CategoriesExpand from '../components/CategoriesExpand';
 
-import wc1a from '../assets/women/6_caps_access/wc1a.png';
-import wc1b from '../assets/women/6_caps_access/wc1b.png'; // If no hover image, use same as wc1a
-
-import wc2a from '../assets/women/6_caps_access/wc2a.png';
-import wc2b from '../assets/women/6_caps_access/wc2b.png';
-
-import wc3a from '../assets/women/6_caps_access/wc3a.png';
-import wc3b from '../assets/women/6_caps_access/wc3b.png'; // if none, use wc3a
-
-import wc4a from '../assets/women/6_caps_access/wc4a.png';
-import wc4b from '../assets/women/6_caps_access/wc4b.png';
-
-import wc5a from '../assets/women/6_caps_access/wc5a.png';
-import wc5b from '../assets/women/6_caps_access/wc5b.png';
-
-import wc6a from '../assets/women/6_caps_access/wc6a.png';
-import wc6b from '../assets/women/6_caps_access/wc6b.png';
-
-import wc7a from '../assets/women/6_caps_access/wc7a.png';
-import wc7b from '../assets/women/6_caps_access/wc7b.png';
-
-import wc8a from '../assets/women/6_caps_access/wc8a.png';
-import wc8b from '../assets/women/6_caps_access/wc8b.png';
-
-import wc9a from '../assets/women/6_caps_access/wc9a.png';
-import wc9b from '../assets/women/6_caps_access/wc9b.png';
-
-import wc10a from '../assets/women/6_caps_access/wc10a.png';
-import wc10b from '../assets/women/6_caps_access/wc10b.png';
-
-import wc11a from '../assets/women/6_caps_access/wc11a.png';
-import wc11b from '../assets/women/6_caps_access/wc11b.png';
-
-import wc12a from '../assets/women/6_caps_access/wc12a.png';
-import wc12b from '../assets/women/6_caps_access/wc12b.png';
-
 const womenCapsAccessories = [
   {
     id: 1,
     name: 'Distressed Ripped Baseball Cap',
     price: 1000,
-    image: wc1a,
-    hoverImage: wc1b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc1a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc1b.png?alt=media',
   },
   {
     id: 2,
     name: `"Killin' It" Statement Baseball Cap`,
     price: 950,
-    image: wc2a,
-    hoverImage: wc2b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc2a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc2b.png?alt=media',
   },
   {
     id: 3,
     name: 'Faux Leather Baker Boy Cap',
     price: 1100,
-    image: wc3a,
-    hoverImage: wc3b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc3a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc3b.png?alt=media',
   },
   {
     id: 4,
     name: 'Heart Embroidered Baseball Cap',
     price: 900,
-    image: wc4a,
-    hoverImage: wc4b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc4a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc4b.png?alt=media',
   },
   {
     id: 5,
     name: 'Washed Black Baseball Cap',
     price: 850,
-    image: wc5a,
-    hoverImage: wc5b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc5a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc5b.png?alt=media',
   },
   {
     id: 6,
     name: 'Rectangular Frame Black Sunglasses',
     price: 1200,
-    image: wc6a,
-    hoverImage: wc6b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc6a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc6b.png?alt=media',
   },
   {
     id: 7,
     name: 'Double Layered Heart & Bead Anklet',
     price: 400,
-    image: wc7a,
-    hoverImage: wc7b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc7a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc7b.png?alt=media',
   },
   {
     id: 8,
     name: 'Bohemian Beaded Cord Anklet',
     price: 350,
-    image: wc8a,
-    hoverImage: wc8b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc8a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc8b.png?alt=media',
   },
   {
     id: 9,
     name: `"Absolutely Not" Slogan Baseball Cap`,
     price: 950,
-    image: wc9a,
-    hoverImage: wc9b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc9a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc9b.png?alt=media',
   },
   {
     id: 10,
     name: 'Matching Infinity Charm Bracelets (Set of 2)',
     price: 600,
-    image: wc10a,
-    hoverImage: wc10b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc10a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc10b.png?alt=media',
   },
   {
     id: 11,
     name: 'Wide Elastic Cinch Belt with Round Buckle',
     price: 950,
-    image: wc11a,
-    hoverImage: wc11b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc11a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc11b.png?alt=media',
   },
   {
     id: 12,
     name: 'Clover Charm Layered Gold Anklet',
     price: 550,
-    image: wc12a,
-    hoverImage: wc12b,
+    image: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc12a.png?alt=media',
+    hoverImage: 'https://firebasestorage.googleapis.com/v0/b/noire-svnit.firebasestorage.app/o/assets%2Fwomen%2F6caps%2Fwc12b.png?alt=media',
   },
 ];
 
