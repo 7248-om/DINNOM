@@ -2,26 +2,26 @@ import React from 'react';
 import CategoriesExpand from '../components/CategoriesExpand';
 
 // Import footwear images (make sure you have these files in the folder)
-import wf1a from '../assets/Women/5_footwear/wf1a.jpg';
-import wf1b from '../assets/Women/5_footwear/wf1b.jpg';
-import wf2a from '../assets/Women/5_footwear/wf2a.jpg';
-import wf2b from '../assets/Women/5_footwear/wf2b.jpg';
-import wf3a from '../assets/Women/5_footwear/wf3a.jpg';
-import wf3b from '../assets/Women/5_footwear/wf3b.jpg';
-import wf4a from '../assets/Women/5_footwear/wf4a.jpg';
-import wf4b from '../assets/Women/5_footwear/wf4b.jpg';
-import wf5a from '../assets/Women/5_footwear/wf5a.jpg';
-import wf5b from '../assets/Women/5_footwear/wf5b.jpg';
-import wf6a from '../assets/Women/5_footwear/wf6a.jpg';
-import wf6b from '../assets/Women/5_footwear/wf6b.jpg';
-import wf7a from '../assets/Women/5_footwear/wf7a.jpg';
-import wf7b from '../assets/Women/5_footwear/wf7b.jpg';
-import wf8a from '../assets/Women/5_footwear/wf8a.jpg';
-import wf8b from '../assets/Women/5_footwear/wf8b.jpg';
-import wf9a from '../assets/Women/5_footwear/wf9a.jpg';
-import wf9b from '../assets/Women/5_footwear/wf9b.jpg';
-import wf10a from '../assets/Women/5_footwear/wf10a.jpg';
-import wf10b from '../assets/Women/5_footwear/wf10b.jpg';
+import wf1a from '../assets/women/5_footwear/wf1a.png';
+import wf1b from '../assets/women/5_footwear/wf1b.png';
+import wf2a from '../assets/women/5_footwear/wf2a.png';
+import wf2b from '../assets/women/5_footwear/wf2b.png';
+import wf3a from '../assets/women/5_footwear/wf3a.png';
+import wf3b from '../assets/women/5_footwear/wf3b.png';
+import wf4a from '../assets/women/5_footwear/wf4a.png';
+import wf4b from '../assets/women/5_footwear/wf4b.png';
+import wf5a from '../assets/women/5_footwear/wf5a.png';
+import wf5b from '../assets/women/5_footwear/wf5b.png';
+import wf6a from '../assets/women/5_footwear/wf6a.png';
+import wf6b from '../assets/women/5_footwear/wf6b.png';
+import wf7a from '../assets/women/5_footwear/wf7a.png';
+import wf7b from '../assets/women/5_footwear/wf7b.png';
+import wf8a from '../assets/women/5_footwear/wf8a.png';
+import wf8b from '../assets/women/5_footwear/wf8b.png';
+import wf9a from '../assets/women/5_footwear/wf9a.png';
+import wf9b from '../assets/women/5_footwear/wf9b.png';
+import wf10a from '../assets/women/5_footwear/wf10a.png';
+import wf10b from '../assets/women/5_footwear/wf10b.png';
 
 // Array of footwear products with hover images and details
 const womenFootwear = [

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import pantsImg from "../../assets/women/images/pants.jpeg"; // Main image shown once
 
 const categories = [
@@ -20,6 +21,12 @@ const categories = [
 ];
 
 const WomenCategoryShowcase2 = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/women/pants");
+  };
+
   return (
     <div className="w-full bg-white px-8 md:px-16 py-16">
       {/* Show single big image */}
@@ -43,7 +50,9 @@ const WomenCategoryShowcase2 = () => {
 
       {/* Single Discover Collection button */}
       <div className="flex justify-center">
-        <button className="bg-black text-white px-10 py-3 rounded-full text-sm font-semibold uppercase tracking-wide hover:bg-gray-900">
+        <button 
+        onClick={handleClick}
+        className="bg-black text-white px-10 py-3 rounded-full text-sm font-semibold uppercase tracking-wide hover:bg-gray-900">
           Discover Collection
         </button>
       </div>

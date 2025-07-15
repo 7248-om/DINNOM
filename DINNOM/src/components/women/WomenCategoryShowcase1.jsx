@@ -1,8 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import img1 from "../../assets/women/images/img1.png"; // Main model image
 import img2 from "../../assets/women/images/img2.png";  // Label image
 
 const WomenCategoryShowcase1 = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/women/tops");
+  };
+
   return (
     <div className="relative w-full h-[680px] bg-white overflow-hidden">
       {/* Left model image */}
@@ -31,7 +38,9 @@ const WomenCategoryShowcase1 = () => {
           Unveil your everyday elegance with our handpicked collection of stylish tops, versatile shirts, and comfy tees — perfect for everything from brunch to boardroom.
         </p>
 
-        <button className="mt-6 px-8 py-3 bg-black text-white text-sm tracking-wide font-semibold uppercase rounded-full hover:bg-gray-900 transition-all">
+        <button 
+        onClick={handleClick}
+        className="mt-6 px-8 py-3 bg-black text-white text-sm tracking-wide font-semibold uppercase rounded-full hover:bg-gray-900 transition-all">
           DISCOVER COLLECTION
         </button>
       </div>
