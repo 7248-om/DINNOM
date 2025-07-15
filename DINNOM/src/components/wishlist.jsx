@@ -2,18 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Silk from '../components/Silk';
 import emptyCart from '../assets/navbar/empty cart.png';
-
-const userEmail = "user@example.com"; // Replace with actual logged-in user's email
+import { useAuth } from '../context/AuthContext.jsx';
 
 const Wishlist = () => {
+  const { user, token } = useAuth(); // Get user and token from context
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch wishlist from backend
   useEffect(() => {
+    // Only fetch if the user is logged in and we have a token
+    if (!user || !token) {
+      setLoading(false);
+      return;
+    }
     async function fetchWishlist() {
       try {
-        const res = await fetch(`http://localhost:5050/api/wishlist?email=${userEmail}`);
+        const res = await fetch(`http://localhost:5050/api/wishlist`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         const data = await res.json();
         setWishlistItems(data.wishlist || []);
       } catch (err) {
@@ -22,7 +31,7 @@ const Wishlist = () => {
       setLoading(false);
     }
     fetchWishlist();
-  }, []);
+  }, [user, token]);
 
   // Remove item from wishlist (frontend + backend)
   const handleRemove = async (id) => {

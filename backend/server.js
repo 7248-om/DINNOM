@@ -35,6 +35,20 @@ app.get('/', (req, res) => {
   res.json(['diya', 'nidhi', 'om', 'nihar']);
 });
 
+// Add this GET endpoint to fetch the wishlist
+app.get('/api/wishlist', protect, async (req, res) => {
+  try {
+    // We use req.user.id from the protect middleware, not a query param
+    const user = await User.findById(req.user.id).populate('wishlist');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({ wishlist: user.wishlist });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 app.post('/api/wishlist', protect, async (req, res) => {
   const { product } = req.body;
