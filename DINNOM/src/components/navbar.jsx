@@ -16,6 +16,7 @@ const Navbar = ({ toggleSidebar }) => {
           
           <Link to="/men" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</Link>
           <Link to="/women" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</Link>
+          <Link to="/admin" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Admin</Link>
         </div>
       </div>
 
