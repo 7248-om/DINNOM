@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './styles/App.css';
 import Sidebar from './components/sidebar';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import { AuthProvider, useAuth } from './context/AuthContext.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 import Login from './pages/Login';
 import React, { useEffect, useState } from 'react';
 import Wishlist from './components/wishlist';
@@ -26,7 +26,6 @@ import Intro from './components/Intro';
 import BrandImageSection from './components/BrandBannerFooter';
 
 function App() {
-  const { user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === '/' || location.pathname === '/home';

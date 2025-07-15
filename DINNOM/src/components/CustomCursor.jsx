@@ -54,7 +54,7 @@ const CustomCursor = () => {
           width: '30px',
           height: '30px',
           borderRadius: '50%',
-          border: '2px solid rgba(255, 255, 255, 0.4)',
+          border: '2px solid rgba(60, 60, 60, 0.6)',
           pointerEvents: 'none',
           zIndex: 9998,
           transition: 'border 0.2s ease',

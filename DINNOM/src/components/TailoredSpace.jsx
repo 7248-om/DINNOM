@@ -86,37 +86,39 @@ const TailoredSpace = () => {
 
   return (
     <section className="relative h-[2200px] bg-white font-sans overflow-hidden">
-      {/* ✅ Updated Text Section */}
-      <div className="absolute top-20 left-10 right-10 flex gap-12 items-start">
-        {/* Left Title */}
-        <div className="w-[220px]">
-          <h2 className="text-5xl leading-[1.1] font-serif font-normal">
-            THE<br />TAILORED<br />SPACE
-          </h2>
-          <button className="mt-4 text-xs font-bold underline tracking-wide">
-            GET INSPIRED
-          </button>
-        </div>
+    <div className="absolute top-20 left-10 right-10 flex gap-24 items-start">
+  {/* Left Title */}
+  <div className="w-[220px]">
+    <h2 className="text-4xl leading-[1.1] font-serif font-normal">
+      THE <br /> MONOCHROME <br /> MOVEMENT
+    </h2>
+    <button className="mt-4 text-xs font-bold underline tracking-wide">
+      GET INSPIRED
+    </button>
+  </div>
 
-        {/* Middle Paragraph */}
-        <div className="max-w-[440px] text-[18px] leading-8 font-serif text-black">
-          <p>
-            We have a penchant for unreasonable beauty. Details that others might not
-            notice, we obsess over. Our designs reflect who you are and inspire who
-            you want to be.
-          </p>
-        </div>
+  {/* Middle + Right Block */}
+  <div className="flex items-start gap-10 max-w-6xl">
+    {/* Middle Paragraph */}
+    <div className="max-w-[440px] text-[18px] leading-8 font-serif text-black">
+      <p>
+        At <span className="font-semibold">NOIRÉ</span>, we don’t follow trends — we define timelessness. <br />
+        India’s first monochromatic black fashion house, we embrace the beauty of shadows, contrast, and silhouette. <br />
+        Every piece is crafted to evoke power, elegance, and identity — in all black, always.
+      </p>
+    </div>
 
-        {/* Right Text with Divider */}
-        <div className="flex items-start gap-4">
-          <div className="w-px h-[120px] bg-black" />
-          <p className="text-sm text-black max-w-[220px] leading-6">
-            At <span className="font-semibold">DUCHATEAU</span>, we champion a very
-            specific vision: <br />
-            <span className="font-semibold">Yours.</span> Welcome to your tailored space.
-          </p>
-        </div>
-      </div>
+    {/* Right Text with Divider */}
+    <div className="flex items-start gap-4">
+      <div className="w-px h-[120px] bg-black" />
+      <p className="text-sm text-black max-w-[220px] leading-6">
+        This isn’t just fashion. <br />
+        This is <span className="font-semibold">NOIRÉ</span> — where <span className="font-semibold">black speaks louder than color</span>.
+      </p>
+    </div>
+  </div>
+</div>
+
 
       {/* Image Cards */}
       {images.map((img, i) => (
