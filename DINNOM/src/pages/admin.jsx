@@ -20,11 +20,17 @@ const monthlySalesData = [
 
 const Admin = () => {
   const [product, setProduct] = useState({
+    productId: '',
     name: '',
-    image: '',
     price: '',
+    description: '',
+    gender: '',
     category: '',
-    description: ''
+    stock: '',
+    mainImage: '',
+    hoverImage: '',
+    sizes: '',
+    tags: ''
   });
 
   const handleChange = (e) => {
@@ -33,68 +39,54 @@ const Admin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Product submitted:', product);
-    // Call API or backend logic here
-    setProduct({ name: '', image: '', price: '', category: '', description: '' });
+
+    const formattedProduct = {
+      ...product,
+      price: Number(product.price),
+      stock: Number(product.stock),
+      sizes: product.sizes.split(',').map(s => s.trim()),
+      tags: product.tags.split(',').map(t => t.trim())
+    };
+
+    console.log('Submitted Product:', formattedProduct);
+
+    // You can now POST formattedProduct to your backend API
+
+    setProduct({
+      productId: '',
+      name: '',
+      price: '',
+      description: '',
+      gender: '',
+      category: '',
+      stock: '',
+      mainImage: '',
+      hoverImage: '',
+      sizes: '',
+      tags: ''
+    });
   };
 
   return (
     <div className="min-h-screen bg-white text-black p-8 space-y-10">
-      {/* Heading */}
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard - Fashion Store</h1>
 
       {/* Product Add Form */}
       <section className="bg-gray-100 p-6 rounded-lg shadow space-y-4">
         <h2 className="text-xl font-semibold">Add New Product</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Product Name"
-            className="border p-2 rounded"
-            value={product.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="url"
-            name="image"
-            placeholder="Image URL"
-            className="border p-2 rounded"
-            value={product.image}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            className="border p-2 rounded"
-            value={product.price}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="category"
-            placeholder="Category"
-            className="border p-2 rounded"
-            value={product.category}
-            onChange={handleChange}
-            required
-          />
-          <textarea
-            name="description"
-            placeholder="Description"
-            className="border p-2 rounded col-span-full"
-            value={product.description}
-            onChange={handleChange}
-            rows="3"
-            required
-          />
-          <button type="submit" className="bg-black text-white py-2 px-4 rounded col-span-full">
-            Add Product
-          </button>
+          <input name="productId" value={product.productId} onChange={handleChange} placeholder="Product ID" className="border p-2 rounded" required />
+          <input name="name" value={product.name} onChange={handleChange} placeholder="Product Name" className="border p-2 rounded" required />
+          <input type="number" name="price" value={product.price} onChange={handleChange} placeholder="Price" className="border p-2 rounded" required />
+          <input name="category" value={product.category} onChange={handleChange} placeholder="Category" className="border p-2 rounded" required />
+          <input name="gender" value={product.gender} onChange={handleChange} placeholder="Gender (Male/Female)" className="border p-2 rounded" required />
+          <input type="number" name="stock" value={product.stock} onChange={handleChange} placeholder="Stock" className="border p-2 rounded" required />
+          <input name="mainImage" value={product.mainImage} onChange={handleChange} placeholder="Main Image URL" className="border p-2 rounded" required />
+          <input name="hoverImage" value={product.hoverImage} onChange={handleChange} placeholder="Hover Image URL" className="border p-2 rounded" required />
+          <input name="sizes" value={product.sizes} onChange={handleChange} placeholder="Sizes (comma separated)" className="border p-2 rounded" required />
+          <input name="tags" value={product.tags} onChange={handleChange} placeholder="Tags (comma separated)" className="border p-2 rounded" required />
+          <textarea name="description" value={product.description} onChange={handleChange} placeholder="Description" className="border p-2 rounded col-span-full" rows="3" required />
+          <button type="submit" className="bg-black text-white py-2 px-4 rounded col-span-full">Add Product</button>
         </form>
       </section>
 
