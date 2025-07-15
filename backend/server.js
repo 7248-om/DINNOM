@@ -20,7 +20,7 @@ admin.initializeApp({
 const app = express();
 const PORT = 5050;
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/dinnom';
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/dinnom';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB connected!'))
