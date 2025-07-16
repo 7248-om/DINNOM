@@ -23,7 +23,7 @@ const MenCategoryShowcase5 = () => {
           </p>
           
           {/* Button - Top right */}
-          <button className="bg-black text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-xs md:text-sm tracking-widest font-semibold uppercase hover:bg-gray-800 transition-colors">
+          <button onClick={() => navigate("/men/accessories")} className="bg-black text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-xs md:text-sm tracking-widest font-semibold uppercase hover:bg-gray-800 transition-colors">
             DISCOVER COLLECTION
           </button>
         </div>

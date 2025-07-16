@@ -14,7 +14,7 @@ const MenCategoryShowcase4 = () => {
            and personal tastes. They are essential accessories that complete an outfit, 
            reflecting individuality and sophistication.
           </p>
-          <button className="bg-black text-white px-6 py-3 font-semibold rounded-full uppercase tracking-wide text-sm hover:bg-gray-900 mb-4">
+          <button onClick={() => navigate("/men/footwear")} className="bg-black text-white px-6 py-3 font-semibold rounded-full uppercase tracking-wide text-sm hover:bg-gray-900 mb-4">
             Discover Collection
           </button>
           <img
