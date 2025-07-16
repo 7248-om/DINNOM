@@ -27,6 +27,7 @@ const Admin = () => {
   const [products, setProducts] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [filterCategory, setFilterCategory] = useState('');
+  const [filterGender, setFilterGender] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => { fetchProducts(); }, []);
@@ -123,26 +124,43 @@ const Admin = () => {
     }
   };
 
-  const filteredProducts = filterCategory
-    ? products.filter(p => p.category === filterCategory)
-    : products;
+  const filteredProducts = products.filter(p => {
+    const categoryMatch = filterCategory ? p.category === filterCategory : true;
+    const genderMatch = filterGender ? p.gender === filterGender : true;
+    return categoryMatch && genderMatch;
+  });
 
   return (
     <div className="min-h-screen bg-white text-black p-8 space-y-10">
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard - Fashion Store</h1>
 
-      <div className="mb-4">
-        <label className="mr-2 font-medium">Filter by Category:</label>
-        <select
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-          className="border p-2 rounded"
-        >
-          <option value=''>All</option>
-          {[...new Set(products.map(p => p.category))].map((cat, idx) => (
-            <option key={idx} value={cat}>{cat}</option>
-          ))}
-        </select>
+      <div className="mb-4 flex flex-wrap gap-4 items-center">
+        <div>
+          <label className="mr-2 font-medium">Filter by Category:</label>
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            className="border p-2 rounded"
+          >
+            <option value=''>All</option>
+            {[...new Set(products.map(p => p.category))].map((cat, idx) => (
+              <option key={idx} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="mr-2 font-medium">Filter by Gender:</label>
+          <select
+            value={filterGender}
+            onChange={(e) => setFilterGender(e.target.value)}
+            className="border p-2 rounded"
+          >
+            <option value=''>All</option>
+            <option value='Male'>Male</option>
+            <option value='Female'>Female</option>
+          </select>
+        </div>
       </div>
 
       {/* modal popup for edit/add form */}
@@ -155,8 +173,11 @@ const Admin = () => {
             >✕</button>
             <h2 className="text-xl font-semibold mb-4">{editingId ? 'Edit Product' : 'Add New Product'}</h2>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Object.entries(product).map(([key, val]) => (
-                key !== 'description' ? (
+              {/* Other inputs except gender and description */}
+              {Object.entries(product).map(([key, val]) => {
+                if (key === 'description') return null;
+                if (key === 'gender') return null; // skip gender here
+                return (
                   <input
                     key={key}
                     name={key}
@@ -166,8 +187,22 @@ const Admin = () => {
                     className="border p-2 rounded"
                     required
                   />
-                ) : null
-              ))}
+                );
+              })}
+
+              {/* Gender dropdown */}
+              <select
+                name="gender"
+                value={product.gender}
+                onChange={handleChange}
+                className="border p-2 rounded"
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+
               <textarea
                 name="description"
                 value={product.description}
