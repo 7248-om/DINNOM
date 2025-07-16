@@ -24,7 +24,8 @@ import AdminDashboard from './pages/admin';
 
 import Intro from './components/Intro';
 import BrandImageSection from './components/BrandBannerFooter';
-
+import MenAccesories from './pages/MenAccessories';
+import MenFootwear from './pages/MenFootwear';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
@@ -89,6 +90,8 @@ function App() {
           <Route path="/women/footwear" element={<WomenFootwear />} />
           <Route path="/women/cap" element={<WomenCapsAccessories />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/men/accessories" element={<MenAccesories />} />
+          <Route path="/men/footwear" element={<MenFootwear />} />
         </Routes>
 
         {/* Footer */}
