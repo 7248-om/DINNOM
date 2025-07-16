@@ -85,7 +85,7 @@ function App() {
           <Route path="/women/dresses" element={<WomenDresses />} />
           <Route path="/women/tops" element={<WomenTeesTops />} />
           <Route path="/women/pants" element={<WomenPants />} />
-          <Route path="/women/sweatshirts" element={<WomenHoodies />} />
+          <Route path="/women/hoodies" element={<WomenHoodies />} />
           <Route path="/women/footwear" element={<WomenFootwear />} />
           <Route path="/women/cap" element={<WomenCapsAccessories />} />
           <Route path="/admin" element={<AdminDashboard />} />
