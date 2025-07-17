@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "./Navbar";
-import Footer from "./Footer";
+// import Footer from "./Footer";
 import Sidebar from "./sidebar";
 
 const CategoriesExpand = ({ products }) => {
@@ -31,7 +31,7 @@ const CategoriesExpand = ({ products }) => {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
