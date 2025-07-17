@@ -4,30 +4,28 @@ const userSchema = new mongoose.Schema({
   googleId: {
     type: String,
     unique: true,
-    sparse: true // Allows multiple documents to have a null googleId, but unique if it exists
+    sparse: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   displayName: {
-    type: String
+    type: String,
   },
-  // This is the crucial field that was likely missing
   photoURL: {
-    type: String
+    type: String,
   },
   wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product' // Assuming you have a Product model
+    ref: 'Product',
   }],
   orders: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Order' // Assuming you have an Order model
+    ref: 'Order',
   }],
 }, { timestamps: true });
 
-const User = mongoose.model('User', userSchema);
-
+const User = mongoose.models.User || mongoose.model('User', userSchema);
 export default User;

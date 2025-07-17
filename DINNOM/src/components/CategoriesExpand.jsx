@@ -9,8 +9,10 @@ const CategoriesExpand = ({ products }) => {
   // Preload hover images
   useEffect(() => {
     products.forEach((product) => {
-      const img = new Image();
-      img.src = product.hoverImage;
+      if (product.hoverImage) {
+        const img = new Image();
+        img.src = product.hoverImage;
+      }
     });
   }, [products]);
 
@@ -26,7 +28,7 @@ const CategoriesExpand = ({ products }) => {
       <div className="px-6 py-12 bg-white min-h-screen">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {products.map((product) => (
-            <HoverProductCard key={product.id} product={product} />
+            <HoverProductCard key={product._id} product={product} />
           ))}
         </div>
       </div>
@@ -47,7 +49,7 @@ const HoverProductCard = ({ product }) => {
     >
       <div className="w-full aspect-[3/4] bg-gray-100 overflow-hidden rounded-lg">
         <img
-          src={isHovered ? product.hoverImage : product.image}
+          src={isHovered && product.hoverImage ? product.hoverImage : product.mainImage}
           alt={product.name}
           className="w-full h-full object-cover transition-all duration-300 hover:scale-105"
         />

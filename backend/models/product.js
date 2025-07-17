@@ -28,46 +28,40 @@ const productSchema = new mongoose.Schema({
     type: String,
     enum: ['Male', 'Female'],
   },
-  //Product category (e.g., Shirts, Dresses, Footwear)
+  // Product category (e.g., Shirts, Dresses, Footwear)
   category: {
     type: String,
     required: true,
   },
-
   // Quantity
   stock: {
     type: Number,
     required: true,
     default: 0,
   },
-
-  // Main image URL or path
+  // Main image URL
   mainImage: {
     type: String,
     required: true,
   },
-
   // Image shown on hover
   hoverImage: {
     type: String,
     required: true,
   },
-
   // Array of available sizes (e.g., ['S', 'M', 'L'])
   sizes: {
     type: [String],
     default: [],
   },
+  // Optional tags
   tags: {
     type: [String],
     default: [],
   },
-},
-{
-  // Automatically add createdAt and updatedAt fields
+}, {
   timestamps: true,
 });
 
 const Product = mongoose.model('Product', productSchema);
-
 export default Product;

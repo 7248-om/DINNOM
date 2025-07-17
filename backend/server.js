@@ -6,9 +6,9 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import admin from 'firebase-admin'; 
 
-import authRoutes from './auth.js';
+import authRoutes from './routes/auth.js';
 import { protect } from './middleware/authMiddleware.js';
-import User from './models/User.js';
+import User from './models/user.js';
 import Order from './models/order.js';
 import Product from './models/product.js';
 import serviceAccount from './serviceAccountKey.json' with { type: 'json' };
