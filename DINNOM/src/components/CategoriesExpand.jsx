@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from "./Navbar";
 // import Footer from "./Footer";
 import Sidebar from "./sidebar";
 
 const CategoriesExpand = ({ products }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Preload hover images
   useEffect(() => {
@@ -28,7 +30,7 @@ const CategoriesExpand = ({ products }) => {
       <div className="px-6 py-12 bg-white min-h-screen">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {products.map((product) => (
-            <HoverProductCard key={product._id} product={product} />
+            <HoverProductCard key={product._id} product={product} navigate={navigate} />
           ))}
         </div>
       </div>
@@ -38,12 +40,17 @@ const CategoriesExpand = ({ products }) => {
   );
 };
 
-const HoverProductCard = ({ product }) => {
+const HoverProductCard = ({ product, navigate }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const handleClick = () => {
+    navigate(`/product/${product._id}`);
+  };
 
   return (
     <div
       className="flex flex-col items-center cursor-pointer"
+      onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
