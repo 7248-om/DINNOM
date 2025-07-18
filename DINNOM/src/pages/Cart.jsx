@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // ✅ Correct placement
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const navigate = useNavigate(); // ✅ Moved inside component
-
+  const navigate = useNavigate();
   const [cart, setCart] = useState(null);
   const [error, setError] = useState('');
   const [updating, setUpdating] = useState(false);
@@ -27,11 +26,11 @@ const Cart = () => {
     try {
       setUpdating(true);
       await axios.post(
-        'http://localhost:5050/api/cart/add',
+        'http://localhost:5050/api/cart',
         {
           productId,
           selectedSize,
-          quantity: newQty,
+          quantity: newQty, // ✅ FIXED: used correct variable
           absolute: true,
         },
         {
@@ -44,6 +43,16 @@ const Cart = () => {
       setError('Error updating quantity');
     } finally {
       setUpdating(false);
+    }
+  };
+
+  const handleIncrement = (productId, selectedSize, currentQty) => {
+    updateQuantity(productId, selectedSize, currentQty + 1);
+  };
+
+  const handleDecrement = (productId, selectedSize, currentQty) => {
+    if (currentQty > 1) {
+      updateQuantity(productId, selectedSize, currentQty - 1);
     }
   };
 
@@ -103,7 +112,7 @@ const Cart = () => {
             <button
               disabled={updating}
               onClick={() =>
-                updateQuantity(item.productId._id, item.selectedSize, item.quantity - 1)
+                handleDecrement(item.productId._id, item.selectedSize, item.quantity)
               }
               className="px-3 py-1 border rounded"
             >
@@ -113,7 +122,7 @@ const Cart = () => {
             <button
               disabled={updating}
               onClick={() =>
-                updateQuantity(item.productId._id, item.selectedSize, item.quantity + 1)
+                handleIncrement(item.productId._id, item.selectedSize, item.quantity)
               }
               className="px-3 py-1 border rounded"
             >

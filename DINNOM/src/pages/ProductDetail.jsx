@@ -37,7 +37,7 @@ const ProductDetail = () => {
       }
 
       await axios.post(
-  'http://localhost:5050/api/cart/add',
+  'http://localhost:5050/api/cart',
   {
     productId: product._id,
     selectedSize,

@@ -6,11 +6,10 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// ADD or UPDATE quantity
-// routes/cart.js
+// ADD or UPDATE quantity (supports absolute updates)
 router.post('/', protect, async (req, res) => {
   const userId = req.user.id;
-  const { productId, quantity, selectedSize } = req.body;
+  const { productId, quantity, selectedSize, absolute = false } = req.body;
 
   let cart = await Cart.findOne({ userId });
 
@@ -19,11 +18,17 @@ router.post('/', protect, async (req, res) => {
   }
 
   const existingItemIndex = cart.items.findIndex(
-    item => item.productId.equals(productId) && item.selectedSize === selectedSize
+    item =>
+      item.productId.equals(productId) &&
+      item.selectedSize === selectedSize
   );
 
   if (existingItemIndex !== -1) {
-    cart.items[existingItemIndex].quantity += quantity;
+    if (absolute) {
+      cart.items[existingItemIndex].quantity = quantity;
+    } else {
+      cart.items[existingItemIndex].quantity += quantity;
+    }
   } else {
     cart.items.push({ productId, quantity, selectedSize });
   }
@@ -32,13 +37,12 @@ router.post('/', protect, async (req, res) => {
   res.status(200).json({ message: 'Cart updated', cart });
 });
 
-
 // FETCH cart
 router.get('/', protect, async (req, res) => {
   const userId = req.user._id;
 
   try {
-const cart = await Cart.findOne({ userId }).populate('items.productId');
+    const cart = await Cart.findOne({ userId }).populate('items.productId');
     res.status(200).json(cart || { items: [] });
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch cart' });
