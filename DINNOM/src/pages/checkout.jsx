@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,21 +13,31 @@ const Checkout = () => {
   const [error, setError] = useState('');
   const [placingOrder, setPlacingOrder] = useState(false);
 
+  const token = localStorage.getItem('token');
+
   const handleChange = (e) => {
-    setShippingAddress({ ...shippingAddress, [e.target.name]: e.target.value });
+    setShippingAddress({
+      ...shippingAddress,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setPlacingOrder(true);
-    const token = localStorage.getItem('token');
+    setError('');
 
     try {
       const res = await axios.post(
         'http://localhost:5050/api/orders',
         { shippingAddress },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+
       navigate(`/order-success/${res.data.orderId}`);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to place order');
