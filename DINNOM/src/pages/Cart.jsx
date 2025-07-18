@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // ✅ Correct placement
 
 const Cart = () => {
+  const navigate = useNavigate(); // ✅ Moved inside component
+
   const [cart, setCart] = useState(null);
   const [error, setError] = useState('');
   const [updating, setUpdating] = useState(false);
@@ -19,7 +22,6 @@ const Cart = () => {
     }
   };
 
-  // ✅ Update quantity absolutely (not incrementally)
   const updateQuantity = async (productId, selectedSize, newQty) => {
     if (newQty <= 0) return;
     try {
@@ -30,7 +32,7 @@ const Cart = () => {
           productId,
           selectedSize,
           quantity: newQty,
-          absolute: true, // 🔥 ensures fixed value
+          absolute: true,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -131,7 +133,10 @@ const Cart = () => {
       <div className="text-right text-xl font-bold">Total: ₹{total}</div>
 
       <div className="text-right">
-        <button className="bg-black text-white px-6 py-2 rounded-full">
+        <button
+          className="bg-black text-white px-6 py-2 rounded-full"
+          onClick={() => navigate('/checkout')}
+        >
           Proceed to Checkout
         </button>
       </div>

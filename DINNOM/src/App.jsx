@@ -23,6 +23,8 @@ import Men from "./pages/Men";
 import Women from './pages/Women';
 import ProductDetails from "./pages/ProductDetail";
 import Cart from './pages/Cart'; // ✅ Cart page
+import Checkout from './pages/checkout';
+import OrderSuccess from './pages/OrderSuccess';
 
 // Women Category Pages
 import WomenDresses from './pages/WomenDresses';
@@ -69,6 +71,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           {/* <Route path="/wishlist" element={<Wishlist />} /> */}
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-success/:orderId" element={<OrderSuccess />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/product/:id" element={<ProductDetails />} />
 

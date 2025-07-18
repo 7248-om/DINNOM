@@ -11,9 +11,12 @@ import { protect } from './middleware/authMiddleware.js';
 import User from './models/user.js';
 import Order from './models/order.js';
 import Product from './models/product.js';
-import serviceAccount from './serviceAccountKey.json' with { type: 'json' };
-import cartRoutes from './routes/cart.js'; // ✅ add this
+// Correct JSON import with assert for ES modules
+import fs from 'fs';
+const serviceAccount = JSON.parse(fs.readFileSync(new URL('./serviceAccountKey.json', import.meta.url)));
 
+import cartRoutes from './routes/cart.js';
+import orderRoutes from './routes/order.js';
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -32,17 +35,16 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
-app.use('/api/cart', cartRoutes); // ✅ add this
-
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
 
 app.get('/', (req, res) => {
   res.json(['diya', 'nidhi', 'om', 'nihar']);
 });
 
-// Add this GET endpoint to fetch the wishlist
+// Wishlist GET
 app.get('/api/wishlist', protect, async (req, res) => {
   try {
-    // We use req.user.id from the protect middleware, not a query param
     const user = await User.findById(req.user.id).populate('wishlist');
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -53,7 +55,7 @@ app.get('/api/wishlist', protect, async (req, res) => {
   }
 });
 
-
+// Wishlist POST
 app.post('/api/wishlist', protect, async (req, res) => {
   const { product } = req.body;
   try {
@@ -68,7 +70,7 @@ app.post('/api/wishlist', protect, async (req, res) => {
   }
 });
 
-
+// Bill POST
 app.post('/api/bill', protect, async (req, res) => {
   const { bill } = req.body;
   try {
@@ -83,6 +85,7 @@ app.post('/api/bill', protect, async (req, res) => {
   }
 });
 
+// Orders POST
 app.post('/api/orders', protect, async (req, res) => {
   const { orderItems, shippingAddress, totalAmount } = req.body;
 
@@ -100,9 +103,8 @@ app.post('/api/orders', protect, async (req, res) => {
 
     const createdOrder = await order.save();
 
-    // Optionally, you can add the order ID to the user's document
     await User.findByIdAndUpdate(req.user.id, {
-        $push: { orders: createdOrder._id }
+      $push: { orders: createdOrder._id }
     });
 
     res.status(201).json(createdOrder);
@@ -111,6 +113,7 @@ app.post('/api/orders', protect, async (req, res) => {
   }
 });
 
+// Products GET all
 app.get('/api/products', async (req, res) => {
   try {
     const products = await Product.find({});
@@ -120,6 +123,7 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
+// Products GET by ID
 app.get('/api/products/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -133,20 +137,18 @@ app.get('/api/products/:id', async (req, res) => {
   }
 });
 
+// Products POST (create)
 app.post('/api/products', protect, async (req, res) => {
-  // Note: In a real app, you'd want admin-only authorization here.
   try {
-    // Use the `Product` model to create a new product from the request body
     const product = new Product(req.body);
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
   } catch (err) {
-    // Send a 400 Bad Request for validation errors
     res.status(400).json({ error: err.message });
   }
 });
 
-// Edit a product by ID
+// Products PUT (update)
 app.put('/api/products/:id', protect, async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
@@ -160,7 +162,7 @@ app.put('/api/products/:id', protect, async (req, res) => {
   }
 });
 
-// Delete a product by ID
+// Products DELETE
 app.delete('/api/products/:id', protect, async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
@@ -169,7 +171,6 @@ app.delete('/api/products/:id', protect, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
