@@ -12,6 +12,8 @@ import User from './models/user.js';
 import Order from './models/order.js';
 import Product from './models/product.js';
 import serviceAccount from './serviceAccountKey.json' with { type: 'json' };
+import cartRoutes from './routes/cart.js'; // ✅ add this
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -30,6 +32,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/cart', cartRoutes); // ✅ add this
+
 
 app.get('/', (req, res) => {
   res.json(['diya', 'nidhi', 'om', 'nihar']);

@@ -8,6 +8,7 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   useEffect(() => {
     axios.get(`http://localhost:5050/api/products/${id}`)
@@ -15,7 +16,10 @@ const ProductDetail = () => {
       .catch((err) => console.error('Failed to load product', err));
   }, [id]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+    setError('');
+    setSuccess('');
+
     if (!selectedSize) {
       setError('Please select a size');
       return;
@@ -25,9 +29,33 @@ const ProductDetail = () => {
       return;
     }
 
-    // Example: Add to localStorage/cart context or send to API
-    console.log("Added to cart:", { ...product, selectedSize, quantity });
-    setError('');
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('You must be logged in to add items to the cart.');
+        return;
+      }
+
+      await axios.post(
+  'http://localhost:5050/api/cart/add',
+  {
+    productId: product._id,
+    selectedSize,
+    quantity
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
+
+
+      setSuccess('Item added to cart!');
+    } catch (err) {
+      console.error(err);
+      setError('Failed to add item to cart');
+    }
   };
 
   if (!product) return <div>Loading...</div>;
@@ -95,8 +123,9 @@ const ProductDetail = () => {
           <p className="text-gray-600">{product.description}</p>
         </div>
 
-        {/* Error */}
+        {/* Error / Success */}
         {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-600">{success}</p>}
 
         {/* Add to Cart */}
         <button

@@ -37,9 +37,10 @@ const Navbar = ({ toggleSidebar }) => {
           />
           <BiSearch className="w-7 h-7 text-gray-600" />
         </div>
-        <Link to="/wishlist" className="p-2 hover:bg-gray-100 rounded-full flex items-center justify-center">
-          <BiSolidBasket className="w-8 h-8 text-gray-700" />
-        </Link>
+        <Link to="/cart" className="p-2 hover:bg-gray-100 rounded-full flex items-center justify-center">
+  <BiSolidBasket className="w-8 h-8 text-gray-700" />
+</Link>
+
           {user ? (
             <>
               {user.photoURL ? (
