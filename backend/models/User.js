@@ -17,10 +17,6 @@ const userSchema = new mongoose.Schema({
   photoURL: {
     type: String,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false, // 🔒 By default, every user is NOT admin
-  },
   wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product',
@@ -29,7 +25,6 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Order',
   }],
-  isAdmin: { type: Boolean, default: false }, // ✅ include this field
 }, { timestamps: true });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Particles from './Particles';
 import Tilt from 'react-parallax-tilt';
+import { auth, provider, signInWithPopup } from '../firebase';
 import { useAuth } from '../context/AuthContext';
 
 const LoginForm = () => {
   const [phone, setPhone] = useState('');
-  const { loginWithGoogle, authLoading } = useAuth();
-  const navigate = useNavigate();
+  const { login } = useAuth();
+  const navigate = useNavigate(); // This line was duplicated
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,16 +17,39 @@ const LoginForm = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      await loginWithGoogle();
+      const result = await signInWithPopup(auth, provider);
+      const firebaseUser = result.user;
+
+      // 1. Get the idToken from Firebase to send to the backend
+      const idToken = await firebaseUser.getIdToken();
+
+      // 2. Send the token to your backend
+      const response = await fetch('http://localhost:5050/api/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Authentication failed on the server.');
+      }
+
+      // 3. Get your custom app token and user data from your backend
+      const { token: appToken, user: userData } = await response.json();
+      console.log('User data received from backend:', userData); // DEBUG: Check if photoURL is in the user object
+      login(userData, appToken);
       navigate('/');
-    } catch (err) {
-      console.error("Google login error:", err);
-      alert("Google authentication failed. Check console for details.");
+    } catch (error) {
+      alert(error.message);
     }
   };
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
+      {/* Particles Background */}
       <div className="absolute inset-0 z-0 pointer-events-auto">
         <Particles
           particleColors={["#ffffff", "#ffffff"]}
@@ -39,6 +63,7 @@ const LoginForm = () => {
         />
       </div>
 
+      {/* Tilted Login Card */}
       <div className="relative z-10 flex justify-center items-center min-h-screen px-4 pointer-events-none">
         <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} glareEnable={true} glareMaxOpacity={0.2} className="pointer-events-auto">
           <div className="bg-white/10 backdrop-blur-md border border-white/30 shadow-2xl p-10 rounded-3xl w-[22rem] text-white">
@@ -59,11 +84,10 @@ const LoginForm = () => {
               <button
                 type="button"
                 onClick={handleGoogleLogin}
-                disabled={authLoading}
                 className="flex-1 border border-white/30 rounded px-4 py-2 flex items-center justify-center bg-white/5 hover:bg-white/10 transition"
               >
                 <img src="https://img.icons8.com/ios-filled/24/ffffff/google-logo.png" alt="google" className="mr-2" />
-                {authLoading ? 'Loading...' : 'Google'}
+                Google
               </button>
             </div>
 
@@ -86,6 +110,7 @@ const LoginForm = () => {
               <Link
                 to="/"
                 className="w-full block py-2 rounded font-semibold border border-white bg-white text-black hover:bg-black hover:text-white transition text-center"
+                style={{ textDecoration: "none" }}
               >
                 Go back to Home
               </Link>

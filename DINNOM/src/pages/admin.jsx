@@ -1,6 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer
+} from 'recharts';
 
-const AdminProducts = () => {
+const monthlySalesData = [
+  { name: 'Jan', sales: 500 },
+  { name: 'Feb', sales: 700 },
+  { name: 'Mar', sales: 600 },
+  { name: 'Apr', sales: 800 },
+  { name: 'May', sales: 750 },
+  { name: 'Jun', sales: 950 },
+  { name: 'Jul', sales: 850 },
+  { name: 'Aug', sales: 1100 },
+  { name: 'Sep', sales: 1000 },
+  { name: 'Oct', sales: 1200 },
+  { name: 'Nov', sales: 1300 },
+  { name: 'Dec', sales: 1500 },
+];
+
+const Admin = () => {
   const [product, setProduct] = useState({
     productId: '', name: '', price: '', description: '', gender: '', category: '',
     stock: '', mainImage: '', hoverImage: '', sizes: '', tags: ''
@@ -58,10 +76,7 @@ const AdminProducts = () => {
 
       if (response.ok) {
         alert(editingId ? 'Product updated successfully' : 'Product added successfully');
-        setProduct({
-          productId: '', name: '', price: '', description: '', gender: '', category: '',
-          stock: '', mainImage: '', hoverImage: '', sizes: '', tags: ''
-        });
+        setProduct({ productId: '', name: '', price: '', description: '', gender: '', category: '', stock: '', mainImage: '', hoverImage: '', sizes: '', tags: '' });
         setEditingId(null);
         setShowModal(false);
         fetchProducts();
@@ -87,7 +102,8 @@ const AdminProducts = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this product?')) return;
+    const confirm = window.confirm('Are you sure you want to delete this product?');
+    if (!confirm) return;
 
     try {
       const response = await fetch(`http://localhost:5050/api/products/${id}`, {
@@ -115,43 +131,30 @@ const AdminProducts = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">🛍 Products</h1>
-        <button
-          onClick={() => {
-            setShowModal(true);
-            setProduct({ productId: '', name: '', price: '', description: '', gender: '', category: '', stock: '', mainImage: '', hoverImage: '', sizes: '', tags: '' });
-            setEditingId(null);
-          }}
-          className="bg-black text-white px-5 py-2 rounded hover:bg-gray-800 transition"
-        >
-          + Add Product
-        </button>
-      </div>
+    <div className="min-h-screen bg-white text-black p-8 space-y-10">
+      <h1 className="text-2xl font-bold mb-4">Admin Dashboard - Fashion Store</h1>
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-4 mb-6">
+      <div className="mb-4 flex flex-wrap gap-4 items-center">
         <div>
-          <label className="mr-2 font-medium">Category:</label>
+          <label className="mr-2 font-medium">Filter by Category:</label>
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="border rounded px-3 py-1"
+            className="border p-2 rounded"
           >
             <option value=''>All</option>
-            {[...new Set(products.map(p => p.category))].map((cat, i) => (
-              <option key={i} value={cat}>{cat}</option>
+            {[...new Set(products.map(p => p.category))].map((cat, idx) => (
+              <option key={idx} value={cat}>{cat}</option>
             ))}
           </select>
         </div>
 
         <div>
-          <label className="mr-2 font-medium">Gender:</label>
+          <label className="mr-2 font-medium">Filter by Gender:</label>
           <select
             value={filterGender}
             onChange={(e) => setFilterGender(e.target.value)}
-            className="border rounded px-3 py-1"
+            className="border p-2 rounded"
           >
             <option value=''>All</option>
             <option value='Male'>Male</option>
@@ -160,21 +163,20 @@ const AdminProducts = () => {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* modal popup for edit/add form */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-2xl relative">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg w-full max-w-2xl relative">
             <button
               onClick={() => { setShowModal(false); setEditingId(null); }}
-              className="absolute top-3 right-4 text-xl text-gray-600 hover:text-black"
-            >
-              ✕
-            </button>
-            <h2 className="text-xl font-bold mb-4">{editingId ? 'Edit Product' : 'Add Product'}</h2>
-
+              className="absolute top-2 right-2 text-xl text-gray-600 hover:text-black"
+            >✕</button>
+            <h2 className="text-xl font-semibold mb-4">{editingId ? 'Edit Product' : 'Add New Product'}</h2>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Other inputs except gender and description */}
               {Object.entries(product).map(([key, val]) => {
-                if (key === 'description' || key === 'gender') return null;
+                if (key === 'description') return null;
+                if (key === 'gender') return null; // skip gender here
                 return (
                   <input
                     key={key}
@@ -188,6 +190,7 @@ const AdminProducts = () => {
                 );
               })}
 
+              {/* Gender dropdown */}
               <select
                 name="gender"
                 value={product.gender}
@@ -209,8 +212,7 @@ const AdminProducts = () => {
                 rows="3"
                 required
               />
-
-              <button type="submit" className="bg-black text-white py-2 px-4 rounded col-span-full hover:bg-gray-800">
+              <button type="submit" className="bg-black text-white py-2 px-4 rounded col-span-full">
                 {editingId ? 'Update Product' : 'Add Product'}
               </button>
             </form>
@@ -218,44 +220,69 @@ const AdminProducts = () => {
         </div>
       )}
 
-      {/* Product Table */}
-      <div className="bg-white rounded-lg shadow overflow-x-auto">
-        <table className="min-w-full">
-          <thead className="bg-gray-100 text-left text-sm font-medium text-gray-600">
-            <tr>
-              <th className="px-4 py-2">Name</th>
-              <th className="px-4 py-2">Category</th>
-              <th className="px-4 py-2">Price</th>
-              <th className="px-4 py-2 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-sm divide-y">
-            {filteredProducts.map(prod => (
-              <tr key={prod._id} className="hover:bg-gray-50">
-                <td className="px-4 py-2">{prod.name}</td>
-                <td className="px-4 py-2">{prod.category}</td>
-                <td className="px-4 py-2">₹{prod.price}</td>
-                <td className="px-4 py-2 text-center space-x-3">
-                  <button
-                    onClick={() => handleEdit(prod)}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(prod._id)}
-                    className="text-red-600 hover:underline"
-                  >
-                    Delete
-                  </button>
-                </td>
+      {/* add product button */}
+      <button
+        onClick={() => { setShowModal(true); setProduct({ productId: '', name: '', price: '', description: '', gender: '', category: '', stock: '', mainImage: '', hoverImage: '', sizes: '', tags: '' }); setEditingId(null); }}
+        className="bg-black text-white px-4 py-2 rounded"
+      >
+        Add New Product
+      </button>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold">Product List</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border">
+            <thead className="bg-black text-white">
+              <tr>
+                <th className="px-4 py-2">Name</th>
+                <th className="px-4 py-2">Category</th>
+                <th className="px-4 py-2">Price</th>
+                <th className="px-4 py-2">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filteredProducts.map(prod => (
+                <tr key={prod._id} className="text-center">
+                  <td className="border px-4 py-2">{prod.name}</td>
+                  <td className="border px-4 py-2">{prod.category}</td>
+                  <td className="border px-4 py-2">{prod.price}</td>
+                  <td className="border px-4 py-2">
+                    <button onClick={() => handleEdit(prod)} className="text-blue-600 mr-2">Edit</button>
+                    <button onClick={() => handleDelete(prod._id)} className="text-red-600">Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StatCard title="Total Products" value={products.length.toString()} />
+        <StatCard title="Total Sales" value="$120,000" />
+        <StatCard title="Most Sold Product" value="Black Oversized Hoodie" />
+      </section>
+
+      <section className="bg-gray-100 p-6 rounded-lg shadow">
+        <h2 className="text-xl font-semibold mb-4">Monthly Sales</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={monthlySalesData}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="sales" fill="#333" />
+          </BarChart>
+        </ResponsiveContainer>
+      </section>
     </div>
   );
 };
 
-export default AdminProducts;
+const StatCard = ({ title, value }) => (
+  <div className="bg-gray-100 p-4 rounded-lg shadow text-center">
+    <div className="text-sm text-gray-600">{title}</div>
+    <div className="text-xl font-bold mt-2">{value}</div>
+  </div>
+);
+
+export default Admin;

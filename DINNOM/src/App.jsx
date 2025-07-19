@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './styles/App.css';
 import React, { useEffect, useState } from 'react';
 
@@ -7,30 +7,26 @@ import Navbar from './components/navbar';
 import Sidebar from './components/sidebar';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
-import Chatbot from './components/Chatbot';
+import Chatbot from './components/Chatbot'; // Import the Chatbot
+//import './styles/Chatbot.css'; // Import the Chatbot styles
 import Intro from './components/Intro';
 import BrandImageSection from './components/BrandBannerFooter';
 
 // Context Providers
 import { AuthProvider } from './context/AuthContext';
-import CartProvider from './context/CartProvider';
+import CartProvider from './context/CartProvider'; // ✅ Import CartProvider
 
 // Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
+// import Wishlist from './components/wishlist';
+import AdminDashboard from './pages/admin';
 import Men from "./pages/Men";
 import Women from './pages/Women';
 import ProductDetails from "./pages/ProductDetail";
-import Cart from './pages/Cart';
+import Cart from './pages/Cart'; // ✅ Cart page
 import Checkout from './pages/checkout';
 import OrderSuccess from './pages/OrderSuccess';
-
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminProducts from './pages/admin/AdminProducts';
-import AdminOrders from './pages/admin/AdminOrders';
-import AdminStats from './pages/admin/AdminStats';
-
-// import AdminCoupons from './pages/Admin/admincoupons';
 
 // Women Category Pages
 import WomenDresses from './pages/WomenDresses';
@@ -67,7 +63,7 @@ function App() {
       <CustomCursor />
       <Intro />
       <Navbar toggleSidebar={() => setSidebarOpen(true)} />
-      <Chatbot />
+      <Chatbot /> {/* Add the Chatbot component here */}
       <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
 
       <main className="pt-24 px-4 bg-white">
@@ -76,9 +72,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          {/* <Route path="/wishlist" element={<Wishlist />} /> */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success/:orderId" element={<OrderSuccess />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/product/:id" element={<ProductDetails />} />
 
           {/* Men */}
@@ -98,15 +96,6 @@ function App() {
           <Route path="/women/hoodies" element={<WomenHoodies />} />
           <Route path="/women/footwear" element={<WomenFootwear />} />
           <Route path="/women/capsaccessories" element={<WomenCapsAccessories />} />
-
-          {/* Admin Dashboard & Subroutes */}
-          <Route path="/admin" element={<AdminDashboard />}>
-  <Route index element={<Navigate to="products" replace />} />
-  <Route path="products" element={<AdminProducts />} />
-  <Route path="orders" element={<AdminOrders />} />
-  <Route path="stats" element={<AdminStats />} />
-</Route>
-
         </Routes>
 
         <Footer />
@@ -121,7 +110,7 @@ export default function AppWrapper() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <CartProvider>
+        <CartProvider> {/* ✅ Wrap App with CartProvider */}
           <App />
         </CartProvider>
       </AuthProvider>
