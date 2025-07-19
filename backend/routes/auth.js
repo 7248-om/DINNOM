@@ -1,53 +1,52 @@
-// backend/routes/auth.js
-
 import express from 'express';
-import admin from 'firebase-admin';
 import jwt from 'jsonwebtoken';
-import User from '../models/user.js'; // ✅ lowercase filename import
+import admin from '../firebaseAdmin.js';
+import User from '../models/User.js';
 
 const router = express.Router();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-key-that-is-long-and-secure';
+const JWT_SECRET = process.env.JWT_SECRET || 'your_default_jwt_secret';
 
 router.post('/google', async (req, res) => {
-  const { idToken } = req.body;
+  const { token } = req.body;
+  console.log("Received token from frontend:", token);
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const { name, picture, email, uid } = decodedToken;
+    // Verify token using Firebase Admin SDK
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    const { email, name, picture, uid } = decodedToken;
 
-    const user = await User.findOneAndUpdate(
-      { googleId: uid },
+    // Find or create the user in your MongoDB
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = await User.create({ email, name, picture });
+    }
+
+    // Generate your own JWT
+    const jwtToken = jwt.sign(
       {
-        $set: {
-          displayName: name,
-          email: email,
-          photoURL: picture,
-        },
-        $setOnInsert: {
-          googleId: uid,
-        }
+        id: user._id,
+        email: user.email,
+        name: user.name,
       },
-      { upsert: true, new: true, setDefaultsOnInsert: true }
+      JWT_SECRET,
+      { expiresIn: '7d' }
     );
 
-    const appToken = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' });
-
     res.status(200).json({
-      token: appToken,
+      token: jwtToken,
       user: {
         id: user._id,
-        displayName: user.displayName,
+        name: user.name,
         email: user.email,
-        photoURL: user.photoURL,
-        wishlist: user.wishlist || [],
-      }
+        picture: user.picture,
+      },
     });
-
   } catch (error) {
-    console.error('Google login error:', error);
-    res.status(401).json({ message: 'Authentication failed.' });
-  }
+  console.error('Google OAuth token verification error:', error);
+  return res.status(401).json({ error: error.message || 'Invalid token' });
+}
+
 });
 
 export default router;

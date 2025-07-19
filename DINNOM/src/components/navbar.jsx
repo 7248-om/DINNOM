@@ -7,18 +7,28 @@ import logo from '../assets/navbar/only logo.jpeg';
 
 const Navbar = ({ toggleSidebar }) => {
   const { user, logout } = useAuth();
+
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow flex items-center justify-between px-8 py-5 z-50 h-20">
       <div className="flex items-center space-x-8">
         <button onClick={toggleSidebar} className="p-2 mr-6 flex items-center justify-center">
           <BsJustify className="w-9 h-9 text-gray-700" />
         </button>
-        
+
         <div className="hidden md:flex space-x-8">
-          
-          <Link to="/men" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</Link>
-          <Link to="/women" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</Link>
-          <Link to="/admin" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Admin</Link>
+          <Link to="/men" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">
+            Men
+          </Link>
+          <Link to="/women" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">
+            Women
+          </Link>
+
+          {/* ✅ Show Admin only if user is admin */}
+          {user?.isAdmin && (
+            <Link to="/admin/products" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">
+              Admin
+            </Link>
+          )}
         </div>
       </div>
 
@@ -37,35 +47,38 @@ const Navbar = ({ toggleSidebar }) => {
           />
           <BiSearch className="w-7 h-7 text-gray-600" />
         </div>
-        <Link to="/cart" className="p-2 hover:bg-gray-100 rounded-full flex items-center justify-center">
-  <BiSolidBasket className="w-8 h-8 text-gray-700" />
-</Link>
 
-          {user ? (
-            <>
-              {user.photoURL ? (
-                <img
-                  src={user.photoURL}
-                  alt={user.displayName}
-                  className="w-8 h-8 rounded-full object-cover cursor-pointer"
-                />
-              ) : (
-                <BiUserCircle className="w-8 h-8 text-gray-700" />
-              )}
-              <button
-                onClick={logout}
-                className="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <Link
-              to="/login"
-              className="p-2 hover:bg-gray-100 rounded-full flex items-center justify-center"
-            >
+        <Link to="/cart" className="p-2 hover:bg-gray-100 rounded-full flex items-center justify-center">
+          <BiSolidBasket className="w-8 h-8 text-gray-700" />
+        </Link>
+
+        {user ? (
+          <>
+            {user.photoURL ? (
+              <img
+                src={user.photoURL}
+                alt={user.displayName || 'User'}
+                className="w-8 h-8 rounded-full object-cover cursor-pointer"
+              />
+            ) : (
               <BiUserCircle className="w-8 h-8 text-gray-700" />
-            </Link>)}
+            )}
+
+            <button
+              onClick={logout}
+              className="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <Link
+            to="/login"
+            className="p-2 hover:bg-gray-100 rounded-full flex items-center justify-center"
+          >
+            <BiUserCircle className="w-8 h-8 text-gray-700" />
+          </Link>
+        )}
       </div>
     </nav>
   );
