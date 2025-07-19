@@ -3,10 +3,12 @@ import './styles/App.css';
 import React, { useEffect, useState } from 'react';
 
 // Components
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar';
 import Sidebar from './components/sidebar';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
+import Chatbot from './components/Chatbot'; // Import the Chatbot
+//import './styles/Chatbot.css'; // Import the Chatbot styles
 import Intro from './components/Intro';
 import BrandImageSection from './components/BrandBannerFooter';
 
@@ -61,6 +63,7 @@ function App() {
       <CustomCursor />
       <Intro />
       <Navbar toggleSidebar={() => setSidebarOpen(true)} />
+      <Chatbot /> {/* Add the Chatbot component here */}
       <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
 
       <main className="pt-24 px-4 bg-white">
