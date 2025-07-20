@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 // Components
 import Navbar from './components/navbar';
-import Sidebar from './components/sidebar';
+import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import Chatbot from './components/Chatbot';
