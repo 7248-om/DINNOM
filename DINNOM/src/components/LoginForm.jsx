@@ -24,7 +24,7 @@ const LoginForm = () => {
       const idToken = await firebaseUser.getIdToken();
 
       // 2. Send the token to your backend
-      const response = await fetch('http://localhost:5050/api/auth/google', {
+      const response = await fetch('/api/auth/google', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
