@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
   photoURL: {
     type: String,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false, // Set this to true manually for admin users later
+  },
   wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product',

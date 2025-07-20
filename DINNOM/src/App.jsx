@@ -19,6 +19,11 @@ import CartProvider from './context/CartProvider'; // ✅ Import CartProvider
 // Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
+import AdminRoute from './components/AdminRoute'; // Add at top with other imports
+
+// In Routes:
+
+
 // import Wishlist from './components/wishlist';
 import AdminDashboard from './pages/admin';
 import Men from "./pages/Men";
@@ -76,7 +81,14 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success/:orderId" element={<OrderSuccess />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+        <Route
+  path="/admin"
+  element={
+    <AdminRoute>
+      <AdminDashboard />
+    </AdminRoute>
+  }
+/>
           <Route path="/product/:id" element={<ProductDetails />} />
 
           {/* Men */}
