@@ -41,6 +41,7 @@ router.post('/google', async (req, res) => {
         email: user.email,
         photoURL: user.photoURL,
         wishlist: user.wishlist || [],
+        isAdmin: user.isAdmin || false, //
       }
     });
 
