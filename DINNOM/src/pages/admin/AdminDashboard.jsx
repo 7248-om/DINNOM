@@ -12,7 +12,7 @@ const AdminDashboard = () => {
 
   const menu = [
     { name: 'Products', path: 'products' },
-    // { name: 'Orders', path: 'orders' },
+    { name: 'Orders', path: 'orders' },
     { name: 'Stats', path: 'stats' },
     // { name: 'Coupons', path: 'coupons' },
   ];

@@ -44,6 +44,7 @@ import MenFootwear from './pages/MenFootwear';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminStats from './pages/admin/AdminStats';
+import AdminOrders from './pages/admin/AdminOrders';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -84,6 +85,7 @@ function App() {
             <Route index element={<AdminProducts />} /> {/* Default at /admin */}
             <Route path="products" element={<AdminProducts />} />
             <Route path="stats" element={<AdminStats />} />
+            <Route path="orders" element={<AdminOrders />} />
           </Route>
 
           {/* Men */}

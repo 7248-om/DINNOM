@@ -5,6 +5,8 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import admin from 'firebase-admin'; 
+import adminRoutes from './routes/admin.js';
+
 
 import authRoutes from './routes/auth.js';
 // Correct JSON import with assert for ES modules
@@ -32,7 +34,7 @@ mongoose.connect(MONGO_URI)
 
 app.use(cors());
 app.use(express.json());
-
+app.use('/admin', adminRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
