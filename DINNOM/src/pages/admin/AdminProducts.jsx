@@ -1,24 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer
-} from 'recharts';
 
-const monthlySalesData = [
-  { name: 'Jan', sales: 500 },
-  { name: 'Feb', sales: 700 },
-  { name: 'Mar', sales: 600 },
-  { name: 'Apr', sales: 800 },
-  { name: 'May', sales: 750 },
-  { name: 'Jun', sales: 950 },
-  { name: 'Jul', sales: 850 },
-  { name: 'Aug', sales: 1100 },
-  { name: 'Sep', sales: 1000 },
-  { name: 'Oct', sales: 1200 },
-  { name: 'Nov', sales: 1300 },
-  { name: 'Dec', sales: 1500 },
-];
-
-const Admin = () => {
+const AdminProducts = () => {
   const [product, setProduct] = useState({
     productId: '', name: '', price: '', description: '', gender: '', category: '',
     stock: '', mainImage: '', hoverImage: '', sizes: '', tags: ''
@@ -256,33 +238,9 @@ const Admin = () => {
           </table>
         </div>
       </section>
-
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <StatCard title="Total Products" value={products.length.toString()} />
-        <StatCard title="Total Sales" value="$120,000" />
-        <StatCard title="Most Sold Product" value="Black Oversized Hoodie" />
-      </section>
-
-      <section className="bg-gray-100 p-6 rounded-lg shadow">
-        <h2 className="text-xl font-semibold mb-4">Monthly Sales</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={monthlySalesData}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="sales" fill="#333" />
-          </BarChart>
-        </ResponsiveContainer>
-      </section>
     </div>
   );
 };
 
-const StatCard = ({ title, value }) => (
-  <div className="bg-gray-100 p-4 rounded-lg shadow text-center">
-    <div className="text-sm text-gray-600">{title}</div>
-    <div className="text-xl font-bold mt-2">{value}</div>
-  </div>
-);
 
-export default Admin;
+export default AdminProducts;

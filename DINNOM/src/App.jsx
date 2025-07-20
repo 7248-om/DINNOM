@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import './styles/App.css';
 import React, { useEffect, useState } from 'react';
 
@@ -7,33 +7,25 @@ import Navbar from './components/navbar';
 import Sidebar from './components/sidebar';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
-import Chatbot from './components/Chatbot'; // Import the Chatbot
-//import './styles/Chatbot.css'; // Import the Chatbot styles
+import Chatbot from './components/Chatbot';
 import Intro from './components/Intro';
 import BrandImageSection from './components/BrandBannerFooter';
 
 // Context Providers
 import { AuthProvider } from './context/AuthContext';
-import CartProvider from './context/CartProvider'; // ✅ Import CartProvider
+import CartProvider from './context/CartProvider';
 
 // Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
-import AdminRoute from './components/AdminRoute'; // Add at top with other imports
-
-// In Routes:
-
-
-// import Wishlist from './components/wishlist';
-import AdminDashboard from './pages/admin';
 import Men from "./pages/Men";
 import Women from './pages/Women';
 import ProductDetails from "./pages/ProductDetail";
-import Cart from './pages/Cart'; // ✅ Cart page
+import Cart from './pages/Cart';
 import Checkout from './pages/checkout';
 import OrderSuccess from './pages/OrderSuccess';
 
-// Women Category Pages
+// Women Categories
 import WomenDresses from './pages/WomenDresses';
 import WomenTeesTops from './pages/WomenTeesTops';
 import WomenPants from './pages/WomenPants';
@@ -41,12 +33,17 @@ import WomenHoodies from './pages/WomenHoodies';
 import WomenFootwear from './pages/WomenFootwear';
 import WomenCapsAccessories from './pages/WomenCapsAccessories';
 
-// Men Category Pages
+// Men Categories
 import MenShirtTShirtPolos from './pages/MenShirtTShirtPolos';
 import MenPantsShorts from './pages/MenPantsShorts';
 import MenHoodies from './pages/MenHoodies';
 import MenAccesories from './pages/MenAccessories';
 import MenFootwear from './pages/MenFootwear';
+
+// Admin Pages
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminProducts from './pages/admin/AdminProducts';
+import AdminStats from './pages/admin/AdminStats';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -68,28 +65,26 @@ function App() {
       <CustomCursor />
       <Intro />
       <Navbar toggleSidebar={() => setSidebarOpen(true)} />
-      <Chatbot /> {/* Add the Chatbot component here */}
+      <Chatbot />
       <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
 
       <main className="pt-24 px-4 bg-white">
         <Routes>
-          {/* Common Pages */}
+          {/* Common Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/wishlist" element={<Wishlist />} /> */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success/:orderId" element={<OrderSuccess />} />
-        <Route
-  path="/admin"
-  element={
-    <AdminRoute>
-      <AdminDashboard />
-    </AdminRoute>
-  }
-/>
           <Route path="/product/:id" element={<ProductDetails />} />
+
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminDashboard />}>
+            <Route index element={<AdminProducts />} /> {/* Default at /admin */}
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="stats" element={<AdminStats />} />
+          </Route>
 
           {/* Men */}
           <Route path="/men" element={<Men />} />
@@ -108,6 +103,9 @@ function App() {
           <Route path="/women/hoodies" element={<WomenHoodies />} />
           <Route path="/women/footwear" element={<WomenFootwear />} />
           <Route path="/women/capsaccessories" element={<WomenCapsAccessories />} />
+
+          {/* Catch-All */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
 
         <Footer />
@@ -122,7 +120,7 @@ export default function AppWrapper() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <CartProvider> {/* ✅ Wrap App with CartProvider */}
+        <CartProvider>
           <App />
         </CartProvider>
       </AuthProvider>
