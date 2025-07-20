@@ -52,7 +52,7 @@ function App() {
   const isHome = location.pathname === '/' || location.pathname === '/home';
 
   useEffect(() => {
-    fetch('http://localhost:5050/')
+    fetch('/api')
       .then((res) => res.text())
       .then((data) => console.log('Winners:', data));
   }, []);
