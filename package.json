@@ -1,12 +1,24 @@
 {
-  "devDependencies": {
-    "vite": "^7.0.0"
+  "name": "dinnom",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "firebase": "^11.10.0",
     "gsap": "^3.13.0",
     "lucide-react": "^0.525.0",
     "react-parallax-tilt": "^1.7.299",
-    "recharts": "^3.1.0"
+    "recharts": "^3.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "tailwindcss": "^3.4.0"
   }
 }
