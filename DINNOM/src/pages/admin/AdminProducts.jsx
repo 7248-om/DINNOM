@@ -144,8 +144,16 @@ const AdminProducts = () => {
             <option value='Female'>Female</option>
           </select>
         </div>
+        {/* add product button */}
+        <button
+          onClick={() => { setShowModal(true); setProduct({ productId: '', name: '', price: '', description: '', gender: '', category: '', stock: '', mainImage: '', hoverImage: '', sizes: '', tags: '' }); setEditingId(null); }}
+          className="bg-black text-white px-4 py-2 rounded ml-auto"
+        >
+          Add New Product
+        </button>
       </div>
 
+      
       {/* modal popup for edit/add form */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
@@ -203,13 +211,7 @@ const AdminProducts = () => {
         </div>
       )}
 
-      {/* add product button */}
-      <button
-        onClick={() => { setShowModal(true); setProduct({ productId: '', name: '', price: '', description: '', gender: '', category: '', stock: '', mainImage: '', hoverImage: '', sizes: '', tags: '' }); setEditingId(null); }}
-        className="bg-black text-white px-4 py-2 rounded"
-      >
-        Add New Product
-      </button>
+      
 
       {/* Product Table */}
 <section className="space-y-4">
