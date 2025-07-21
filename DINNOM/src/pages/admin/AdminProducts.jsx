@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const AdminProducts = () => {
   const [product, setProduct] = useState({
@@ -238,18 +239,20 @@ const AdminProducts = () => {
             <td className="border px-4 py-2">{prod.category}</td>
             <td className="border px-4 py-2">₹{prod.price}</td>
             <td className="border px-4 py-2">
-              <button
-                onClick={() => handleEdit(prod)}
-                className="text-blue-600 mr-2 hover:underline"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(prod._id)}
-                className="text-red-600 hover:underline"
-              >
-                Delete
-              </button>
+                <button
+                  onClick={() => handleEdit(prod)}
+                  className="mr-3 text-blue-600 text-lg hover:scale-105"
+                  title="Edit"
+                >
+                  ✏️
+                </button>
+                <button
+                  onClick={() => handleDelete(prod._id)}
+                  className="text-red-600 text-lg hover:scale-105"
+                  title="Delete"
+                >
+                  🗑️
+                </button>
             </td>
           </tr>
         ))}
