@@ -210,34 +210,54 @@ const AdminProducts = () => {
         Add New Product
       </button>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold">Product List</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border">
-            <thead className="bg-black text-white">
-              <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Category</th>
-                <th className="px-4 py-2">Price</th>
-                <th className="px-4 py-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredProducts.map(prod => (
-                <tr key={prod._id} className="text-center">
-                  <td className="border px-4 py-2">{prod.name}</td>
-                  <td className="border px-4 py-2">{prod.category}</td>
-                  <td className="border px-4 py-2">{prod.price}</td>
-                  <td className="border px-4 py-2">
-                    <button onClick={() => handleEdit(prod)} className="text-blue-600 mr-2">Edit</button>
-                    <button onClick={() => handleDelete(prod._id)} className="text-red-600">Delete</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      {/* Product Table */}
+<section className="space-y-4">
+  <h2 className="text-xl font-semibold">Product List</h2>
+  <div className="overflow-x-auto">
+    <table className="min-w-full bg-white border">
+      <thead className="bg-black text-white">
+        <tr>
+          <th className="px-4 py-2">Image</th>
+          <th className="px-4 py-2">Name</th>
+          <th className="px-4 py-2">Category</th>
+          <th className="px-4 py-2">Price</th>
+          <th className="px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredProducts.map(prod => (
+          <tr key={prod._id} className="text-center">
+            <td className="border px-4 py-2">
+              <img
+                src={prod.mainImage}
+                alt={prod.name}
+                className="h-22 w-22 object-cover rounded-md mx-auto"
+              />
+            </td>
+            <td className="border px-4 py-2">{prod.name}</td>
+            <td className="border px-4 py-2">{prod.category}</td>
+            <td className="border px-4 py-2">₹{prod.price}</td>
+            <td className="border px-4 py-2">
+              <button
+                onClick={() => handleEdit(prod)}
+                className="text-blue-600 mr-2 hover:underline"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(prod._id)}
+                className="text-red-600 hover:underline"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
     </div>
   );
 };
