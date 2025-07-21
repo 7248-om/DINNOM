@@ -2,8 +2,8 @@ import React from 'react';
 import Tilt from 'react-parallax-tilt';
 
 import womenImg from '../assets/women/seasonal/ws5.webp';
-import menImg from '../assets/men/men categories/oversized_categories.png';
-import sneakersImg from '../assets/men/sneakers/images (6).jpg';
+import menImg from '../assets/Men/men categories/oversized_categories.png';
+import sneakersImg from '../assets/Men/sneakers/images (6).jpg';
 
 const GenerationShowcase = () => {
   const categories = [

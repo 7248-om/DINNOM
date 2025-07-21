@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import imgRight from "../../assets/Men/images/img9.png";
 import imgLeft from "../../assets/Men/images/img10.png";
 
 const MenCategoryShowcase4 = () => {
+    const navigate = useNavigate();
+  
   return (
     <div className="w-full bg-white px-8 md:px-16 py-0"> {/* Removed vertical padding */}
       <div className="flex flex-col md:flex-row items-end justify-between gap-0"> {/* Removed gap */}
