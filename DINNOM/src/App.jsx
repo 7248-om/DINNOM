@@ -47,6 +47,10 @@ import AdminStats from './pages/admin/AdminStats';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 
+//Profile Pages
+import Profile from './pages/Profile/Profile';
+
+
 //Profile
 import Orders from './components/Orders';
 function App() {
@@ -82,6 +86,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success/:orderId" element={<OrderSuccess />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/profile" element={<Profile />} />
 
           {/* Admin Routes */}
           <Route element={<AdminProtectedRoute />}>
