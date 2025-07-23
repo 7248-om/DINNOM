@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { FaBoxOpen, FaAddressBook, FaUserCircle } from 'react-icons/fa';
 import CardSwap, { Card } from '../../components/CardSwap.jsx';
+import cardImage from '../../assets/Men/images/img1.jpg'; // Import the image
 
 const Profile = () => {
   const { user } = useAuth();
@@ -43,10 +44,10 @@ const Profile = () => {
           >
             {/* Card 1 - Orders */}
             <Card>
-              <Link to="/orders">
+              <Link to="/profile/orders">
                 <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg bg-black">
                   <img
-                    src="../../assets/Men/images/img1.jpg"
+                    src={cardImage}
                     alt="Orders"
                     className="w-full h-full object-cover opacity-70 hover:opacity-100 transition duration-300"
                   />
@@ -63,7 +64,7 @@ const Profile = () => {
               <Link to="/addresses">
                 <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg bg-black">
                   <img
-                    src="../../assets/Men/images/img1.jpg"
+                    src={cardImage}
                     alt="Addresses"
                     className="w-full h-full object-cover opacity-70 hover:opacity-100 transition duration-300"
                   />
@@ -80,7 +81,7 @@ const Profile = () => {
               <Link to="/profile">
                 <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg bg-black">
                   <img
-                    src="../../assets/Men/images/img1.jpg"
+                    src={cardImage}
                     alt="Profile"
                     className="w-full h-full object-cover opacity-70 hover:opacity-100 transition duration-300"
                   />

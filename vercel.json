@@ -8,19 +8,17 @@
     {
       "src": "DINNOM/package.json",
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "DINNOM/dist"
-      }
+      "config": { "distDir": "dist" }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
       "src": "/api/(.*)",
-      "dest": "backend/server.js"
+      "dest": "/backend/server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "DINNOM/dist/$1"
+      "dest": "/index.html"
     }
   ]
 }
