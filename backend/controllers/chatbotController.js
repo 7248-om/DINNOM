@@ -57,6 +57,7 @@ export const handleChat = async (req, res) => {
         ? JSON.stringify(
             products.map(p => ({
               name: p.name,
+            _id: p._id, // Add the product ID to the context
               description: p.description,
               price: p.price,
               category: p.category,
@@ -68,8 +69,9 @@ export const handleChat = async (req, res) => {
 
     const prompt = `You are a helpful e-commerce assistant for a store called DINNOM.
     Answer the user's question based ONLY on the following product information.
-    If the information isn't available in the context provided, say that you don't have enough information to answer.
-    Be friendly and concise.
+    When you mention a product, ALWAYS include a markdown link to it. The link format is: Product Name. You MUST use the _id from the context for the PRODUCT_ID.
+    If the information isn't available in the context provided, say that you don't have enough information to answer. Be friendly and concise.
+.
 
     CONTEXT:
     ${productInfo}

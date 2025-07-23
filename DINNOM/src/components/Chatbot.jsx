@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BiBot, BiSend, BiX, BiMicrophone } from 'react-icons/bi';
+import ReactMarkdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -244,7 +246,23 @@ const Chatbot = () => {
                   : 'bg-gray-200 text-zinc-900 self-start rounded-bl-md'
               }`}
             >
-              <p className="m-0">{msg.text}</p>
+              <div className="text-sm text-current">
+                <ReactMarkdown
+                  components={{
+                    // This custom component handles links.
+                    // It uses React Router's <Link> for internal navigation to prevent page reloads,
+                    // and a standard <a> tag for external links.
+                    a: ({ node, ...props }) => {
+                      if (props.href && props.href.startsWith('/')) {
+                        return <Link to={props.href} {...props} className="text-blue-600 underline hover:text-blue-800" />;
+                      }
+                      return <a {...props} className="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener noreferrer" />;
+                    }
+                  }}
+                >
+                  {msg.text}
+                </ReactMarkdown>
+              </div>
             </div>
           ))}
           {isLoading && (
