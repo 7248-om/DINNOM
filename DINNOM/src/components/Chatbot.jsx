@@ -9,6 +9,9 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [lastQueryWasVoice, setLastQueryWasVoice] = useState(false);
+  const [voices, setVoices] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(null);
   const recognitionRef = useRef(null);
   const formRef = useRef(null);
   const messagesEndRef = useRef(null);
@@ -59,29 +62,70 @@ const Chatbot = () => {
     recognitionRef.current = recognition;
   }, []);
 
+  // Load available voices from the browser's speech synthesis API
+  useEffect(() => {
+    const synth = window.speechSynthesis;
+    if (!synth) return;
+
+    const updateVoices = () => {
+      const availableVoices = synth.getVoices();
+      setVoices(availableVoices);
+
+      // Set a default voice if one isn't selected or if the selected one is no longer available
+      setSelectedVoice(currentSelected =>
+        availableVoices.find(v => v.name === currentSelected?.name) ||
+        // Prioritize an Indian English voice if available
+        availableVoices.find(v => v.lang === 'en-IN') ||
+        // Fallback to other high-quality or standard voices
+        availableVoices.find(v => v.name.includes('Google') && v.lang.startsWith('en')) ||
+        availableVoices.find(v => v.lang.startsWith('en-US')) ||
+        availableVoices[0]
+      );
+    };
+
+    synth.addEventListener('voiceschanged', updateVoices);
+    updateVoices(); // Initial call in case voices are already loaded
+
+    return () => synth.removeEventListener('voiceschanged', updateVoices);
+  }, []);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(scrollToBottom, [messages]);
 
+  const speak = (text) => {
+    if ('speechSynthesis' in window) {
+      // Cancel any previous speech to avoid overlaps
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+      }
+
+      utterance.rate = 0.9;
+      utterance.pitch = 1.1;
+      window.speechSynthesis.speak(utterance);
+    } else {
+      console.warn("Your browser does not support the Web Speech Synthesis API.");
+    }
+  };
+
   const toggleChat = () => {
     const nextIsOpen = !isOpen;
     setIsOpen(nextIsOpen);
 
-    // If opening the chat, start listening immediately.
-    // If closing, stop any active listening session to turn off the microphone.
-    if (recognitionRef.current) {
-      if (nextIsOpen && !isListening) {
-        recognitionRef.current.start();
-      } else if (!nextIsOpen && isListening) {
-        recognitionRef.current.stop();
-      }
+    // If closing the chat, stop any active listening or speaking session.
+    if (!nextIsOpen && recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+      window.speechSynthesis.cancel();
     }
   };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
+    setLastQueryWasVoice(false); // A manual input is not a voice query
   };
 
   const handleSendMessage = async (e) => {
@@ -111,6 +155,12 @@ const Chatbot = () => {
       const data = await response.json();
       const botMessage = { text: data.reply, sender: 'bot' };
       setMessages((prev) => [...prev, botMessage]);
+
+      // If the last query was from voice, speak the reply
+      if (lastQueryWasVoice) {
+        speak(data.reply);
+        setLastQueryWasVoice(false); // Reset for the next interaction
+      }
     } catch (error) {
       console.error('Chatbot error:', error);
       const errorMessage = { text: "I'm having a little trouble connecting right now. Please try again later.", sender: 'bot' };
@@ -123,6 +173,7 @@ const Chatbot = () => {
   // Handler for the voice search button
   const handleVoiceSearch = () => {
     if (recognitionRef.current && !isListening) {
+      setLastQueryWasVoice(true); // Mark that the next query will be from voice
       recognitionRef.current.start();
     }
   };
@@ -159,11 +210,29 @@ const Chatbot = () => {
             : 'scale-50 translate-y-24 opacity-0 pointer-events-none'
         }`}
       >
-        <div className="bg-zinc-900 text-white px-5 py-4 flex justify-between items-center flex-shrink-0">
+        <div className="bg-zinc-900 text-white px-4 py-3 flex justify-between items-center flex-shrink-0">
           <h2 className="text-lg font-semibold">DINNOM AI</h2>
-          <button onClick={toggleChat} className="bg-transparent border-none text-white cursor-pointer p-0" aria-label="Close Chatbot">
-            <BiX className="w-6 h-6" />
-          </button>
+          <div className="flex items-center gap-2">
+            {voices.length > 0 && (
+              <select
+                value={selectedVoice ? selectedVoice.name : ''}
+                onChange={(e) => {
+                  const voice = voices.find(v => v.name === e.target.value);
+                  setSelectedVoice(voice);
+                }}
+                className="bg-zinc-800 border border-zinc-700 text-white text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-1 max-w-[120px] text-ellipsis"
+                aria-label="Select voice"
+                title="Select a voice for the AI assistant"
+              >
+                {voices.map(voice => (
+                  <option key={voice.name} value={voice.name}>{voice.name}</option>
+                ))}
+              </select>
+            )}
+            <button onClick={toggleChat} className="bg-transparent border-none text-white cursor-pointer p-1" aria-label="Close Chatbot">
+              <BiX className="w-6 h-6" />
+            </button>
+          </div>
         </div>
         <div className="flex-grow p-5 overflow-y-auto flex flex-col gap-3 bg-gray-50">
           {messages.map((msg, index) => (

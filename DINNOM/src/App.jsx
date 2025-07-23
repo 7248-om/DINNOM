@@ -47,6 +47,8 @@ import AdminStats from './pages/admin/AdminStats';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 
+//Profile
+import Orders from './components/Orders';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
@@ -109,6 +111,10 @@ function App() {
           <Route path="/women/footwear" element={<WomenFootwear />} />
           <Route path="/women/capsaccessories" element={<WomenCapsAccessories />} />
 
+          {/* Profile */}
+          <Route path="/profile/orders" element={<Orders />} />
+
+          {/* Redirects */}
           {/* Catch-All */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
