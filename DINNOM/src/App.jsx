@@ -45,6 +45,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminStats from './pages/admin/AdminStats';
 import AdminOrders from './pages/admin/AdminOrders';
+import AdminCoupons from './pages/admin/AdminCoupons';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 
 //Profile Pages
@@ -95,6 +96,7 @@ function App() {
               <Route path="products" element={<AdminProducts />} />
               <Route path="stats" element={<AdminStats />} />
               <Route path="orders" element={<AdminOrders />} />
+              <Route path="coupons" element={<AdminCoupons />} />
             </Route>
           </Route>
 
