@@ -44,6 +44,38 @@ router.get('/active', async (req, res) => {
 });
 
 
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedCoupon = await Coupon.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.json(updatedCoupon);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update coupon' });
+  }
+});
+
+
+// Admin: Delete a coupon
+router.delete('/:id', async (req, res) => {
+  try {
+    await Coupon.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete coupon' });
+  }
+});
+// Admin: Get all coupons (including expired)
+router.get('/', async (req, res) => {
+  try {
+    const coupons = await Coupon.find().sort({ createdAt: -1 });
+    res.json(coupons);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch coupons.' });
+  }
+});
+
+
 // User: Validate coupon code
 router.post('/validate', async (req, res) => {
   try {
