@@ -17,6 +17,8 @@ import productRoutes from './routes/product.js';
 //import wishlistRoutes from './routes/wishlistRoutes.js';
 import chatbotRoutes from './routes/chatbot.js';
 import couponRoutes from './routes/coupons.js';
+import paymentRoutes from './routes/payment.js';
+
 
 
 
@@ -50,6 +52,7 @@ app.use('/api/products', productRoutes);
 //app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/coupons', couponRoutes);
+app.use('/api/payment', paymentRoutes);
 app.get('/api', (req, res) => {
   res.json(['diya', 'nidhi', 'om', 'nihar']);
 });

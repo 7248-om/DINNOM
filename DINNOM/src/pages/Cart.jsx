@@ -218,11 +218,15 @@ const Cart = () => {
 
       <div className="text-right">
         <button
-          className="bg-black text-white px-6 py-2 rounded-full mt-4"
-          onClick={() => navigate('/checkout')}
-        >
-          Proceed to Checkout
-        </button>
+  className="bg-black text-white px-6 py-2 rounded-full mt-4"
+  onClick={() => {
+    localStorage.setItem('cartItems', JSON.stringify(cart.items));
+    localStorage.setItem('totalAmount', finalTotal.toString());
+    navigate('/checkout');
+  }}
+>
+  Proceed to Checkout
+</button>
       </div>
     </div>
   );

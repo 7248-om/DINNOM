@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
   const navigate = useNavigate();
+
   const [shippingAddress, setShippingAddress] = useState({
     address: '',
     city: '',
@@ -11,9 +11,14 @@ const Checkout = () => {
     country: '',
   });
   const [error, setError] = useState('');
-  const [placingOrder, setPlacingOrder] = useState(false);
 
-  const token = localStorage.getItem('token');
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const user = JSON.parse(localStorage.getItem('user')) || null;
+
+  const totalAmount = cartItems.reduce(
+    (acc, item) => acc + (item.price * (item.quantity || 1)),
+    0
+  );
 
   const handleChange = (e) => {
     setShippingAddress({
@@ -22,34 +27,39 @@ const Checkout = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setPlacingOrder(true);
-    setError('');
 
-    try {
-      const res = await axios.post(
-        'http://localhost:5050/api/orders',
-        { shippingAddress },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      navigate(`/order-success/${res.data.orderId}`);
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to place order');
-    } finally {
-      setPlacingOrder(false);
+    // Validate fields
+    for (const key in shippingAddress) {
+      if (!shippingAddress[key]) {
+        setError('Please fill all fields.');
+        return;
+      }
     }
+
+    if (!user || cartItems.length === 0 || totalAmount <= 0) {
+      setError('Missing user or cart data.');
+      return;
+    }
+
+    // ✅ Navigate to payment with orderInfo in state
+    navigate('/payment', {
+      state: {
+        orderInfo: {
+          cartItems,
+          shippingAddress,
+          totalAmount,
+        },
+      },
+    });
   };
 
   return (
     <div className="max-w-xl mx-auto p-8">
       <h1 className="text-2xl font-bold mb-6">Checkout</h1>
       {error && <p className="text-red-500 mb-4">{error}</p>}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {['address', 'city', 'postalCode', 'country'].map((field) => (
           <input
@@ -63,12 +73,12 @@ const Checkout = () => {
             className="w-full border px-4 py-2 rounded"
           />
         ))}
+
         <button
           type="submit"
-          disabled={placingOrder}
-          className="bg-black text-white px-6 py-2 rounded-full"
+          className="w-full bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
         >
-          {placingOrder ? 'Placing Order...' : 'Place Order'}
+          Proceed to Payment
         </button>
       </form>
     </div>

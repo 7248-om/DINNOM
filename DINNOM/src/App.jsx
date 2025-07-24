@@ -50,7 +50,7 @@ import AdminProtectedRoute from './components/AdminProtectedRoute';
 
 //Profile Pages
 import Profile from './pages/Profile/Profile';
-
+import Payment from './pages/Payment'; // ⬅️ at the top
 
 //Profile
 import Orders from './components/Orders';
@@ -88,6 +88,8 @@ function App() {
           <Route path="/order-success/:orderId" element={<OrderSuccess />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/profile" element={<Profile />} />
+<Route path="/payment" element={<Payment />} />
+
 
           {/* Admin Routes */}
           <Route element={<AdminProtectedRoute />}>
