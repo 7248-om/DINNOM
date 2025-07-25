@@ -15,10 +15,16 @@ const Checkout = () => {
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
   const user = JSON.parse(localStorage.getItem('user')) || null;
 
-  const totalAmount = cartItems.reduce(
-    (acc, item) => acc + (item.price * (item.quantity || 1)),
-    0
-  );
+  const totalAmount = parseInt(
+  cartItems.reduce((acc, item) => {
+    const price = parseFloat(item?.productId?.price ?? 0);
+    const quantity = parseInt(item?.quantity ?? 1);
+    return acc + price * quantity;
+  }, 0)
+);
+
+
+
 
   const handleChange = (e) => {
     setShippingAddress({
@@ -37,22 +43,31 @@ const Checkout = () => {
         return;
       }
     }
+    console.log("🧾 Cart Items Full:", cartItems);
+    console.log("👤 User:", user);
+console.log("🛒 Cart Items:", cartItems);
+console.log("💰 Total Amount:", totalAmount);
 
     if (!user || cartItems.length === 0 || totalAmount <= 0) {
       setError('Missing user or cart data.');
       return;
     }
 
-    // ✅ Navigate to payment with orderInfo in state
-    navigate('/payment', {
-      state: {
-        orderInfo: {
-          cartItems,
-          shippingAddress,
-          totalAmount,
-        },
-      },
-    });
+if (isNaN(totalAmount)) {
+  alert('Something went wrong calculating total');
+  return;
+}
+
+navigate('/payment', {
+  state: {
+    orderInfo: {
+      cartItems,
+      shippingAddress,
+      totalAmount: parseInt(totalAmount), // ✅ Ensure it's a number
+    },
+  },
+});
+
   };
 
   return (

@@ -14,7 +14,7 @@ const Payment = () => {
   useEffect(() => {
     if (!orderInfo) {
       console.log('❌ Missing order info, redirecting...');
-      setTimeout(() => navigate('/'), 100); // Prevent React navigation conflict
+      setTimeout(() => navigate('/'), 100);
     }
   }, [orderInfo, navigate]);
 
@@ -35,7 +35,12 @@ const Payment = () => {
   };
 
   const handleRazorpayPayment = async () => {
-    if (!orderInfo) return;
+    if (!orderInfo || isNaN(orderInfo.totalAmount)) {
+      alert('❌ Invalid order total amount. Redirecting...');
+      navigate('/');
+      return;
+    }
+
     console.log('💳 Razorpay button clicked');
     setLoading(true);
 
@@ -47,18 +52,19 @@ const Payment = () => {
     }
 
     try {
-      console.log('📦 Sending amount to backend (in rupees):', orderInfo.totalAmount);
+      const amount = parseInt(orderInfo.totalAmount);
+      console.log('📦 Sending amount to backend (in rupees):', amount);
 
       const { data: order } = await axios.post(
         '/api/payment/create-order',
-        { amount: orderInfo.totalAmount },
+        { amount },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
       const options = {
-        key: 'rzp_test_jtlBNyV6SL0IYF', // ✅ Replace with your actual Razorpay test key
+        key: 'rzp_test_jtlBNyV6SL0IYF',
         amount: order.amount.toString(),
         currency: 'INR',
         name: 'DINNOM Fashion',
@@ -82,7 +88,7 @@ const Payment = () => {
 
             if (verifyRes.data.success) {
               console.log('✅ Payment verified');
-              navigate('/success');
+              navigate('/success'); // ✅ Navigate on successful payment
             } else {
               alert('❌ Payment verification failed');
             }
@@ -111,36 +117,33 @@ const Payment = () => {
   };
 
   const handleCOD = async () => {
-    if (!orderInfo) return;
-    console.log('🚚 COD button clicked');
-    setLoading(true);
+    if (!orderInfo || !orderInfo.shippingAddress) {
+      alert('❌ Shipping address missing.');
+      return;
+    }
 
     try {
       const { data } = await axios.post(
         '/api/orders',
         {
-          userId: user._id,
-          items: orderInfo.cartItems,
           shippingAddress: orderInfo.shippingAddress,
+          items: orderInfo.items,
           totalAmount: orderInfo.totalAmount,
-          isCOD: true,
+          paymentMethod: 'COD',
+          userId: user._id,
         },
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
-      if (data.success) {
-        console.log('✅ COD order placed');
-        navigate('/success');
-      } else {
-        alert('❌ COD order failed');
-      }
-    } catch (err) {
-      console.error('❌ COD Error:', err);
+      console.log('✅ COD order placed:', data);
+      navigate('/success'); // ✅ Navigate on successful COD
+    } catch (error) {
+      console.error('❌ COD order error:', error.response?.data || error.message);
       alert('Failed to place COD order');
-    } finally {
-      setLoading(false);
     }
   };
 
