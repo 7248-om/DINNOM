@@ -140,6 +140,7 @@ const Payment = () => {
       );
 
       console.log('✅ COD order placed:', data);
+      confirm('Order placed successfully! Click OK to continue.');
       navigate('/success'); // ✅ Navigate on successful COD
     } catch (error) {
       console.error('❌ COD order error:', error.response?.data || error.message);
@@ -150,7 +151,7 @@ const Payment = () => {
   if (!orderInfo) {
     return (
       <div className="p-8 min-h-screen flex items-center justify-center text-red-600 text-xl">
-        Missing order information. Redirecting to home...
+        Missing order information. Redirecting to home....
       </div>
     );
   }
@@ -173,7 +174,7 @@ const Payment = () => {
           className="bg-gray-300 text-black py-3 rounded hover:bg-gray-400 transition"
           disabled={loading}
         >
-          {loading ? 'Placing Order...' : 'Cash on Delivery (COD)'}
+          {loading ? 'Placing Order...' : 'Cash on Delivery (COD)' }
         </button>
       </div>
     </div>
