@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import './styles/App.css';
 import React, { useEffect, useState } from 'react';
-
+import {Toaster} from 'react-hot-toast';
 // Components
 import Navbar from './components/navbar';
 import Sidebar from './components/Sidebar';
@@ -71,6 +71,20 @@ function App() {
 
   return (
     <>
+      import { Toaster } from 'react-hot-toast';
+
+<Toaster
+  position="bottom-right"
+  toastOptions={{
+    style: {
+      marginBottom: '70px',    // push up from bottom
+      fontSize: '1rem',        // increase font size (default is 0.875rem)
+      padding: '16px 24px',    // more padding for a larger box
+      borderRadius: '10px',    // smoother rounded corners
+    },
+  }}
+/>
+
       <CustomCursor />
       <Intro />
       <Navbar toggleSidebar={() => setSidebarOpen(true)} />
