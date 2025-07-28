@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../components/Navbar"; // Adjust path if needed
+import Navbar from "../components/navbar"; // Adjust path if needed
 
 import IntroTransition from '../components/IntroTransitionWomen';
 import WomenCategoryShowcase1 from "../components/women/WomenCategoryShowcase1";

@@ -47,6 +47,10 @@ import AdminStats from './pages/admin/AdminStats';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 
+//Footer Pages
+import SizeGuide from './pages/SizeGuide';
+
+
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
@@ -111,6 +115,9 @@ function App() {
 
           {/* Catch-All */}
           <Route path="*" element={<Navigate to="/" />} />
+
+          {/* Footer */}
+          <Route path="/size-guide" element={<SizeGuide />} />
         </Routes>
 
         <Footer />
