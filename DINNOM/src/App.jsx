@@ -140,6 +140,7 @@ function App() {
           {/* Redirects */}
           {/* Catch-All */}
           <Route path="*" element={<Navigate to="/" />} />
+
         </Routes>
 
         <Footer />

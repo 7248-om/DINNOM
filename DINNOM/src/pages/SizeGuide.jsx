@@ -19,11 +19,9 @@ const SizeGuide = () => {
             </thead>
             <tbody>
               {[
-                ['XS', '76–80', '60–64'],
                 ['S', '81–85', '65–69'],
                 ['M', '86–90', '70–74'],
                 ['L', '91–96', '75–80'],
-                ['XL', '97–102', '81–86'],
               ].map(([size, bust, waist]) => (
                 <tr key={size}>
                   <td className="border px-4 py-2">{size}</td>
