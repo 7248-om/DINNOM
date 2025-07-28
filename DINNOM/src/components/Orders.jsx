@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -31,7 +32,7 @@ const Orders = () => {
         const data = await response.json();
         setOrders(data);
       } catch (err) {
-        setError(err.message);
+        toast.error(err.message);
       } finally {
         setLoading(false);
       }
