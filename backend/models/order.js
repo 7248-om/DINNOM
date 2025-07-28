@@ -19,16 +19,24 @@ const orderItemSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    image: {
+        type: String,
+        required: true,
+    },
+    selectedSize: {
+        type: String,
+        required: true,
+    },
 });
 
 const orderSchema = new mongoose.Schema(
     {
-        user: {
+        userId: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'User', 
         },
-        orderItems: [orderItemSchema],
+        items: [orderItemSchema],
         shippingAddress: {
             address: { type: String, required: true },
             city: { type: String, required: true },
@@ -40,11 +48,15 @@ const orderSchema = new mongoose.Schema(
             required: true,
             default: 0.0,
         },
+        orderDate: {
+            type: Date,
+            default: Date.now,
+        },
         status: {
             type: String,
             required: true,
             enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
-            default: 'Pending',
+            default: 'Processing',
         },
     },
     {

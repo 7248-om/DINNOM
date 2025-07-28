@@ -5,7 +5,7 @@ import imgLeft from "../../assets/Men/images/img10.png";
 
 const MenCategoryShowcase4 = () => {
   const navigate = useNavigate(); // useNavigate hook
-
+  
   return (
     <div className="w-full bg-white px-8 md:px-16 py-0">
       <div className="flex flex-col md:flex-row items-end justify-between gap-0">

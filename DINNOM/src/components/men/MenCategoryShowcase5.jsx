@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import img11 from "../../assets/Men/images/img11.png";
 
 const MenCategoryShowcase5 = () => {
+    const navigate = useNavigate();
+
   return (
     <div className="relative w-full h-screen">
       {/* Full-screen background image */}

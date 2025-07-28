@@ -45,12 +45,15 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminStats from './pages/admin/AdminStats';
 import AdminOrders from './pages/admin/AdminOrders';
+import AdminCoupons from './pages/admin/AdminCoupons';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 
-//Footer Pages
-import SizeGuide from './pages/SizeGuide';
+//Profile Pages
+import Profile from './pages/Profile/Profile';
+import Payment from './pages/Payment'; // ⬅️ at the top
 
-
+//Profile
+import Orders from './components/Orders';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
@@ -82,8 +85,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/order-success/:orderId" element={<OrderSuccess />} />
+          <Route path="/success" element={<OrderSuccess />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/profile" element={<Profile />} />
+<Route path="/payment" element={<Payment />} />
+
 
           {/* Admin Routes */}
           <Route element={<AdminProtectedRoute />}>
@@ -92,6 +98,7 @@ function App() {
               <Route path="products" element={<AdminProducts />} />
               <Route path="stats" element={<AdminStats />} />
               <Route path="orders" element={<AdminOrders />} />
+              <Route path="coupons" element={<AdminCoupons />} />
             </Route>
           </Route>
 
@@ -113,11 +120,13 @@ function App() {
           <Route path="/women/footwear" element={<WomenFootwear />} />
           <Route path="/women/capsaccessories" element={<WomenCapsAccessories />} />
 
+          {/* Profile */}
+          <Route path="/profile/orders" element={<Orders />} />
+
+          {/* Redirects */}
           {/* Catch-All */}
           <Route path="*" element={<Navigate to="/" />} />
 
-          {/* Footer */}
-          <Route path="/size-guide" element={<SizeGuide />} />
         </Routes>
 
         <Footer />

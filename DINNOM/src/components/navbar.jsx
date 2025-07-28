@@ -48,24 +48,28 @@ const Navbar = ({ toggleSidebar }) => {
 </Link>
 
           {user ? (
-            <>
-              {user.photoURL ? (
-                <img
-                  src={user.photoURL}
-                  alt={user.displayName}
-                  className="w-8 h-8 rounded-full object-cover cursor-pointer"
-                />
-              ) : (
-                <BiUserCircle className="w-8 h-8 text-gray-700" />
-              )}
-              <button
-                onClick={logout}
-                className="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
+  <>
+    <Link to="/profile">
+      {user.photoURL ? (
+        <img
+          src={user.photoURL}
+          alt={user.displayName}
+          className="w-8 h-8 rounded-full object-cover cursor-pointer"
+        />
+      ) : (
+        <BiUserCircle className="w-8 h-8 text-gray-700 cursor-pointer" />
+      )}
+    </Link>
+    
+    <button
+      onClick={logout}
+      className="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition"
+    >
+      Logout
+    </button>
+  </>
+)
+: (
             <Link
               to="/login"
               className="p-2 hover:bg-gray-100 rounded-full flex items-center justify-center"

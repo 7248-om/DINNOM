@@ -14,7 +14,7 @@ const AdminDashboard = () => {
     { name: 'Products', path: 'products' },
     { name: 'Orders', path: 'orders' },
     { name: 'Stats', path: 'stats' },
-    // { name: 'Coupons', path: 'coupons' },
+    { name: 'Coupons', path: 'coupons' },
   ];
 
   return (
