@@ -105,3 +105,124 @@ export const cancelOrder = async (req, res) => {
     res.status(500).json({ message: 'Server error while cancelling order' });
   }
 };
+
+/**
+ * @desc    Get all orders (admin)
+ * @route   GET /api/orders/all
+ * @access  Private/Admin
+ */
+export const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({})
+      .populate('userId', 'id displayName email')
+      .sort({ orderDate: -1 });
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching all orders:', error);
+    res.status(500).json({ message: 'Failed to fetch all orders' });
+  }
+};
+
+/**
+ * @desc    Update order status (admin)
+ * @route   PUT /api/orders/:id/status
+ * @access  Private/Admin
+ */
+export const updateOrderStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    if (!status) {
+      return res.status(400).json({ message: 'Status is required' });
+    }
+
+    const order = await Order.findById(req.params.id);
+
+    if (order) {
+      order.status = status;
+      const updatedOrder = await order.save();
+      res.json(updatedOrder);
+    } else {
+      res.status(404).json({ message: 'Order not found' });
+    }
+  } catch (error)
+ { console.error('Error updating order status:', error);
+ res.status(500).json({ message: 'Server error while updating order status' });
+  }
+};
+
+/**
+ * @desc    Delete an order (admin)
+ * @route   DELETE /api/orders/:id
+ * @access  Private/Admin
+ */
+export const deleteOrder = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (order) {
+      await order.deleteOne();
+      res.json({ message: 'Order removed' });
+    } else {
+      res.status(404).json({ message: 'Order not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting order:', error);
+    res.status(500).json({ message: 'Server error while deleting order' });
+  }
+};
+
+/**
+ * @desc    Get order statistics (admin)
+ * @route   GET /api/orders/stats
+ * @access  Private/Admin
+ */
+export const getOrderStats = async (req, res) => {
+  try {
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+    // Get daily stats for charts
+    const dailyStats = await Order.aggregate([
+      {
+        $match: {
+          orderDate: { $gte: threeMonthsAgo },
+          status: { $in: ['Processing', 'Shipped', 'Delivered'] },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m-%d', date: '$orderDate' } },
+          totalSales: { $sum: '$totalAmount' },
+          totalOrders: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } },
+      {
+        $project: {
+          _id: 0,
+          date: '$_id',
+          totalSales: 1,
+          totalOrders: 1,
+        },
+      },
+    ]);
+
+    // Get overall summary for display cards
+    const summary = await Order.aggregate([
+      {
+        $match: {
+          orderDate: { $gte: threeMonthsAgo },
+          status: { $in: ['Processing', 'Shipped', 'Delivered'] },
+        },
+      },
+      { $group: { _id: null, totalRevenue: { $sum: '$totalAmount' }, totalOrders: { $sum: 1 } } },
+      { $project: { _id: 0, totalRevenue: 1, totalOrders: 1 } },
+    ]);
+
+    res.json({ dailyStats, summary: summary[0] || { totalRevenue: 0, totalOrders: 0 } });
+  } catch (error) {
+    console.error('Error fetching order stats:', error);
+    res.status(500).json({ message: 'Server error while fetching order stats' });
+  }
+};
