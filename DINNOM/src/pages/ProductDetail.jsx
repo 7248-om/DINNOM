@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import { toast } from 'react-hot-toast';
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -18,45 +17,46 @@ const ProductDetail = () => {
   }, [id]);
 
   const handleAddToCart = async () => {
-    setError('');
-    setSuccess('');
+  setError('');
 
-    if (!selectedSize) {
-      setError('Please select a size');
+  if (!selectedSize) {
+    toast.error('Please select a size');
+    return;
+  }
+
+  if (quantity > product.stock) {
+    toast.error(`Only ${product.stock} items in stock`);
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('You must be logged in to add items to the cart.');
       return;
     }
 
-    if (quantity > product.stock) {
-      setError(`Only ${product.stock} items in stock`);
-      return;
-    }
-
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        setError('You must be logged in to add items to the cart.');
-        return;
-      }
-
-      await axios.post('http://localhost:5050/api/cart',
-        {
-          productId: product._id,
-          selectedSize,
-          quantity
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+    await axios.post(
+      'http://localhost:5050/api/cart',
+      {
+        productId: product._id,
+        selectedSize,
+        quantity,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         }
-      );
+      }
+    );
 
-      setSuccess('Item added to cart!');
-    } catch (err) {
-      console.error(err);
-      setError('Failed to add item to cart');
-    }
-  };
+    toast.success('🛒 Item added to cart!');
+  } catch (err) {
+    console.error(err);
+    setError('Failed to add item to cart');
+  }
+};
+
 
   if (!product) return <div>Loading...</div>;
 
@@ -129,7 +129,6 @@ const ProductDetail = () => {
 
         {/* Error / Success */}
         {error && <p className="text-red-500">{error}</p>}
-        {success && <p className="text-green-600">{success}</p>}
 
         {/* Add to Cart */}
         <button
