@@ -109,8 +109,39 @@ const Cart = () => {
     fetchAvailableCoupons();
   }, []);
 
-  if (!cart) return <div className="p-8">Loading cart...</div>;
-  if (cart.items.length === 0) return <div className="p-8">Your cart is empty.</div>;
+  if (!cart) {
+  return (
+    <div className="flex flex-col items-center justify-center h-[70vh] gap-4 text-center">
+      <svg className="animate-spin h-10 w-10 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+      </svg>
+      <p className="text-lg text-gray-500">Fetching your cart...</p>
+    </div>
+  );
+}
+
+if (cart.items.length === 0) {
+  return (
+    <div className="flex flex-col items-center justify-center h-[70vh] text-center gap-6">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
+        alt="Empty Cart"
+        className="w-32 h-32 opacity-80"
+      />
+      <div>
+        <h2 className="text-2xl font-semibold text-gray-700">Your cart is empty</h2>
+        <p className="text-gray-500 mt-1">Looks like you haven't added anything yet.</p>
+      </div>
+      <button
+        onClick={() => navigate('/')}
+        className="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 transition"
+      >
+        Shop Now
+      </button>
+    </div>
+  );
+}
 
   const total = cart.items.reduce(
     (acc, item) => acc + item.productId.price * item.quantity,
