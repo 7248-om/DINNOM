@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -11,9 +13,40 @@ const Checkout = () => {
     country: '',
   });
   const [error, setError] = useState('');
+  const [addresses, setAddresses] = useState([]);
+  const { user, token } = useAuth();
 
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  const user = JSON.parse(localStorage.getItem('user')) || null;
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      if (!user || !token) {
+        toast.error('Please login to fetch addresses');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/addresses`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setAddresses(data);
+        } else {
+          throw new Error('Failed to fetch addresses');
+        }
+      } catch (error) {
+        console.error('Error fetching addresses:', error);
+        toast.error('Failed to load addresses');
+      }
+    };
+
+    fetchAddresses();
+  }, [user, token]);
 
   const totalAmount = parseInt(
   cartItems.reduce((acc, item) => {
@@ -76,12 +109,33 @@ navigate('/payment', {
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Select Address
+          </label>
+          <select
+            onChange={(e) => {
+              const selectedAddress = addresses.find(addr => addr._id === e.target.value);
+              setShippingAddress(selectedAddress);
+            }}
+            className="w-full border px-3 py-2 rounded-md"
+            required
+          >
+            <option value="">Select an Address</option>
+            {addresses.map((address) => (
+              <option key={address._id} value={address._id}>
+                {address.address}, {address.city}, {address.state} {address.postalCode}, {address.country}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {['address', 'city', 'postalCode', 'country'].map((field) => (
           <input
             key={field}
             type="text"
             name={field}
-            value={shippingAddress[field]}
+            value={shippingAddress[field] || ''}
             onChange={handleChange}
             placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
             required
