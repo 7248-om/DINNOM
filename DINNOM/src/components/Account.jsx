@@ -78,8 +78,8 @@ const Account = () => {
     return (
       <>
         <Navbar />
-        <div className="flex items-center justify-center h-64 bg-black">
-          <p className="text-gray-400 text-lg">Loading profile...</p>
+        <div className="flex items-center justify-center h-72 bg-white">
+          <p className="text-gray-700 text-lg">Loading profile...</p>
         </div>
         <Footer />
       </>
@@ -90,60 +90,73 @@ const Account = () => {
     return (
       <>
         <Navbar />
-        <div className="flex items-center justify-center h-64 bg-black">
-          <p className="text-red-600 text-lg font-semibold">{error}</p>
+        <div className="flex items-center justify-center h-72 bg-white">
+          <p className="text-red-700 text-lg font-semibold">{error}</p>
         </div>
         <Footer />
       </>
     );
   }
 
+  // Card hover handlers for scaling and shadow
+  const handleMouseEnter = (e) => {
+    e.currentTarget.style.transform = "scale(1.02)";
+    e.currentTarget.style.boxShadow = "0 12px 40px rgba(0, 0, 0, 0.2)";
+  };
+
+  const handleMouseLeave = (e) => {
+    e.currentTarget.style.transform = "scale(1)";
+    e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12)";
+  };
+
   return (
     <>
       <Navbar />
-      <main className="flex-grow min-h-screen bg-black py-16 px-4 sm:px-6 lg:px-8 flex justify-center items-start">
+      <main className="flex-grow min-h-screen bg-white px-6 sm:px-12 lg:px-20 py-20 flex flex-col items-center">
         <div
-          className="max-w-3xl w-full p-12 rounded-3xl shadow-lg"
+          className="w-full max-w-4xl p-12 rounded-2xl transition-transform duration-300 ease-in-out cursor-default"
           style={{
-            backgroundColor: "rgba(20, 20, 20, 0.85)",
-            backdropFilter: "blur(8px)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+            backgroundColor: "#ffffff",
+            border: "1px solid rgba(0, 0, 0, 0.15)",
+            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)",
           }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
-          <h2 className="text-4xl font-extrabold text-white mb-10 tracking-wider select-none">
+          <h2 className="text-4xl font-extrabold text-black mb-12 tracking-wide select-none text-center">
             Login &amp; Security
           </h2>
 
           {/* Profile Section */}
-          <section className="flex items-center mb-12 space-x-12">
+          <section className="flex flex-col md:flex-row items-center md:items-start mb-12 md:space-x-12 space-y-8 md:space-y-0">
             <img
               src={user.photoURL && user.photoURL !== "" ? user.photoURL : defaultPhoto}
               alt="Profile"
-              className="w-40 h-40 rounded-full border-4 border-gray-700 object-cover shadow-md transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-[0_0_20px_5px_rgba(200,200,255,0.5)]"
+              className="w-40 h-40 rounded-full border-4 border-black object-cover shadow-md transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_25px_6px_rgba(0,0,0,0.3)]"
             />
-            <div>
-              <p className="text-4xl font-semibold text-gray-300">{user.displayName || "No Name"}</p>
-              <p className="text-gray-500 text-xl mt-2">{user.email || "No Email"}</p>
+            <div className="flex-1">
+              <p className="text-3xl font-semibold text-black break-words">{user.displayName || "No Name"}</p>
+              <p className="text-gray-800 text-xl mt-3 break-words">{user.email || "No Email"}</p>
             </div>
           </section>
 
           {/* Name Field */}
-          <div className="mb-10">
-            <label className="block text-gray-400 font-semibold text-xl mb-3 select-none">Name</label>
+          <div className="mb-12 max-w-3xl mx-auto">
+            <label className="block text-black font-semibold text-xl mb-4 select-none">Name</label>
             {editMode ? (
               <input
                 type="text"
                 value={updatedUser.displayName}
                 onChange={(e) => setUpdatedUser({ ...updatedUser, displayName: e.target.value })}
-                className="w-full p-4 bg-transparent border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-500 transition"
+                className="w-full p-4 bg-white border border-black rounded-xl text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition"
                 placeholder="Enter your name"
                 autoFocus
               />
             ) : (
-              <div className="flex justify-between items-center mt-2">
-                <span className="text-white text-xl select-text">{user.displayName || "No Name"}</span>
+              <div className="flex justify-between items-center mt-2 max-w-3xl mx-auto">
+                <span className="text-black text-xl select-text">{user.displayName || "No Name"}</span>
                 <AiOutlineEdit
-                  className="text-3xl cursor-pointer text-gray-400 hover:text-indigo-500 transition"
+                  className="text-2xl cursor-pointer text-black hover:text-gray-700 transition"
                   onClick={() => setEditMode(true)}
                   title="Edit Name"
                 />
@@ -152,21 +165,21 @@ const Account = () => {
           </div>
 
           {/* Email Field */}
-          <div className="mb-10">
-            <label className="block text-gray-400 font-semibold text-xl mb-3 select-none">Email</label>
+          <div className="mb-12 max-w-3xl mx-auto">
+            <label className="block text-black font-semibold text-xl mb-4 select-none">Email</label>
             {editMode ? (
               <input
                 type="email"
                 value={updatedUser.email}
                 onChange={(e) => setUpdatedUser({ ...updatedUser, email: e.target.value })}
-                className="w-full p-4 bg-transparent border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-500 transition"
+                className="w-full p-4 bg-white border border-black rounded-xl text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition"
                 placeholder="Enter your email"
               />
             ) : (
-              <div className="flex justify-between items-center mt-2">
-                <span className="text-white text-xl select-text">{user.email || "No Email"}</span>
+              <div className="flex justify-between items-center mt-2 max-w-3xl mx-auto">
+                <span className="text-black text-xl select-text">{user.email || "No Email"}</span>
                 <AiOutlineEdit
-                  className="text-3xl cursor-pointer text-gray-400 hover:text-indigo-500 transition"
+                  className="text-2xl cursor-pointer text-black hover:text-gray-700 transition"
                   onClick={() => setEditMode(true)}
                   title="Edit Email"
                 />
@@ -176,9 +189,9 @@ const Account = () => {
 
           {/* Buttons */}
           {editMode && (
-            <div className="flex justify-end space-x-6">
+            <div className="flex justify-center space-x-8 max-w-3xl mx-auto">
               <button
-                className="px-8 py-3 rounded-3xl bg-gray-700 text-gray-300 font-semibold hover:bg-gray-600 transition"
+                className="px-10 py-3 rounded-xl bg-black text-white font-semibold hover:bg-gray-900 transition"
                 onClick={() => {
                   setEditMode(false);
                   setUpdatedUser({ displayName: user.displayName, email: user.email });
@@ -187,7 +200,7 @@ const Account = () => {
                 Cancel
               </button>
               <button
-                className="px-8 py-3 rounded-3xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 shadow-lg transition"
+                className="px-10 py-3 rounded-xl bg-black text-white font-semibold hover:bg-gray-900 shadow-md transition"
                 onClick={handleUpdate}
               >
                 Save
@@ -197,7 +210,7 @@ const Account = () => {
         </div>
       </main>
 
-      <div className="mt-20 bg-black">
+      <div className="mt-16 bg-white">
         <Footer />
       </div>
     </>
