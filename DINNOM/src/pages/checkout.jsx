@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { cartItems = [], totalAmount = 0, coupon = null, discountAmount = 0 } = location.state || {};
 
   const [shippingAddress, setShippingAddress] = useState({
     address: '',
@@ -12,19 +14,7 @@ const Checkout = () => {
   });
   const [error, setError] = useState('');
 
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
   const user = JSON.parse(localStorage.getItem('user')) || null;
-
-  const totalAmount = parseInt(
-  cartItems.reduce((acc, item) => {
-    const price = parseFloat(item?.productId?.price ?? 0);
-    const quantity = parseInt(item?.quantity ?? 1);
-    return acc + price * quantity;
-  }, 0)
-);
-
-
-
 
   const handleChange = (e) => {
     setShippingAddress({
@@ -36,38 +26,29 @@ const Checkout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate fields
     for (const key in shippingAddress) {
       if (!shippingAddress[key]) {
         setError('Please fill all fields.');
         return;
       }
     }
-    console.log("🧾 Cart Items Full:", cartItems);
-    console.log("👤 User:", user);
-console.log("🛒 Cart Items:", cartItems);
-console.log("💰 Total Amount:", totalAmount);
 
     if (!user || cartItems.length === 0 || totalAmount <= 0) {
       setError('Missing user or cart data.');
       return;
     }
 
-if (isNaN(totalAmount)) {
-  alert('Something went wrong calculating total');
-  return;
-}
-
-navigate('/payment', {
-  state: {
-    orderInfo: {
-      cartItems,
-      shippingAddress,
-      totalAmount: parseInt(totalAmount), // ✅ Ensure it's a number
-    },
-  },
-});
-
+    navigate('/payment', {
+      state: {
+        orderInfo: {
+          cartItems,
+          shippingAddress,
+          totalAmount: parseInt(totalAmount),
+          coupon,
+          discountAmount,
+        },
+      },
+    });
   };
 
   return (
@@ -88,6 +69,13 @@ navigate('/payment', {
             className="w-full border px-4 py-2 rounded"
           />
         ))}
+
+        <div className="text-right mt-4">
+          <p className="text-gray-700">Total Amount: ₹{totalAmount}</p>
+          {discountAmount > 0 && (
+            <p className="text-green-600 text-sm">Discount: ₹{discountAmount} applied</p>
+          )}
+        </div>
 
         <button
           type="submit"
