@@ -1,13 +1,26 @@
 // components/GridMoodBoard.jsx
-import React, { useRef } from 'react';
-import { motion as Motion, useScroll, useTransform } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion as Motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import fabricImg from '../assets/videos/fabric.jpeg';
 
 const GridMoodBoard = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  
+  // Words array for rotation
+  const words = ['ESSENCE.', 'ELEGANCE.', 'EXCLUSIVE.', 'ELEVATE.', 'EMBRACE.'];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   const yText = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
+  // Auto-rotate words every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [words.length]);
 
   return (
     <section
@@ -22,17 +35,58 @@ const GridMoodBoard = () => {
       />
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/50 z-10" />
+      <div className="absolute inset-0 bg-black/60 z-10" />
 
-      {/* Centered Parallax Text */}
-      <Motion.h2
-        style={{ y: yText }}
-        className="relative z-20 text-5xl md:text-7xl font-[700] tracking-[0.4em] text-center uppercase"
-      >
-        <span className="bg-clip-text text-transparent bg-gradient-to-br from-white via-gray-300 to-white drop-shadow-[0_0_25px_rgba(255,255,255,0.1)]">
-          ESSENCE.
-        </span>
-      </Motion.h2>
+      {/* Perfectly Centered Text with Enhanced Animation */}
+      <div className="absolute inset-0 z-30 flex items-center justify-center">
+        <Motion.div
+          style={{ y: yText }}
+          className="flex items-center justify-center"
+        >
+          <div className="relative overflow-hidden">
+            <AnimatePresence mode="wait">
+              <Motion.span
+                key={currentWordIndex}
+                initial={{
+                  y: 120,
+                  opacity: 0,
+                  scale: 0.7,
+                  rotateX: -90,
+                  filter: "blur(8px)"
+                }}
+                animate={{
+                  y: 0,
+                  opacity: 1,
+                  scale: 1,
+                  rotateX: 0,
+                  filter: "blur(0px)"
+                }}
+                exit={{
+                  y: -120,
+                  opacity: 0,
+                  scale: 0.7,
+                  rotateX: 90,
+                  filter: "blur(8px)"
+                }}
+                transition={{
+                  duration: 1.2,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                  type: "spring",
+                  stiffness: 80,
+                  damping: 20
+                }}
+                className="block text-white font-bold text-7xl md:text-8xl lg:text-9xl tracking-[0.4em] text-center uppercase whitespace-nowrap"
+                style={{
+                  transformStyle: 'preserve-3d',
+                  transformOrigin: 'center center'
+                }}
+              >
+                {words[currentWordIndex]}
+              </Motion.span>
+            </AnimatePresence>
+          </div>
+        </Motion.div>
+      </div>
     </section>
   );
 };

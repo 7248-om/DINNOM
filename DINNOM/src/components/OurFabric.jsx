@@ -78,11 +78,21 @@ const FabricSection = () => {
         transitionSpeed={250}
         className="relative z-10 px-6 max-w-3xl text-white text-center"
       >
-        <button className="bg-white text-black font-semibold px-4 py-2 rounded-full text-sm mb-6">
-          Our Fabrics
-        </button>
+        <div className="mb-16">
+          <h1 className="text-white font-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-6 tracking-[0.2em] leading-tight uppercase">
+            OUR FABRICS
+          </h1>
+          {/* Traditional title underline */}
+          <div className="flex items-center justify-center space-x-4">
+            <div className="w-16 h-0.5 bg-white opacity-60"></div>
+            <div className="w-3 h-3 bg-white rounded-full opacity-80"></div>
+            <div className="w-20 h-0.5 bg-white opacity-80"></div>
+            <div className="w-3 h-3 bg-white rounded-full opacity-80"></div>
+            <div className="w-16 h-0.5 bg-white opacity-60"></div>
+          </div>
+        </div>
 
-        <div className="text-3xl md:text-5xl font-bold leading-snug space-y-4">
+        <div className="text-3xl md:text-5xl font-semibold leading-snug space-y-4">
           {lines.map((line, i) => (
             <span key={i} className="fade-line block">
               {line}
@@ -90,12 +100,6 @@ const FabricSection = () => {
           ))}
         </div>
 
-        <a
-          href="#"
-          className="inline-block mt-6 text-sm border-b border-white hover:translate-x-1 transition-transform"
-        >
-          ALL FABRICS →
-        </a>
       </Tilt>
     </section>
   );
