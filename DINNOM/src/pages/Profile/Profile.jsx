@@ -78,7 +78,7 @@ const Profile = () => {
 
             {/* Card 3 - Profile */}
             <Card>
-              <Link to="/profile">
+              <Link to="/account">
                 <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg bg-black">
                   <img
                     src={cardImage}

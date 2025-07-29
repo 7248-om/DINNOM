@@ -54,6 +54,8 @@ import Payment from './pages/Payment'; // ⬅️ at the top
 
 //Profile
 import Orders from './components/Orders';
+import Account from "./components/Account";
+
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
@@ -136,6 +138,9 @@ function App() {
 
           {/* Profile */}
           <Route path="/profile/orders" element={<Orders />} />
+          <Route path="/account" element={<Account />} />
+
+          
 
           {/* Redirects */}
           {/* Catch-All */}
