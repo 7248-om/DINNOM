@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { Minus, Plus } from "lucide-react";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -109,18 +111,49 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Quantity Slider */}
-        <div className="space-y-1">
-          <p className="font-medium">Quantity (Stock: {product.stock})</p>
-          <input
-            type="range"
-            min="1"
-            max={Math.min(product.stock, 10)}
-            value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value))}
-          />
-          <p>Selected: {quantity}</p>
-        </div>
+
+{/* Quantity Selector */}
+<div className="space-y-1">
+  <p className="font-medium">Quantity (Stock: {product.stock})</p>
+  <div className="flex items-center gap-4">
+    <button
+      onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+      disabled={quantity <= 1}
+      className={`p-2 rounded-md border 
+        ${quantity <= 1 ? "cursor-not-allowed opacity-40" : "hover:bg-gray-100"} 
+        transition`}
+    >
+      <Minus size={18} />
+    </button>
+
+    {/* Animated Quantity */}
+    <AnimatePresence mode="wait" initial={false}>
+      <Motion.span
+        key={quantity}
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -10, opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        className="text-lg font-semibold w-6 text-center"
+      >
+        {quantity}
+      </Motion.span>
+    </AnimatePresence>
+
+    <button
+      onClick={() =>
+        setQuantity((prev) => Math.min(product.stock, prev + 1))
+      }
+      disabled={quantity >= product.stock}
+      className={`p-2 rounded-md border 
+        ${quantity >= product.stock ? "cursor-not-allowed opacity-40" : "hover:bg-gray-100"} 
+        transition`}
+    >
+      <Plus size={18} />
+    </button>
+  </div>
+</div>
+
 
         {/* Description */}
         <div>
