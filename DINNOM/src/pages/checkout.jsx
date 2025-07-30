@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { cartItems = [], totalAmount = 0, coupon = null, discountAmount = 0 } = location.state || {};
+  const { token } = useAuth();
+
+  // Get from location.state or fallback to localStorage
+  const user = JSON.parse(localStorage.getItem('user')) || null;
+  const cartItems = location.state?.cartItems || JSON.parse(localStorage.getItem('cartItems')) || [];
+  const totalAmount = location.state?.totalAmount || 0;
+  const coupon = location.state?.coupon || null;
+  const discountAmount = location.state?.discountAmount || 0;
 
   const [shippingAddress, setShippingAddress] = useState({
     address: '',
@@ -18,12 +23,7 @@ const Checkout = () => {
   });
   const [error, setError] = useState('');
   const [addresses, setAddresses] = useState([]);
-  const { user, token } = useAuth();
 
-
-  const user = JSON.parse(localStorage.getItem('user')) || null;
-
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
   useEffect(() => {
     const fetchAddresses = async () => {
       if (!user || !token) {
@@ -54,7 +54,6 @@ const Checkout = () => {
 
     fetchAddresses();
   }, [user, token]);
-
 
   const handleChange = (e) => {
     setShippingAddress({
