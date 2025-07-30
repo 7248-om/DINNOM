@@ -2,51 +2,97 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { FaBoxOpen, FaAddressBook, FaUserCircle } from 'react-icons/fa';
+import CardSwap, { Card } from '../../components/CardSwap.jsx';
+import cardImage from '../../assets/Men/images/img1.jpg'; // Import the image
 
 const Profile = () => {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 text-white p-8 overflow-hidden">
-      <div className="max-w-5xl mx-auto">
-        {/* Top Welcome Heading */}
-        <div className="text-center mb-12 animate-fade-in-down">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight">
-            Welcome, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">{user?.displayName || 'User'}</span>!
-          </h1>
-          <p className="mt-4 text-lg text-gray-400">
-            Your personal dashboard. Manage everything in one place.
+    <div className="min-h-screen bg-gradient-to-br from-[#1e1e4e] to-[#0f0f2e] text-white px-8 py-12">
+      
+      {/* Top Welcome Heading */}
+      <h1 className="text-5xl font-bold text-center mb-16 pt-10">
+        Welcome, {user?.displayName || "User"}! <span className="inline-block animate-waving-hand">👋</span>
+      </h1>
+
+      {/* Content Split: 60/40 */}
+      <div className="flex flex-col lg:flex-row items-start justify-between gap-1">
+        
+        {/* Left Side Text */}
+        <div className="lg:w-3/5 space-y-6 animate-fade-in-up pl-50 pt-30">
+          <h2 className="text-4xl font-extrabold tracking-tight leading-tight">
+            Manage Everything,<br className="hidden sm:block" /> Effortlessly 🚀
+          </h2>
+          <p className="text-2xl text-gray-300 max-w-md">
+            Access your orders, update delivery addresses, or tweak your profile settings — all in one beautiful space.
+          </p>
+          <p className="text-lg italic text-gray-400 max-w-sm">
+            Your data is secure, and your style is unmatched.
           </p>
         </div>
 
-        {/* Cards Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Card 1 - Your Profile */}
-          <Link to="/account" className="group block p-0.5 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-            <div className="h-full bg-gray-800 rounded-lg p-8 text-center flex flex-col items-center justify-center">
-              <FaUserCircle className="text-5xl text-purple-400 mb-4 transition-transform duration-300 group-hover:scale-110" />
-              <h3 className="text-2xl font-bold mb-2">Your Profile</h3>
-              <p className="text-gray-400">Update your personal details and account settings.</p>
-            </div>
-          </Link>
+        {/* Right Side Cards */}
+        <div className="lg:w-2/5 -mt-10 flex justify-center items-center">
+          <CardSwap
+            width={720} // Wider Cards
+            height={600}
+            cardDistance={60}
+            verticalDistance={70}
+            delay={5000}
+            pauseOnHover={false}
+          >
+            {/* Card 1 - Orders */}
+            <Card>
+              <Link to="/profile/orders">
+                <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg bg-black">
+                  <img
+                    src={cardImage}
+                    alt="Orders"
+                    className="w-full h-full object-cover opacity-70 hover:opacity-100 transition duration-300"
+                  />
+                  <div className="absolute top-0 left-0 bg-black bg-opacity-60 p-4 rounded-br-xl flex items-center gap-2">
+                    <FaBoxOpen className="text-yellow-400 text-xl" />
+                    <span className="text-white text-lg font-semibold">Your Orders</span>
+                  </div>
+                </div>
+              </Link>
+            </Card>
 
-          {/* Card 2 - Your Orders */}
-          <Link to="/profile/orders" className="group block p-0.5 rounded-xl bg-gradient-to-br from-blue-500 to-teal-400 hover:from-teal-400 hover:to-blue-500 transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-            <div className="h-full bg-gray-800 rounded-lg p-8 text-center flex flex-col items-center justify-center">
-              <FaBoxOpen className="text-5xl text-blue-400 mb-4 transition-transform duration-300 group-hover:scale-110" />
-              <h3 className="text-2xl font-bold mb-2">Your Orders</h3>
-              <p className="text-gray-400">Track your purchases and view order history.</p>
-            </div>
-          </Link>
+            {/* Card 2 - Addresses */}
+            <Card>
+              <Link to="/addresses">
+                <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg bg-black">
+                  <img
+                    src={cardImage}
+                    alt="Addresses"
+                    className="w-full h-full object-cover opacity-70 hover:opacity-100 transition duration-300"
+                  />
+                  <div className="absolute top-0 left-0 bg-black bg-opacity-60 p-4 rounded-br-xl flex items-center gap-2">
+                    <FaAddressBook className="text-green-300 text-xl" />
+                    <span className="text-white text-lg font-semibold">Your Addresses</span>
+                  </div>
+                </div>
+              </Link>
+            </Card>
 
-          {/* Card 3 - Your Addresses */}
-          <Link to="/addresses" className="group block p-0.5 rounded-xl bg-gradient-to-br from-green-500 to-cyan-400 hover:from-cyan-400 hover:to-green-500 transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-            <div className="h-full bg-gray-800 rounded-lg p-8 text-center flex flex-col items-center justify-center">
-              <FaAddressBook className="text-5xl text-green-400 mb-4 transition-transform duration-300 group-hover:scale-110" />
-              <h3 className="text-2xl font-bold mb-2">Your Addresses</h3>
-              <p className="text-gray-400">Manage your shipping and billing addresses.</p>
-            </div>
-          </Link>
+            {/* Card 3 - Profile */}
+            <Card>
+              <Link to="/account">
+                <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg bg-black">
+                  <img
+                    src={cardImage}
+                    alt="Profile"
+                    className="w-full h-full object-cover opacity-70 hover:opacity-100 transition duration-300"
+                  />
+                  <div className="absolute top-0 left-0 bg-black bg-opacity-60 p-4 rounded-br-xl flex items-center gap-2">
+                    <FaUserCircle className="text-blue-400 text-xl" />
+                    <span className="text-white text-lg font-semibold">Your Profile</span>
+                  </div>
+                </div>
+              </Link>
+            </Card>
+          </CardSwap>
         </div>
       </div>
     </div>
