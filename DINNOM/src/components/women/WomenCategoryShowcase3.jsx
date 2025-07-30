@@ -20,26 +20,30 @@ const WomenCategoryShowcase3 = () => {
         />
       </div>
 
-      {/* Right content section */}
-      <div className="absolute top-1/2 right-[6%] transform -translate-y-1/2 max-w-lg">
-        {/* Three-line heading */}
-        <h2 className="text-6xl font-extrabold uppercase text-black mb-6 leading-tight">
-          HOODIES,<br />
-          SWEATSHIRTS<br />
-          & SWEATERS & JACKETS
+      <div className="absolute top-[18%] right-[7%] text-right z-10">
+        <h2 className="text-[5rem] leading-tight font-extrabold uppercase text-black tracking-tight">
+          SWEATSHIRTS
         </h2>
+        <h2 className="text-[5rem] leading-tight font-extrabold uppercase text-black tracking-tight -mt-2">
+          & HOODIES
+        </h2>
+      </div>
 
+      {/* Right content section */}
+      <div className="absolute top-[64%] right-[7%] transform -translate-y-1/2">
         {/* Exactly three-line description */}
-        <p className="text-gray-700 mb-8 text-sm leading-relaxed">
-          Layer up in style with our cozy collection of hoodies, sweatshirts, sweaters, and jackets.<br />
-          Designed for comfort and versatility, perfect for any season.<br />
-          From casual warmth to chic outerwear, find your ideal fit.
+        <p className="text-gray-700 mb-8 text-lg leading-relaxed">
+          Stay warm in style with our premium collection of  <br />
+          hoodies and sweatshirts. Crafted from high-quality <br />
+          fabrics for exceptional comfort. Perfect for <br />
+          layering or wearing solo in any casual setting.
         </p>
 
         {/* Rounded button */}
-        <button 
-        onClick={handleClick}
-        className="bg-black text-white px-8 py-3 rounded-full text-xs tracking-widest font-semibold hover:bg-gray-900 uppercase">
+        <button
+          onClick={handleClick}
+          className="bg-black text-white px-8 py-3 rounded-full text-lg tracking-widest font-semibold hover:bg-gray-900 uppercase"
+        >
           DISCOVER COLLECTION
         </button>
       </div>

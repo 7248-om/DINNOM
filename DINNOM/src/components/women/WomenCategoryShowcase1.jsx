@@ -22,25 +22,26 @@ const WomenCategoryShowcase1 = () => {
         />
       </div>
 
-      {/* Right Heading */}
+      {/* Right Text Section */}
       <div className="absolute top-[18%] right-[6%] text-right z-10">
-        <h2 className="text-[4.5rem] leading-tight font-extrabold uppercase text-black tracking-tight">
+        <h2 className="text-[5rem] leading-tight font-extrabold uppercase text-black tracking-tight">
           TOP, SHIRTS
         </h2>
-        <h2 className="text-[4.5rem] leading-tight font-extrabold uppercase text-black tracking-tight -mt-2">
+        <h2 className="text-[5rem] leading-tight font-extrabold uppercase text-black tracking-tight -mt-2">
           & TEES
         </h2>
       </div>
 
-      {/* Description + Button */}
-      <div className="absolute top-[48%] right-[6%] text-left z-10 max-w-lg">
-        <p className="text-gray-700 text-md">
+      {/* Description and Button */}
+      <div className="absolute top-[45%] right-[6%] text-left z-10 max-w-lg">
+        <p className="text-gray-700 text-lg">
           Unveil your everyday elegance with our handpicked collection of stylish tops, versatile shirts, and comfy tees — perfect for everything from brunch to boardroom.
         </p>
 
-        <button 
-        onClick={handleClick}
-        className="mt-6 px-8 py-3 bg-black text-white text-sm tracking-wide font-semibold uppercase rounded-full hover:bg-gray-900 transition-all">
+        <button
+          className="mt-6 px-8 py-3 bg-black text-white text-lg tracking-wide font-semibold uppercase rounded-full hover:bg-gray-900 transition-all"
+          onClick={handleClick}
+        >
           DISCOVER COLLECTION
         </button>
       </div>
