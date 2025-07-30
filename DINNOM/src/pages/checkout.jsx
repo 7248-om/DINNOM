@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const { user, token } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   const [shippingAddress, setShippingAddress] = useState({
     name: user?.displayName || '',
@@ -17,7 +19,6 @@ const Checkout = () => {
   });
   const [error, setError] = useState('');
   const [addresses, setAddresses] = useState([]);
-  const { user, token } = useAuth();
 
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
   useEffect(() => {
@@ -94,20 +95,20 @@ const Checkout = () => {
       return;
     }
 
-if (isNaN(totalAmount)) {
-  alert('Something went wrong calculating total');
-  return;
-}
+    if (isNaN(totalAmount)) {
+      alert('Something went wrong calculating total');
+      return;
+    }
 
-navigate('/payment', {
-  state: {
-    orderInfo: {
-      cartItems,
-      shippingAddress,
-      totalAmount: parseInt(totalAmount), // ✅ Ensure it's a number
-    },
-  },
-});
+    navigate('/payment', {
+      state: {
+        orderInfo: {
+          cartItems,
+          shippingAddress,
+          totalAmount: parseInt(totalAmount), // ✅ Ensure it's a number
+        },
+      },
+    });
 
   };
 
@@ -169,6 +170,8 @@ navigate('/payment', {
           Proceed to Payment
         </button>
       </form>
+        </div>
+      </div>
     </div>
   );
 };

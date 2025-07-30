@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import imgRight from "../../assets/women/images/pants.jpeg";
+import imgRight from "../../assets/women/images/pants-right.png";
 import imgLeft from "../../assets/women/images/pants.jpeg";
 
 const WomenCategoryShowcase2 = () => {

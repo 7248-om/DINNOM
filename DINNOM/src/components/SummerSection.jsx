@@ -14,7 +14,7 @@ const SummerSection = () => {
       {/* Header */}
       <div className="flex justify-between items-center flex-wrap mb-5">
         <h2 className="text-4xl font-semibold">
-          <span className="text-blue-600">NOIRE Summer</span> on you.
+          <span className="text-black-600">BLACK REIMAGINED, BY NOIRÈ .</span> 
         </h2>
         <button className="border border-black px-5 py-2 bg-white text-base cursor-pointer hover:bg-black hover:text-white transition">
           View all stories

@@ -4,9 +4,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 
 // Import your images
-import img1 from "../assets/videos/model.webp";
-import img2 from "../assets/videos/fabric.png";
-import img3 from "../assets/videos/griffity.png";
+import img1 from "../assets/videos/ts1.png";
+import img2 from "../assets/videos/ts2.png";
+import img3 from "../assets/videos/ts3.png";
 import img4 from "../assets/videos/brand.png";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);

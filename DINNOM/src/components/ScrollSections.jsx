@@ -12,10 +12,10 @@ import img3 from "../assets/videos/griffity.png";
 import img4 from "../assets/videos/brand.png";
 
 const sections = [
-  { title: "RAW PRESENCE", subtitle: "Power in Contrast", image: img1 },
-  { title: "FABRIC TRUTH", subtitle: "Materials in Focus", image: img2 },
-  { title: "SPEAK STREET", subtitle: "Culture & Noise", image: img3 },
-  { title: "LABELLED", subtitle: "Identity & Branding", image: img4 },
+  { title: "PURE SHADOW", subtitle: "Where Darkness Defines Grace", image: img1 },
+  { title: "PURE FORM", subtitle: "Simplicity in Black", image: img2 },
+  { title: "URBAN CANVAS", subtitle: "The City in Monochrome", image: img3 },
+  { title: "SIGNATURE BLACK", subtitle: "The Mark of NOIRÈ", image: img4 },
 ];
 
 export default function ScrollGallery() {

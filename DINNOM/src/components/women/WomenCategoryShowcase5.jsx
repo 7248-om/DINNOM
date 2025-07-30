@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";  // <-- import this
 import imgLeft from "../../assets/women/images/footwear-left.png";  // Model image on left
-import imgLabel from "../../assets/women/images/brand-label.png";   // Bottom right label image
+import imgLabel from "../../assets/women/images/footwear-right.png";   // Bottom right label image
 
 const WomenCategoryShowcase5 = () => {
   const navigate = useNavigate();  // <-- initialize navigate

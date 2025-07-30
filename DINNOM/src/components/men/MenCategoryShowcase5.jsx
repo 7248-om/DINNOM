@@ -35,7 +35,7 @@ const MenCategoryShowcase5 = () => {
         {/* Centered title */}
         <div className="absolute top-[26%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
           <h1 className="text-7xl font-extrabold uppercase text-black tracking-tight">
-            CAPS & ACCESSORIES
+            CAPS
           </h1>
         </div>
       </div>
