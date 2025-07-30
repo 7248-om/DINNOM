@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebaseStorage';  // adjust path as needed
 
 const AdminProducts = () => {
   const [product, setProduct] = useState({
@@ -8,12 +10,16 @@ const AdminProducts = () => {
     stock: '', mainImage: '', hoverImage: '', sizes: '', tags: ''
   });
 
+  const [mainImageFile, setMainImageFile] = useState(null);
+  const [hoverImageFile, setHoverImageFile] = useState(null);
+
   const [products, setProducts] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [filterCategory, setFilterCategory] = useState('');
   const [filterGender, setFilterGender] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => { fetchProducts(); }, []);
 
@@ -39,25 +45,69 @@ const AdminProducts = () => {
     }
   };
 
+  // File input change handlers
+  const handleMainImageChange = (e) => {
+    if (e.target.files[0]) setMainImageFile(e.target.files[0]);
+  };
+  const handleHoverImageChange = (e) => {
+    if (e.target.files[0]) setHoverImageFile(e.target.files[0]);
+  };
+
+  // Upload a file to Firebase Storage and return download URL
+  const uploadImage = (file, folder) => {
+    return new Promise((resolve, reject) => {
+      if (!file) resolve(''); // if no file selected, resolve empty string
+
+      const timestamp = Date.now();
+      const storageRef = ref(storage, `${folder}/${timestamp}_${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          // You can track progress here if you want (optional)
+        },
+        (error) => {
+          toast.error('Image upload failed');
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            resolve(downloadURL);
+          });
+        }
+      );
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (uploading) return; // prevent duplicate submit while uploading
+
     setLoading(true);
-
-    const formattedProduct = {
-      ...product,
-      price: Number(product.price),
-      stock: Number(product.stock),
-      sizes: product.sizes.split(',').map(s => s.trim()),
-      tags: product.tags.split(',').map(t => t.trim()),
-    };
-
-    const url = editingId
-      ? `http://localhost:5050/api/products/${editingId}`
-      : 'http://localhost:5050/api/products';
-
-    const method = editingId ? 'PUT' : 'POST';
+    setUploading(true);
 
     try {
+      // Upload images first, get URLs
+      const mainImageUrl = mainImageFile ? await uploadImage(mainImageFile, 'products/mainImages') : product.mainImage;
+      const hoverImageUrl = hoverImageFile ? await uploadImage(hoverImageFile, 'products/hoverImages') : product.hoverImage;
+
+      const formattedProduct = {
+        ...product,
+        price: Number(product.price),
+        stock: Number(product.stock),
+        sizes: product.sizes.split(',').map(s => s.trim()),
+        tags: product.tags.split(',').map(t => t.trim()),
+        mainImage: mainImageUrl,
+        hoverImage: hoverImageUrl,
+      };
+
+      const url = editingId
+        ? `http://localhost:5050/api/products/${editingId}`
+        : 'http://localhost:5050/api/products';
+
+      const method = editingId ? 'PUT' : 'POST';
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -72,6 +122,8 @@ const AdminProducts = () => {
       if (response.ok) {
         toast.success(editingId ? 'Product updated' : 'Product added');
         setProduct({ productId: '', name: '', price: '', description: '', gender: '', category: '', stock: '', mainImage: '', hoverImage: '', sizes: '', tags: '' });
+        setMainImageFile(null);
+        setHoverImageFile(null);
         setEditingId(null);
         setShowModal(false);
         fetchProducts();
@@ -84,6 +136,7 @@ const AdminProducts = () => {
     }
 
     setLoading(false);
+    setUploading(false);
   };
 
   const handleEdit = (prod) => {
@@ -94,6 +147,8 @@ const AdminProducts = () => {
       sizes: Array.isArray(prod.sizes) ? prod.sizes.join(', ') : '',
       tags: Array.isArray(prod.tags) ? prod.tags.join(', ') : '',
     });
+    setMainImageFile(null);
+    setHoverImageFile(null);
     setEditingId(prod._id);
     setShowModal(true);
   };
@@ -175,6 +230,8 @@ const AdminProducts = () => {
           onClick={() => {
             setShowModal(true);
             setProduct({ productId: '', name: '', price: '', description: '', gender: '', category: '', stock: '', mainImage: '', hoverImage: '', sizes: '', tags: '' });
+            setMainImageFile(null);
+            setHoverImageFile(null);
             setEditingId(null);
           }}
           className="bg-black text-white px-4 py-2 rounded ml-auto hover:bg-gray-900 transition"
@@ -185,7 +242,7 @@ const AdminProducts = () => {
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl relative">
+          <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => { setShowModal(false); setEditingId(null); }}
               className="absolute top-2 right-4 text-xl text-gray-600 hover:text-black"
@@ -195,8 +252,41 @@ const AdminProducts = () => {
               <input name="name" value={product.name} onChange={handleChange} placeholder="Name" className="border p-2 rounded-lg" required />
               <input name="price" value={product.price} onChange={handleChange} placeholder="Price ₹" className="border p-2 rounded-lg" required />
               <input name="stock" value={product.stock} onChange={handleChange} placeholder="Stock" className="border p-2 rounded-lg" required />
-              <input name="mainImage" value={product.mainImage} onChange={handleChange} placeholder="Main Image URL" className="border p-2 rounded-lg" required />
-              <input name="hoverImage" value={product.hoverImage} onChange={handleChange} placeholder="Hover Image URL" className="border p-2 rounded-lg" required />
+              
+              {/* Replace Main Image URL input with file upload */}
+              <div className="flex flex-col">
+                <label className="font-medium mb-1">Main Image</label>
+                <input type="file" accept="image/*" onChange={handleMainImageChange} />
+                {/* Show preview */}
+                {mainImageFile && (
+                  <img
+                    src={URL.createObjectURL(mainImageFile)}
+                    alt="Main Preview"
+                    className="h-24 w-24 object-cover mt-2 rounded"
+                  />
+                )}
+                {!mainImageFile && product.mainImage && (
+                  <img src={product.mainImage} alt="Main" className="h-24 w-24 object-cover mt-2 rounded" />
+                )}
+              </div>
+
+              {/* Replace Hover Image URL input with file upload */}
+              <div className="flex flex-col">
+                <label className="font-medium mb-1">Hover Image</label>
+                <input type="file" accept="image/*" onChange={handleHoverImageChange} />
+                {/* Show preview */}
+                {hoverImageFile && (
+                  <img
+                    src={URL.createObjectURL(hoverImageFile)}
+                    alt="Hover Preview"
+                    className="h-24 w-24 object-cover mt-2 rounded"
+                  />
+                )}
+                {!hoverImageFile && product.hoverImage && (
+                  <img src={product.hoverImage} alt="Hover" className="h-24 w-24 object-cover mt-2 rounded" />
+                )}
+              </div>
+
               <input name="sizes" value={product.sizes} onChange={handleChange} placeholder="Sizes (S, M, L...)" className="border p-2 rounded-lg" required />
               <input name="tags" value={product.tags} onChange={handleChange} placeholder="Tags (e.g., trending)" className="border p-2 rounded-lg" required />
 
@@ -214,8 +304,13 @@ const AdminProducts = () => {
               </select>
 
               <textarea name="description" value={product.description} onChange={handleChange} placeholder="Description" className="border p-2 rounded-lg md:col-span-2" rows={3} required />
-              <button type="submit" className="bg-black hover:bg-gray-900 transition text-white py-2 px-4 rounded col-span-full">
-                {editingId ? 'Update Product' : 'Add Product'}
+
+              <button
+                type="submit"
+                disabled={loading || uploading}
+                className="bg-black hover:bg-gray-900 transition text-white py-2 px-4 rounded col-span-full"
+              >
+                {uploading ? 'Uploading Images...' : editingId ? 'Update Product' : 'Add Product'}
               </button>
             </form>
           </div>
