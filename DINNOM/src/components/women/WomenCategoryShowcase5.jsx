@@ -21,32 +21,33 @@ const WomenCategoryShowcase5 = () => {
         />
       </div>
 
-      {/* Right content section */}
-      <div className="absolute top-1/2 right-[6%] transform -translate-y-1/2 max-w-lg">
-        {/* Heading */}
-        <h2 className="text-6xl font-extrabold uppercase text-black mb-6 leading-tight">
-          WOMEN'S<br />
+      {/* Right Text Section */}
+      <div className="absolute top-[18%] right-[6%] text-right z-10">
+        <h2 className="text-[5rem] leading-tight font-extrabold uppercase text-black tracking-tight">
+          WOMEN'S
+        </h2>
+        <h2 className="text-[5rem] leading-tight font-extrabold uppercase text-black tracking-tight -mt-2">
           FOOTWEAR
         </h2>
+      </div>
 
-        {/* Description */}
-        <p className="text-gray-700 mb-8 text-sm leading-relaxed">
-          Step out in style with our curated collection of women’s footwear.<br />
-          Designed for comfort, versatility, and to complement every outfit.<br />
-          From casual sneakers to elegant heels, find your perfect pair.
+      {/* Description and Button */}
+      <div className="absolute top-[48%] right-[6%] text-left z-10 max-w-lg">
+        <p className="text-gray-700 text-lg text-left -mt-3">
+          Step out in style with our curated collection of women’s footwear. Designed for comfort, versatility, and to complement every outfit. From casual sneakers to elegant heels, find your perfect pair.
         </p>
 
-        {/* Button */}
         <button
-          onClick={handleClick}  // <-- add click handler here
-          className="bg-black text-white px-8 py-3 rounded-full text-xs tracking-widest font-semibold hover:bg-gray-900 uppercase"
-        >
-          DISCOVER COLLECTION
-        </button>
+  className="mt-6 px-8 py-3 bg-black text-white text-lg tracking-wide font-semibold uppercase rounded-full hover:bg-gray-900 transition-all block translate-x-0"
+  onClick={handleClick}
+>
+  DISCOVER COLLECTION
+</button>
+
       </div>
 
       {/* Bottom right label */}
-      <div className="absolute bottom-6 right-16 w-44">
+      <div className="absolute bottom-0 right-16 w-[240px] h-[280px]">
         <img
           src={imgLabel}
           alt="Brand label"

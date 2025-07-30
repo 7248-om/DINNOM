@@ -129,83 +129,38 @@ const TailoredSpace = () => {
       
       // Set initial content with proper structure
       titleRef.current.innerHTML = `
-        <div style="display: block; margin-bottom: 0.2em;">
-          <span class="title-line-1">${line1}</span>
+        <div style=\"display: block; margin-bottom: 0.2em;\">
+          <span class=\"title-line-1\"></span>
         </div>
-        <div style="display: block;">
-          <span class="title-line-2">${line2}</span>
+        <div style=\"display: block;\">
+          <span class=\"title-line-2\"></span>
         </div>
       `;
       
       const line1Span = titleRef.current.querySelector('.title-line-1');
       const line2Span = titleRef.current.querySelector('.title-line-2');
       
-      // Set initial state immediately
-      gsap.set([line1Span, line2Span], {
-        opacity: 0,
-        y: 60,
-        scale: 0.7,
-        rotationX: -90
-      });
-      
-      // Create animation timeline that plays immediately with delay
       const tl = gsap.timeline({ delay: 0.5 });
-      
-      // Animate first line with dramatic entrance
+
       tl.to(line1Span, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotationX: 0,
+        text: line1,
         duration: 1.5,
-        ease: "back.out(1.7)",
+        ease: "none",
       })
-      // Add glow effect to first line
-      .to(line1Span, {
-        textShadow: "0 0 30px rgba(0,0,0,0.4), 0 8px 25px rgba(0,0,0,0.3)",
-        duration: 0.8,
-        ease: "power2.out",
-      }, "-=0.5")
-      // Animate second line with explosive entrance
       .to(line2Span, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotationX: 0,
-        duration: 2,
-        ease: "elastic.out(1.2, 0.4)",
-      }, "-=0.8")
-      // Add intense glow to second line
-      .to(line2Span, {
-        textShadow: "0 0 40px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.4)",
+        text: line2,
         duration: 1,
-        ease: "power2.out",
-      }, "-=1.2")
-      // Add pulsing effect
-      .to([line1Span, line2Span], {
-        scale: 1.05,
-        duration: 1,
-        ease: "power2.inOut",
-        yoyo: true,
-        repeat: 2,
-      }, "-=0.5")
-      // Start continuous floating animation
-      .to([line1Span, line2Span], {
-        y: -5,
-        duration: 3,
-        ease: "power1.inOut",
-        yoyo: true,
-        repeat: -1,
-      }, "-=1");
+        ease: "none",
+      }, "-=0.5");
     }
 
 
     // Enhanced Second Paragraph: Word-by-Word Reveal
     if (paragraphRef.current) {
       const paragraphLines = [
-        'At <span class="font-semibold">NOIRÉ</span>, we don\'t follow trends — we define timelessness.',
-        'India\'s first monochromatic black fashion house, we embrace the beauty of shadows, contrast, and silhouette.',
-        'Every piece is crafted to evoke power, elegance, and identity — in all black, always.'
+        'At <span class=\"font-semibold\">NOIRÉ</span>, we define timelessness.',
+        'India\'s first monochromatic black fashion house.',
+        'Every piece is crafted for power and elegance.'
       ];
       
       // Create word-by-word spans for smoother animation with proper HTML parsing
@@ -256,7 +211,7 @@ const TailoredSpace = () => {
     if (thirdParagraphRef.current) {
       const thirdParagraphLines = [
         'This isn\'t just fashion.',
-        'This is <span class="font-semibold">NOIRÉ</span> — where <span class="font-semibold">black speaks louder than color</span>.'
+        'This is <span class=\"font-semibold\">NOIRÉ</span>.'
       ];
       
       // Create enhanced spans with better animation setup and proper HTML parsing
