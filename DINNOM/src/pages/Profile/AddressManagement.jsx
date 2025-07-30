@@ -42,7 +42,7 @@ const AddressManagement = () => {
         return;
       }
       
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/addresses`, {
+      const response = await fetch('/api/addresses', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -89,8 +89,8 @@ const AddressManagement = () => {
       }
       
       const url = editingAddress 
-        ? `${import.meta.env.VITE_API_URL}/api/addresses/${editingAddress._id}`
-        : `${import.meta.env.VITE_API_URL}/api/addresses`;
+        ? `/api/addresses/${editingAddress._id}`
+        : `/api/addresses`;
         
       const method = editingAddress ? 'PUT' : 'POST';
       
@@ -127,7 +127,7 @@ const AddressManagement = () => {
           return;
         }
         
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/addresses/${addressId}`, {
+        const response = await fetch(`/api/addresses/${addressId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -155,7 +155,7 @@ const AddressManagement = () => {
         return;
       }
       
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/addresses/${addressId}/default`, {
+      const response = await fetch(`/api/addresses/${addressId}/default`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -497,4 +497,3 @@ const AddressManagement = () => {
 };
 
 export default AddressManagement;
-

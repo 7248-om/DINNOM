@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { BadgePercent } from "lucide-react";
 const Cart = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useState(null);
@@ -200,64 +200,85 @@ if (cart.items.length === 0) {
         </div>
       ))}
 
-      {/* Coupon Manual Input */}
-      <div className="flex items-center gap-4 mt-6">
-        <input
-          type="text"
-          value={couponCode}
-          onChange={(e) => setCouponCode(e.target.value)}
-          placeholder="Enter Coupon Code"
-          className="border px-4 py-2 rounded w-full max-w-sm"
-        />
-        <button
-          onClick={() => handleApplyCoupon(null)}
-          className="bg-black text-white px-6 py-2 rounded"
-        >
-          Apply
-        </button>
+
+{/* Coupon Manual Input */}
+<div className="mt-8 space-y-4">
+  <div className="flex flex-wrap items-center gap-3">
+    <div className="relative w-full max-w-sm">
+      <input
+        type="text"
+        value={couponCode}
+        onChange={(e) => setCouponCode(e.target.value)}
+        placeholder="Enter Coupon Code"
+        className="w-full px-4 py-2 pr-12 rounded-lg border border-gray-300 backdrop-blur-md bg-white/70 shadow-inner outline-none focus:ring-2 focus:ring-black transition"
+      />
+      <BadgePercent className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+    </div>
+
+    <button
+      onClick={() => handleApplyCoupon(null)}
+      className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition shadow"
+    >
+      Apply
+    </button>
+  </div>
+
+  {/* Available Coupons Dropdown */}
+  {availableCoupons.length > 0 && (
+    <div>
+      <p className="font-medium mb-2 text-gray-700">Available Coupons:</p>
+      <div className="flex flex-wrap gap-2">
+        {availableCoupons.map((coupon) => (
+          <button
+            key={coupon._id}
+            onClick={() => handleApplyCoupon(coupon.code)}
+            className="px-3 py-1 rounded-full border border-gray-300 text-sm hover:bg-black hover:text-white transition-all duration-200"
+          >
+            {coupon.code} ({coupon.discountType === 'flat'
+              ? `₹${coupon.discountValue}`
+              : `${coupon.discountValue}%`})
+          </button>
+        ))}
       </div>
+    </div>
+  )}
 
-      {/* Available Coupons Dropdown */}
-      {availableCoupons.length > 0 && (
-        <div className="mt-4">
-          <p className="font-medium mb-1">Available Coupons:</p>
-          <div className="flex flex-wrap gap-2">
-            {availableCoupons.map((coupon) => (
-              <button
-                key={coupon._id}
-                onClick={() => handleApplyCoupon(coupon.code)}
-                className="border px-3 py-1 rounded hover:bg-black hover:text-white transition"
-              >
-                {coupon.code} ({coupon.discountType === 'flat' ? `₹${coupon.discountValue}` : `${coupon.discountValue}%`})
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+  {/* Applied Coupon Confirmation */}
+  {couponData && (
+    <div className="text-green-600 text-sm font-medium mt-2">
+      🎉 Coupon <b>{couponData.code}</b> applied! You saved ₹{discountAmount}.
+    </div>
+  )}
 
-      {couponData && (
-        <p className="text-green-600 mt-2">
-          Coupon <b>{couponData.code}</b> applied! You saved ₹{discountAmount}.
-        </p>
-      )}
+  {/* Total Calculation Section */}
+  <div className="text-right text-lg font-semibold space-y-1 pt-4 border-t border-gray-200 mt-6">
+    <p className="text-gray-600">Subtotal: ₹{total}</p>
+    {discountAmount > 0 && (
+      <p className="text-green-600">Discount: -₹{discountAmount}</p>
+    )}
+    <h3 className="text-black text-xl font-bold">Total: ₹{finalTotal}</h3>
+  </div>
+</div>
 
-      <div className="text-right text-xl font-bold space-y-1 mt-6">
-        <p>Subtotal: ₹{total}</p>
-        {discountAmount > 0 && <p>Discount: -₹{discountAmount}</p>}
-        <h3>Total: ₹{finalTotal}</h3>
-      </div>
 
       <div className="text-right">
-        <button
+       <button
   className="bg-black text-white px-6 py-2 rounded-full mt-4"
   onClick={() => {
-    localStorage.setItem('cartItems', JSON.stringify(cart.items));
-    localStorage.setItem('totalAmount', finalTotal.toString());
-    navigate('/checkout');
+    navigate('/checkout', {
+  state: {
+    cartItems: cart.items,
+    totalAmount: finalTotal > 0 ? finalTotal : 1, // ✅ Ensure minimum ₹1
+    coupon: couponData,
+    discountAmount,
+  },
+});
+
   }}
 >
   Proceed to Checkout
 </button>
+
       </div>
     </div>
   );

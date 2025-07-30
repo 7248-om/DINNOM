@@ -19,6 +19,7 @@ import chatbotRoutes from './routes/chatbot.js';
 import couponRoutes from './routes/coupons.js';
 import paymentRoutes from './routes/payment.js';
 
+import addressRoutes from './routes/addressRoutes.js';
 import userRoutes from './routes/user.js';
 
 
@@ -54,6 +55,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/coupons', couponRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/addresses', addressRoutes);
 app.use('/api/users', userRoutes);
 app.get('/api', (req, res) => {
   res.json(['diya', 'nidhi', 'om', 'nihar']);

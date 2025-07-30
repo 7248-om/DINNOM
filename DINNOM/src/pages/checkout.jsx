@@ -7,10 +7,13 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   const [shippingAddress, setShippingAddress] = useState({
+    name: user?.displayName || '',
     address: '',
     city: '',
+    state: '',
     postalCode: '',
-    country: '',
+    country: 'India',
+    phone: '',
   });
   const [error, setError] = useState('');
   const [addresses, setAddresses] = useState([]);
@@ -20,12 +23,12 @@ const Checkout = () => {
   useEffect(() => {
     const fetchAddresses = async () => {
       if (!user || !token) {
-        toast.error('Please login to fetch addresses');
+        setLoading(false);
         return;
       }
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/addresses`, {
+        const response = await fetch('/api/addresses', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -36,12 +39,18 @@ const Checkout = () => {
         if (response.ok) {
           const data = await response.json();
           setAddresses(data);
+          const defaultAddress = data.find(addr => addr.isDefault);
+          if (defaultAddress) {
+            setShippingAddress(defaultAddress);
+          }
         } else {
           throw new Error('Failed to fetch addresses');
         }
       } catch (error) {
         console.error('Error fetching addresses:', error);
         toast.error('Failed to load addresses');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -68,18 +77,17 @@ const Checkout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError('');
 
     // Validate fields
     for (const key in shippingAddress) {
       if (!shippingAddress[key]) {
-        setError('Please fill all fields.');
+        const errorMessage = `Please fill all fields. Missing: ${key}`;
+        setError(errorMessage);
+        toast.error(errorMessage);
         return;
       }
     }
-    console.log("🧾 Cart Items Full:", cartItems);
-    console.log("👤 User:", user);
-console.log("🛒 Cart Items:", cartItems);
-console.log("💰 Total Amount:", totalAmount);
 
     if (!user || cartItems.length === 0 || totalAmount <= 0) {
       setError('Missing user or cart data.');
@@ -103,10 +111,21 @@ navigate('/payment', {
 
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-black"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">Checkout</h1>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+    <div className="bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-3xl font-bold text-center text-gray-900 mb-8">Checkout</h1>
+
+        <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+          {error && <p className="text-red-500 mb-4 bg-red-50 p-3 rounded-md">{error}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="mb-4">

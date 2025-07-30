@@ -220,7 +220,37 @@ export const getOrderStats = async (req, res) => {
       { $project: { _id: 0, totalRevenue: 1, totalOrders: 1 } },
     ]);
 
-    res.json({ dailyStats, summary: summary[0] || { totalRevenue: 0, totalOrders: 0 } });
+    // NEW: Category stats aggregation
+    const categoryStats = await Order.aggregate([
+      {
+        $match: {
+          orderDate: { $gte: threeMonthsAgo },
+          status: { $in: ['Processing', 'Shipped', 'Delivered'] },
+        },
+      },
+      { $unwind: '$items' },
+      {
+        $lookup: {
+          from: 'products', // Assumes your products collection is named 'products'
+          localField: 'items.productId',
+          foreignField: '_id',
+          as: 'productInfo',
+        },
+      },
+      { $unwind: '$productInfo' },
+      {
+        $group: {
+          _id: '$productInfo.category',
+          totalRevenue: { $sum: { $multiply: ['$items.price', '$items.quantity'] } },
+          totalItemsSold: { $sum: '$items.quantity' },
+        },
+      },
+      {
+        $project: { _id: 0, category: '$_id', totalRevenue: 1, totalItemsSold: 1 },
+      },
+    ]);
+
+    res.json({ dailyStats, summary: summary[0] || { totalRevenue: 0, totalOrders: 0 }, categoryStats });
   } catch (error) {
     console.error('Error fetching order stats:', error);
     res.status(500).json({ message: 'Server error while fetching order stats' });
