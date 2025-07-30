@@ -6,7 +6,6 @@ import toast from 'react-hot-toast';
 const Checkout = () => {
   const navigate = useNavigate();
   const { user, token } = useAuth();
-  const { user, token } = useAuth();
   const [loading, setLoading] = useState(true);
 
   const [shippingAddress, setShippingAddress] = useState({
@@ -20,7 +19,6 @@ const Checkout = () => {
   });
   const [error, setError] = useState('');
   const [addresses, setAddresses] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -98,30 +96,16 @@ const Checkout = () => {
       toast.error('Something went wrong calculating total');
       return;
     }
-    if (isNaN(totalAmount)) {
-      alert('Something went wrong calculating total');
-      return;
-    }
 
     navigate('/payment', {
       state: {
         orderInfo: {
           cartItems,
           shippingAddress,
-          totalAmount: totalAmount,
+          totalAmount: parseInt(totalAmount), // Ensure it's a number
         },
       },
     });
-    navigate('/payment', {
-      state: {
-        orderInfo: {
-          cartItems,
-          shippingAddress,
-          totalAmount: parseInt(totalAmount), // ✅ Ensure it's a number
-        },
-      },
-    });
-
   };
 
   if (loading) {
@@ -176,7 +160,7 @@ const Checkout = () => {
                 </Link>
               </div>
             )}
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
@@ -201,7 +185,6 @@ const Checkout = () => {
               <div>
                 <label htmlFor="state" className="block text-sm font-medium text-gray-700">State</label>
                 <input type="text" id="state" name="state" value={shippingAddress.state || ''} onChange={handleChange} required className="mt-1 w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-black" />
-
               </div>
             </div>
 
@@ -220,50 +203,6 @@ const Checkout = () => {
               Proceed to Payment
             </button>
           </form>
-        </div>
-      </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Select Address
-          </label>
-          <select
-            onChange={(e) => {
-              const selectedAddress = addresses.find(addr => addr._id === e.target.value);
-              setShippingAddress(selectedAddress);
-            }}
-            className="w-full border px-3 py-2 rounded-md"
-            required
-          >
-            <option value="">Select an Address</option>
-            {addresses.map((address) => (
-              <option key={address._id} value={address._id}>
-                {address.address}, {address.city}, {address.state} {address.postalCode}, {address.country}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {['address', 'city', 'postalCode', 'country'].map((field) => (
-          <input
-            key={field}
-            type="text"
-            name={field}
-            value={shippingAddress[field] || ''}
-            onChange={handleChange}
-            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-            required
-            className="w-full border px-4 py-2 rounded"
-          />
-        ))}
-
-        <button
-          type="submit"
-          className="w-full bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
-        >
-          Proceed to Payment
-        </button>
-      </form>
         </div>
       </div>
     </div>
