@@ -79,7 +79,7 @@ export default function ScrollGallery() {
           {[img2, img3, img4].map((img, i) => (
             <Motion.div
               key={i}
-              className="absolute inset-0 bg-cover bg-center"
+              className="absolute inset-0 bg-cover bg-center object-cover-top"
               style={{
                 backgroundImage: `url(${img})`,
                 y: yTransforms[i],
