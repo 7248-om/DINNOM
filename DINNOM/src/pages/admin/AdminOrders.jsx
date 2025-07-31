@@ -120,7 +120,6 @@ const AdminOrders = () => {
     }
   };
 
-  // Toggle select all visible orders on current page
   const toggleSelectAll = (checked, visibleOrders) => {
     if (checked) {
       const visibleIds = visibleOrders.map((o) => o._id);
@@ -131,7 +130,6 @@ const AdminOrders = () => {
     }
   };
 
-  // Toggle sorting on the specified field
   const toggleSort = (field) => {
     if (sortField === field) setSortAsc((asc) => !asc);
     else {
@@ -140,7 +138,6 @@ const AdminOrders = () => {
     }
   };
 
-  // Filter and sort orders
   const filteredOrders = orders.filter(({ _id, userId }) =>
     _id.toLowerCase().includes(searchTerm.toLowerCase()) ||
     (userId?.displayName || '').toLowerCase().includes(searchTerm.toLowerCase())
@@ -175,7 +172,6 @@ const AdminOrders = () => {
     return 0;
   });
 
-  // Pagination
   const totalPages = Math.ceil(filteredOrders.length / ORDERS_PER_PAGE);
   const paginatedOrders = filteredOrders.slice(
     (currentPage - 1) * ORDERS_PER_PAGE,
@@ -209,12 +205,11 @@ const AdminOrders = () => {
     );
 
   return (
-    <div className="p-8 max-w-full font-sans text-black">
-      <h2 className="text-3xl font-bold mb-8 tracking-wide">Admin - Orders</h2>
+    <div className="p-4 sm:p-8 max-w-full font-sans text-black">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8 tracking-wide">Admin - Orders</h2>
 
-      {/* Search + Bulk Delete Button */}
-      <div className="mb-8 max-w-md relative text-gray-500 focus-within:text-black flex flex-col sm:flex-row gap-3 items-center">
-        <div className="flex-grow relative w-full text-gray-500 focus-within:text-black">
+      <div className="mb-6 flex flex-col sm:flex-row gap-3 items-center">
+        <div className="flex-grow w-full relative text-gray-500 focus-within:text-black">
           <FiSearch className="pointer-events-none absolute left-3 top-1/2 transform -translate-y-1/2" size={20} />
           <input
             type="text"
@@ -223,7 +218,7 @@ const AdminOrders = () => {
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
-              setCurrentPage(1); // reset page on search
+              setCurrentPage(1);
             }}
           />
         </div>
@@ -231,7 +226,7 @@ const AdminOrders = () => {
         {selectedOrders.length > 0 && (
           <button
             onClick={handleBulkDelete}
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+            className="w-full sm:w-auto bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
             title={`Delete ${selectedOrders.length} selected orders`}
           >
             Delete Selected ({selectedOrders.length})
@@ -240,10 +235,9 @@ const AdminOrders = () => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full table-fixed border-collapse border border-black rounded-lg shadow-sm overflow-hidden">
+        <table className="min-w-full table-fixed border-collapse border border-black rounded-lg shadow-sm">
           <thead className="bg-black text-white sticky top-0 z-10">
             <tr>
-              {/* Select All Checkbox */}
               <th className="border border-white px-4 py-3 text-left whitespace-nowrap">
                 <input
                   type="checkbox"
@@ -271,7 +265,6 @@ const AdminOrders = () => {
                   title={sortable ? `Sort by ${label}` : undefined}
                 >
                   {label}
-                  {/* Show sort arrow */}
                   {sortable && sortField === field && (
                     <span className="inline-block ml-1">{sortAsc ? '▲' : '▼'}</span>
                   )}
@@ -295,8 +288,7 @@ const AdminOrders = () => {
                 return (
                   <tr
                     key={order._id}
-                    className={`group ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-100'} hover:bg-black transition-colors cursor-default`}
-                    style={{ transition: 'background-color 0.3s ease' }}
+                    className={`group ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-100'} hover:bg-gray-300 transition-colors cursor-default`}
                   >
                     <td className="border border-black px-4 py-2 text-center whitespace-nowrap">
                       <input
@@ -314,52 +306,46 @@ const AdminOrders = () => {
                     </td>
 
                     <td
-                      className="border border-black px-4 py-2 max-w-xs whitespace-nowrap group-hover:text-white"
-                      style={{ minWidth: '140px' }}
+                      className="border border-black px-4 py-2 max-w-[120px] sm:max-w-xs whitespace-nowrap overflow-hidden text-ellipsis"
                       title={order._id}
                     >
                       {order._id.slice(0, 8)}...
                     </td>
 
                     <td
-                      className="border border-black px-4 py-2 max-w-xs whitespace-nowrap group-hover:text-white"
-                      style={{ minWidth: '140px' }}
+                      className="border border-black px-4 py-2 max-w-[100px] sm:max-w-xs whitespace-normal break-words"
                       title={order.userId?.displayName || 'N/A'}
                     >
                       {order.userId?.displayName || 'N/A'}
                     </td>
 
                     <td
-                      className="border border-black px-4 py-2 text-center font-mono whitespace-nowrap group-hover:text-white"
-                      style={{ minWidth: '50px' }}
+                      className="border border-black px-4 py-2 text-center font-mono whitespace-nowrap"
                     >
                       {order.items.length}
                     </td>
 
                     <td
-                      className="border border-black px-4 py-2 max-w-md group-hover:text-white"
-                      style={{ minWidth: '250px', whiteSpace: 'normal', wordBreak: 'break-word' }}
+                      className="border border-black px-4 py-2 max-w-[200px] sm:max-w-md whitespace-normal break-words"
                       title={`${order.shippingAddress.address}, ${order.shippingAddress.city}, ${order.shippingAddress.postalCode}`}
                     >
                       {order.shippingAddress.address}, {order.shippingAddress.city}, {order.shippingAddress.postalCode}
                     </td>
 
                     <td
-                      className="border border-black px-4 py-2 font-semibold whitespace-nowrap group-hover:text-white"
-                      style={{ minWidth: '90px' }}
+                      className="border border-black px-4 py-2 font-semibold whitespace-nowrap"
                     >
                       ${order.totalAmount.toFixed(2)}
                     </td>
 
                     <td
-                      className="border border-black px-4 py-2 whitespace-nowrap group-hover:text-white"
-                      style={{ minWidth: '130px' }}
+                      className="border border-black px-4 py-2 whitespace-nowrap"
                     >
                       <select
                         value={order.status}
                         onChange={(e) => handleStatusChange(order._id, e.target.value)}
-                        className="w-full border border-black rounded-md px-4 py-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-black font-medium"
-                        style={{ backgroundColor: bgColor, color: textColor, minWidth: '120px' }}
+                        className="w-auto min-w-[120px] sm:min-w-[140px] border border-black rounded-md px-2 py-1 sm:px-4 sm:py-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-black font-medium text-sm"
+                        style={{ backgroundColor: bgColor, color: textColor }}
                       >
                         <option value="Processing">Processing</option>
                         <option value="Shipped">Shipped</option>
@@ -369,20 +355,18 @@ const AdminOrders = () => {
                     </td>
 
                     <td
-                      className="border border-black px-4 py-2 whitespace-nowrap font-mono text-gray-800 group-hover:text-white"
+                      className="border border-black px-4 py-2 whitespace-nowrap font-mono text-gray-800 text-sm"
                       title={new Date(order.orderDate).toLocaleString()}
-                      style={{ minWidth: '160px' }}
                     >
                       {new Date(order.orderDate).toLocaleDateString()}
-                      <br />
-                      <small className="text-xs group-hover:text-white">
+                      <br className="sm:hidden" />
+                      <small className="text-xs">
                         {new Date(order.orderDate).toLocaleTimeString()}
                       </small>
                     </td>
 
                     <td
-                      className="border border-black px-4 py-2 text-center whitespace-nowrap rounded-br-lg group-hover:text-white"
-                      style={{ minWidth: '70px' }}
+                      className="border border-black px-4 py-2 text-center whitespace-nowrap rounded-br-lg"
                     >
                       <button
                         onClick={() => handleDeleteOrder(order._id)}
@@ -400,13 +384,12 @@ const AdminOrders = () => {
         </table>
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-6 gap-2 flex-wrap">
           <button
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
             disabled={currentPage === 1}
-            className={`px-3 py-1 rounded ${
+            className={`px-3 py-1 rounded text-sm ${
               currentPage === 1
                 ? 'border border-gray-300 text-gray-400 cursor-not-allowed'
                 : 'border border-black hover:bg-black hover:text-white transition'
@@ -419,7 +402,7 @@ const AdminOrders = () => {
             <button
               key={idx}
               onClick={() => setCurrentPage(idx + 1)}
-              className={`px-3 py-1 rounded ${
+              className={`px-3 py-1 rounded text-sm ${
                 currentPage === idx + 1 ? 'bg-black text-white' : 'border border-black hover:bg-black hover:text-white transition'
               }`}
               aria-current={currentPage === idx + 1 ? 'page' : undefined}
@@ -432,7 +415,7 @@ const AdminOrders = () => {
           <button
             onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className={`px-3 py-1 rounded ${
+            className={`px-3 py-1 rounded text-sm ${
               currentPage === totalPages
                 ? 'border border-gray-300 text-gray-400 cursor-not-allowed'
                 : 'border border-black hover:bg-black hover:text-white transition'
