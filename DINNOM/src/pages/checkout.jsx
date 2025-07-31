@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
+
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -57,11 +59,9 @@ const Checkout = () => {
     fetchAddresses();
   }, [user, token]);
 
-  const totalAmount = cartItems.reduce((acc, item) => {
-    const price = parseFloat(item?.productId?.price ?? 0);
-    const quantity = parseInt(item?.quantity ?? 1);
-    return acc + price * quantity;
-  }, 0);
+  const location = useLocation();
+const {  totalAmount } = location.state || {};
+
 
   const handleChange = (e) => {
     setShippingAddress({
