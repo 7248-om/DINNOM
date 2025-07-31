@@ -28,7 +28,7 @@ const MenCategoryShowcase3 = () => {
       </div>
 
       {/* Description and Button */}
-      <div className="relative mt-8 px-6 text-center lg:absolute lg:top-[64%] lg:right-[7%] lg:transform lg:-translate-y-1/2 lg:text-right">
+      <div className="relative mt-8 px-6 text-center lg:absolute lg:top-[64%] lg:left-[60%] lg:transform lg:-translate-x-[10%] lg:-translate-y-1/2 lg:text-left">
         <p className="text-gray-700 mb-6 text-base sm:text-lg leading-relaxed">
           Stay warm in style with our premium collection of <br className="hidden sm:inline" />
           hoodies and sweatshirts. Crafted from high-quality <br className="hidden sm:inline" />
