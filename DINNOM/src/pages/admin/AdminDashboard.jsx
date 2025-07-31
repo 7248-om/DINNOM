@@ -1,5 +1,13 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import {
+  LayoutDashboard,
+  Package,
+  ShoppingCart,
+  BarChart,
+  BadgePercent,
+  LogOut,
+} from 'lucide-react';
 
 const AdminDashboard = () => {
   const location = useLocation();
@@ -13,14 +21,14 @@ const AdminDashboard = () => {
   };
 
   const menu = [
-    { name: 'Products', path: 'products' },
-    { name: 'Orders', path: 'orders' },
-    { name: 'Stats', path: 'stats' },
-    { name: 'Coupons', path: 'coupons' },
+    { name: 'Products', path: 'products', icon: Package },
+    { name: 'Orders', path: 'orders', icon: ShoppingCart },
+    { name: 'Stats', path: 'stats', icon: BarChart },
+    { name: 'Coupons', path: 'coupons', icon: BadgePercent },
   ];
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="flex flex-col md:flex-row h-screen bg-gray-50">
       {/* Toggle Button for Mobile */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -33,40 +41,52 @@ const AdminDashboard = () => {
       <aside
         className={`${
           sidebarOpen ? 'block' : 'hidden'
-        } md:block w-full md:w-64 bg-zinc-900 text-white flex-shrink-0 p-6`}
+        } md:block w-full md:w-64 bg-zinc-900 text-white flex-shrink-0 p-6 overflow-y-auto`}
       >
         <div className="flex flex-col h-full justify-between">
           <div>
-            <h2 className="text-2xl font-semibold mb-6">Admin Panel</h2>
+            <Link
+              to="/admin"
+              className="flex items-center gap-3 text-2xl font-bold mb-10 text-white hover:text-gray-300 transition-colors"
+            >
+              <LayoutDashboard />
+              <span>Admin Panel</span>
+            </Link>
             <nav className="space-y-2">
-              {menu.map((item) => (
-                <Link
-                  key={item.path}
-                  to={`/admin/${item.path}`}
-                  className={`block px-4 py-2 rounded transition ${
-                    location.pathname.includes(item.path)
-                      ? 'bg-zinc-700'
-                      : 'hover:bg-zinc-800'
-                  }`}
-                  onClick={() => setSidebarOpen(false)} // Auto-close on mobile
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {menu.map((item) => {
+                const Icon = item.icon;
+                const isActive = location.pathname.includes(`/admin/${item.path}`);
+                return (
+                  <Link
+                    key={item.path}
+                    to={`/admin/${item.path}`}
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors text-sm font-medium ${
+                      isActive
+                        ? 'bg-indigo-600 text-white'
+                        : 'text-gray-300 hover:bg-zinc-800 hover:text-white'
+                    }`}
+                    onClick={() => setSidebarOpen(false)} // Auto-close on mobile
+                  >
+                    <Icon size={18} />
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 
           <button
             onClick={handleLogout}
-            className="mt-6 w-full text-left py-2 px-4 rounded bg-red-600 hover:bg-red-700 transition"
+            className="mt-6 w-full flex items-center gap-3 text-left py-2.5 px-4 rounded-lg text-gray-300 hover:bg-red-600 hover:text-white transition-colors"
           >
-            🔓 Logout
+            <LogOut size={18} />
+            <span>Logout</span>
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 bg-gray-100 p-4 md:p-8 overflow-y-auto">
+      <main className="flex-1 p-4 md:p-8 overflow-y-auto">
         <Outlet />
       </main>
     </div>
