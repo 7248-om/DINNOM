@@ -15,7 +15,7 @@ const Home = () => {
       <TailoredSpace />
       <FabricSection />
       <TrousersShowcase/>
-      {/* <GenerationSection /> */}
+      {/* <GenerationSection />  */}
       <GridMoodBoard />
       <SummerSection />
       

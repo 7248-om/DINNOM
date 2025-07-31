@@ -123,17 +123,17 @@ const ProductSliderEnhanced = () => {
   return (
     <section
       ref={containerRef}
-      className="relative z-30 bg-[#f7f8f4] pt-40 pb-40 overflow-visible select-none"
+      className="relative z-30 bg-[#f7f8f4] pt-40 pb-40 overflow-x-hidden select-none"
     >
-      {/* Decorative blobs */}
-      <div className="pointer-events-none absolute -left-40 -top-20 h-80 w-80 rounded-full bg-pink-400 opacity-20 blur-3xl" />
-      <div className="pointer-events-none absolute -right-32 top-1/3 h-96 w-96 rounded-full bg-purple-400 opacity-20 blur-3xl" />
+      {/* Decorative blobs (adjusted to not overflow) */}
+      <div className="pointer-events-none absolute left-0 top-0 translate-x-[-50%] h-80 w-80 rounded-full bg-pink-400 opacity-20 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-1/3 translate-x-[50%] h-96 w-96 rounded-full bg-purple-400 opacity-20 blur-3xl" />
 
       {products.map((product, index) => (
         <div
           key={index}
           ref={(el) => (slidesRef.current[index] = el)}
-          className={`relative px-6 md:px-24 flex flex-col md:flex-row items-center justify-between transition-opacity duration-700 ${
+          className={`relative px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col md:flex-row items-center justify-between transition-opacity duration-700 ${
             index === active ? 'block' : 'hidden'
           }`}
         >
