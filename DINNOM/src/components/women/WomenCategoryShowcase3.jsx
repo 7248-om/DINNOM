@@ -34,7 +34,7 @@ const WomenCategoryShowcase3 = () => {
         </div>
 
         {/* Description + Button */}
-        <div className="absolute top-[64%] right-[7%] transform -translate-y-1/2 text-left z-10">
+<div className="absolute top-[64%] left-[60%] transform -translate-y-1/2 -translate-x-[5%] text-left z-10">
           <p className="text-gray-700 mb-8 text-lg leading-relaxed">
             Stay warm in style with our premium collection of <br />
             hoodies and sweatshirts. Crafted from high-quality <br />
