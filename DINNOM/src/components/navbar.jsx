@@ -36,12 +36,7 @@ const Navbar = ({ toggleSidebar }) => {
 
       <div className="flex items-center space-x-4">
         <div className="flex items-center bg-[#f3f3f3] rounded-full px-4 py-2 w-56 md:w-80">
-          <input
-            type="text"
-            placeholder="What are you looking for?"
-            className="bg-transparent outline-none flex-1 px-2 text-gray-700 placeholder:italic placeholder:text-gray-500"
-          />
-          <BiSearch className="w-7 h-7 text-gray-600" />
+          
         </div>
         <Link to="/cart" className="p-2 hover:bg-gray-100 rounded-full flex items-center justify-center">
   <BiSolidBasket className="w-8 h-8 text-gray-700" />
