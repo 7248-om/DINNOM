@@ -90,7 +90,7 @@ export default function ScrollGallery() {
         </div>
 
         {/* Title Content */}
-        <div className="absolute top-[30%] left-[6vw] z-50 w-[80%] text-white pointer-events-none">
+        <div className="absolute top-[30%] left-[6vw] z-50 w-[80%] font-playfair text-white pointer-events-none">
           <div className="relative h-[200px] overflow-hidden">
             <AnimatePresence mode="wait">
               <Motion.div
@@ -101,10 +101,10 @@ export default function ScrollGallery() {
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="absolute"
               >
-                <h1 className="text-8xl font-sans font-extrabold uppercase leading-[1.1] tracking-tight">
+                <h1 className="text-8xl font-sans font-extrabold font-playfair uppercase leading-[1.1] tracking-tight">
                   {sections[activeIndex].title}
                 </h1>
-                <p className="text-3xl mt-4 font-sans opacity-80">
+                <p className="text-3xl mt-4 font-playfair opacity-80">
                   {sections[activeIndex].subtitle}
                 </p>
               </Motion.div>
@@ -117,7 +117,7 @@ export default function ScrollGallery() {
           {sections.map((section, i) => (
             <div key={i} className="flex items-center gap-3 justify-end">
               <span
-                className={`text-sm font-sans uppercase font-semibold ${
+                className={`text-sm font-sans uppercase font-playfair ${
                   activeIndex === i ? "text-white" : "text-gray-400"
                 }`}
               >

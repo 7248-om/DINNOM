@@ -15,12 +15,12 @@ const Navbar = ({ toggleSidebar }) => {
         </button>
         
         <div className="hidden md:flex space-x-8">
-  <Link to="/men" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Men</Link>
-  <Link to="/women" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">Women</Link>
+  <Link to="/men" className="text-gray-700 font-extrabold font-playfair text-2xl hover:text-red-600 transition">Men</Link>
+  <Link to="/women" className="text-gray-700 font-extrabold font-playfair text-2xl hover:text-red-600 transition">Women</Link>
   
   {/* ✅ Show only if user is admin */}
   {user?.isAdmin && (
-    <Link to="/admin" className="text-gray-700 font-extrabold text-xl hover:text-red-600 transition">
+    <Link to="/admin" className="text-gray-700 font-extrabold font-playfair text-2xl hover:text-red-600 transition">
       Admin
     </Link>
   )}

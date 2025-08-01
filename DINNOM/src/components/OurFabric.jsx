@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Tilt from 'react-parallax-tilt';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import img1 from '../assets/videos/blackFabricRolls.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,19 +14,29 @@ const FabricSection = () => {
     const section = sectionRef.current;
     const bg = bgRef.current;
 
-    // Parallax background scroll effect
-    gsap.to(bg, {
-      y: 80,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
+    // Ensure background scrolls with parallax + depth effect
+    gsap.fromTo(
+      bg,
+      {
+        y: '-20%',
+        scale: 1.2,
+        filter: 'brightness(0.7) blur(2px)',
       },
-    });
+      {
+        y: '20%',
+        scale: 1,
+        filter: 'brightness(1) blur(0px)',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    );
 
-    // Lines fade in on scroll
+    // Lines fade in with scroll
     const lines = section.querySelectorAll('.fade-line');
     lines.forEach((line, i) => {
       gsap.fromTo(
@@ -55,15 +66,14 @@ const FabricSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center"
     >
-      {/* Background div */}
+      {/* Parallax background */}
       <div
         ref={bgRef}
-        className="absolute inset-0 bg-center bg-cover"
+        className="absolute inset-0 bg-center bg-cover will-change-transform z-0"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1950&q=80')",
+          backgroundImage: `url(${img1})`,
         }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -79,10 +89,9 @@ const FabricSection = () => {
         className="relative z-10 px-6 max-w-3xl text-white text-center"
       >
         <div className="mb-16">
-          <h1 className="text-white font-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-6 tracking-[0.2em] leading-tight uppercase">
+          <h1 className="text-white font-bold font-playfair text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-6 tracking-[0.2em] leading-tight uppercase">
             OUR FABRICS
           </h1>
-          {/* Traditional title underline */}
           <div className="flex items-center justify-center space-x-4">
             <div className="w-16 h-0.5 bg-white opacity-60"></div>
             <div className="w-3 h-3 bg-white rounded-full opacity-80"></div>
@@ -92,14 +101,13 @@ const FabricSection = () => {
           </div>
         </div>
 
-        <div className="text-3xl md:text-5xl font-semibold leading-snug space-y-4">
+        <div className="text-3xl md:text-5xl font-semibold font-playfair leading-snug space-y-4">
           {lines.map((line, i) => (
             <span key={i} className="fade-line block">
               {line}
             </span>
           ))}
         </div>
-
       </Tilt>
     </section>
   );

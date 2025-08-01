@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import NewArrivalsHeading from './NewArrivalHeading';
 const ProductSliderEnhanced = () => {
   const containerRef = useRef(null);
   const slidesRef = useRef([]);
@@ -115,7 +115,7 @@ const ProductSliderEnhanced = () => {
       <div className="pointer-events-none absolute right-0 top-1/3 translate-x-[50%] h-96 w-96 rounded-full bg-purple-400 opacity-20 blur-3xl" />
 
       {/* Section Heading */}
-      <h2 className="text-center text-4xl font-bold mb-20 tracking-tight">New Arrivals</h2>
+      <NewArrivalsHeading />
 
       {products.map((product, index) => (
         <div
@@ -138,10 +138,10 @@ const ProductSliderEnhanced = () => {
 
           {/* Text */}
           <div className="w-full md:w-1/2 text-center md:text-left">
-            <h2 className="text-3xl sm:text-4xl font-semibold mb-4 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-playfair mb-4 tracking-tight">
               {product.name}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-4 text-base sm:text-lg">
+            <p className="text-gray-700 dark:text-gray-300 font-playfair mb-4 text-base sm:text-lg">
               {product.description?.slice(0, 100)}...
             </p>
             <p className="text-xl font-medium mb-8">₹ {product.price}</p>
@@ -150,7 +150,7 @@ const ProductSliderEnhanced = () => {
               onClick={() => navigate(`/product/${product._id}`)}
               onMouseEnter={(e) => gsap.to(e.currentTarget, { scale: 1.05, duration: 0.25 })}
               onMouseLeave={(e) => gsap.to(e.currentTarget, { scale: 1, duration: 0.25 })}
-              className="bg-black text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all magnet"
+              className="bg-black text-white font-playfair px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all magnet"
             >
               Shop Now
             </button>
