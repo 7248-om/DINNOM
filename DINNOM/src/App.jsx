@@ -109,7 +109,7 @@ function App() {
           {/* Admin Routes */}
           <Route element={<AdminProtectedRoute />}>
             <Route path="/admin" element={<AdminDashboard />}>
-              <Route index element={<AdminProducts />} /> {/* Default at /admin */}
+              <Route index element={<AdminStats />} /> {/* Default at /admin */}
               <Route path="products" element={<AdminProducts />} />
               <Route path="stats" element={<AdminStats />} />
               <Route path="orders" element={<AdminOrders />} />
