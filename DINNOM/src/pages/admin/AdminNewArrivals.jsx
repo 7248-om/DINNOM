@@ -107,7 +107,7 @@ const AdminNewArrivals = () => {
               setCategory('');
             }}
             className={`px-4 py-2 rounded-full border ${
-              gender === g ? 'bg-black text-white' : 'bg-white text-black'
+              gender === g ? ' bg-blue-800 hover:bg-blue-800 text-white' : 'bg-white text-black'
             }`}
           >
             {g}
@@ -122,7 +122,7 @@ const AdminNewArrivals = () => {
             key={cat}
             onClick={() => setCategory(cat)}
             className={`px-4 py-1 rounded-full border ${
-              category === cat ? 'bg-black text-white' : 'bg-white text-black'
+              category === cat ? ' bg-blue-800 hover:bg-blue-800 text-white' : 'bg-white text-black'
             }`}
           >
             {cat}
@@ -166,7 +166,7 @@ const AdminNewArrivals = () => {
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className="px-6 py-3 bg-black text-white rounded-full hover:bg-gray-900 transition disabled:opacity-50"
+          className="px-6 py-3 bg-blue-800 hover:bg-blue-800 text-white rounded-full transition disabled:opacity-50"
         >
           {loading ? 'Updating...' : 'Update New Arrivals'}
         </button>
