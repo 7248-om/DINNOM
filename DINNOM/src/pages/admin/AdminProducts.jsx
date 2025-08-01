@@ -224,56 +224,88 @@ const AdminProducts = () => {
 
       <h1 className="text-2xl sm:text-3xl font-bold mb-4">Admin Dashboard - Fashion Store</h1>
 
-      <div className="flex flex-col sm:flex-row gap-4 items-center">
-        <div className="flex-grow flex flex-col sm:flex-row gap-4 w-full">
-          <div className="w-full sm:w-auto">
-            <label className="mr-2 font-medium block sm:inline">Filter by Gender:</label>
-            <select
-              value={filterGender}
-              onChange={(e) => {
-                setFilterGender(e.target.value);
-                setFilterCategory('');
-                setCurrentPage(1);
-              }}
-              className="border p-2 rounded-lg w-full sm:w-auto mt-1 sm:mt-0"
-            >
-              <option value=''>All</option>
-              <option value='Male'>Male</option>
-              <option value='Female'>Female</option>
-            </select>
-          </div>
-          
-          <div className="w-full sm:w-auto">
-            <label className="mr-2 font-medium block sm:inline">Filter by Category:</label>
-            <select
-              value={filterCategory}
-              onChange={(e) => {
-                setFilterCategory(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="border p-2 rounded-lg w-full sm:w-auto mt-1 sm:mt-0"
-            >
-              <option value=''>All</option>
-              {availableCategoriesForFilter.map((cat, idx) => (
-                <option key={idx} value={cat}>{cat}</option>
-              ))}
-            </select>
-          </div>
-        </div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 
-        <button
-          onClick={() => {
-            setShowModal(true);
-            setProduct({ productId: '', name: '', price: '', description: '', gender: '', category: '', stock: '', mainImage: '', hoverImage: '', sizes: '', tags: '' });
-            setMainImageFile(null);
-            setHoverImageFile(null);
-            setEditingId(null);
-          }}
-          className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition w-full sm:w-auto"
-        >
-          + Add Product
-        </button>
-      </div>
+  {/* Gender Toggle Buttons */}
+  <div className="flex items-center gap-3 flex-wrap">
+    <span className="font-semibold text-gray-800 text-sm">Gender:</span>
+
+    {['Male', 'Female'].map((genderOption) => (
+      <button
+        key={genderOption}
+        onClick={() => {
+          setFilterGender(genderOption);
+          setFilterCategory('');
+          setCurrentPage(1);
+        }}
+        className={`px-5 py-2 rounded-full text-sm font-medium border transition-all duration-200
+          ${
+            filterGender === genderOption
+              ? 'bg-blue-800 text-white border-black shadow-md shadow-black/30'
+              : 'bg-white text-gray-700 border-gray-300 hover:border-black hover:text-black'
+          }`}
+      >
+        {genderOption}
+      </button>
+    ))}
+
+    <button
+      onClick={() => {
+        setFilterGender('');
+        setFilterCategory('');
+        setCurrentPage(1);
+      }}
+      className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200
+        ${
+          filterGender === ''
+            ? 'bg-gray-100 text-black border-gray-400 shadow-inner'
+            : 'bg-white text-gray-500 border-gray-300 hover:border-black hover:text-black'
+        }`}
+    >
+      Show All
+    </button>
+  </div>
+
+  {/* Category Dropdown (only visible when gender is selected) */}
+  {filterGender && (
+    <div className="flex items-center gap-2 w-full sm:w-auto">
+      <label className="font-semibold text-gray-800 text-sm">Category:</label>
+      <select
+        value={filterCategory}
+        onChange={(e) => {
+          setFilterCategory(e.target.value);
+          setCurrentPage(1);
+        }}
+        className="border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black bg-white"
+      >
+        <option value="">All</option>
+        {staticCategories[filterGender].map((cat, idx) => (
+          <option key={idx} value={cat}>{cat}</option>
+        ))}
+      </select>
+    </div>
+  )}
+
+  {/* Add Product Button */}
+  <div className="w-full sm:w-auto">
+    <button
+      onClick={() => {
+        setShowModal(true);
+        setProduct({
+          productId: '', name: '', price: '', description: '',
+          gender: '', category: '', stock: '',
+          mainImage: '', hoverImage: '', sizes: '', tags: '',
+        });
+        setMainImageFile(null);
+        setHoverImageFile(null);
+        setEditingId(null);
+      }}
+      className="bg-black text-white px-6 py-2 rounded-xl hover:bg-gray-900 transition-all w-full sm:w-auto mt-2 sm:mt-0"
+    >
+      + Add Product
+    </button>
+  </div>
+</div>
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 p-4">
