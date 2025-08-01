@@ -47,6 +47,7 @@ import AdminStats from './pages/admin/AdminStats';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminCoupons from './pages/admin/AdminCoupons';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
+import AdminNewArrivals from './pages/admin/AdminNewArrivals';
 
 //Profile Pages
 import Profile from './pages/Profile/Profile';
@@ -113,6 +114,7 @@ function App() {
               <Route path="stats" element={<AdminStats />} />
               <Route path="orders" element={<AdminOrders />} />
               <Route path="coupons" element={<AdminCoupons />} />
+              <Route path="new-arrivals" element={<AdminNewArrivals />} />
             </Route>
           </Route>
 

@@ -7,6 +7,7 @@ import {
   BarChart,
   BadgePercent,
   LogOut,
+  Sparkles,
 } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -25,6 +26,7 @@ const AdminDashboard = () => {
     { name: 'Orders', path: 'orders', icon: ShoppingCart },
     { name: 'Stats', path: 'stats', icon: BarChart },
     { name: 'Coupons', path: 'coupons', icon: BadgePercent },
+    { name: 'New Arrivals', path: 'new-arrivals', icon: Sparkles },
   ];
 
   return (
@@ -39,7 +41,7 @@ const AdminDashboard = () => {
 
       {/* Sidebar */}
       <aside
-        className={`${
+        className={`$
           sidebarOpen ? 'block' : 'hidden'
         } md:block w-full md:w-64 bg-zinc-900 text-white flex-shrink-0 p-6 overflow-y-auto`}
       >
@@ -60,12 +62,12 @@ const AdminDashboard = () => {
                   <Link
                     key={item.path}
                     to={`/admin/${item.path}`}
-                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors text-sm font-medium ${
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors text-sm font-medium $
                       isActive
                         ? 'bg-indigo-600 text-white'
                         : 'text-gray-300 hover:bg-zinc-800 hover:text-white'
-                    }`}
-                    onClick={() => setSidebarOpen(false)} // Auto-close on mobile
+                    `}
+                    onClick={() => setSidebarOpen(false)}
                   >
                     <Icon size={18} />
                     <span>{item.name}</span>

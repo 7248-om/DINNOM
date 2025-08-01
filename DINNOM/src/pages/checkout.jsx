@@ -86,6 +86,9 @@ const {  totalAmount } = location.state || {};
     }
 
     if (!user || cartItems.length === 0 || totalAmount <= 0) {
+      console.log('User is ',user);
+      console.log('Cart items are ', cartItems);
+      console.log('Total amount is ', totalAmount);
       setError('Missing user or cart data.');
       toast.error('Your cart is empty.');
       return;

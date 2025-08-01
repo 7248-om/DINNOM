@@ -1,37 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-
-import img1 from '../assets/Men/1shirts/ms4a.png';
-import img2 from '../assets/women/women_dresses/wdress1.png';
-import img3 from '../assets/women/women_jackets/wjackets4 .png';
-
-const products = [
-  {
-    title: 'NEW SEASON TROUSERS',
-    desc: 'Cashmere Pleat Front Trouser — Burgundy',
-    price: 'Rs. 77,900',
-    image: img1,
-  },
-  {
-    title: 'LUXE FALL TROUSERS',
-    desc: 'Wide‑Leg Luxe Knit Trouser — Mocha',
-    price: 'Rs. 65,000',
-    image: img2,
-  },
-  {
-    title: 'COMFORT IN STYLE',
-    desc: 'Soft Cashmere Jogger — Cream',
-    price: 'Rs. 58,500',
-    image: img3,
-  },
-];
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const ProductSliderEnhanced = () => {
   const containerRef = useRef(null);
   const slidesRef = useRef([]);
+  const [products, setProducts] = useState([]);
   const [active, setActive] = useState(0);
   const mousePos = useRef({ x: 0, y: 0 });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get('/api/new-arrivals')
+      .then(res => setProducts(res.data))
+      .catch(err => console.error('Failed to fetch New Arrivals', err));
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -125,13 +110,16 @@ const ProductSliderEnhanced = () => {
       ref={containerRef}
       className="relative z-30 bg-[#f7f8f4] pt-40 pb-40 overflow-x-hidden select-none"
     >
-      {/* Decorative blobs (adjusted to not overflow) */}
+      {/* Decorative blobs */}
       <div className="pointer-events-none absolute left-0 top-0 translate-x-[-50%] h-80 w-80 rounded-full bg-pink-400 opacity-20 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-1/3 translate-x-[50%] h-96 w-96 rounded-full bg-purple-400 opacity-20 blur-3xl" />
 
+      {/* Section Heading */}
+      <h2 className="text-center text-4xl font-bold mb-20 tracking-tight">New Arrivals</h2>
+
       {products.map((product, index) => (
         <div
-          key={index}
+          key={product._id}
           ref={(el) => (slidesRef.current[index] = el)}
           className={`relative px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col md:flex-row items-center justify-between transition-opacity duration-700 ${
             index === active ? 'block' : 'hidden'
@@ -140,8 +128,8 @@ const ProductSliderEnhanced = () => {
           {/* Image */}
           <div className="w-full md:w-1/2 flex justify-center mb-10 md:mb-0">
             <img
-              src={product.image}
-              alt={product.desc}
+              src={product.mainImage}
+              alt={product.name}
               className="max-w-xs md:max-w-sm rounded-2xl shadow-2xl cursor-pointer"
               onMouseMove={handleMouseMove}
               onMouseLeave={resetMouse}
@@ -151,14 +139,15 @@ const ProductSliderEnhanced = () => {
           {/* Text */}
           <div className="w-full md:w-1/2 text-center md:text-left">
             <h2 className="text-3xl sm:text-4xl font-semibold mb-4 tracking-tight">
-              {product.title}
+              {product.name}
             </h2>
             <p className="text-gray-700 dark:text-gray-300 mb-4 text-base sm:text-lg">
-              {product.desc}
+              {product.description?.slice(0, 100)}...
             </p>
-            <p className="text-xl font-medium mb-8">{product.price}</p>
+            <p className="text-xl font-medium mb-8">₹ {product.price}</p>
 
             <button
+              onClick={() => navigate(`/product/${product._id}`)}
               onMouseEnter={(e) => gsap.to(e.currentTarget, { scale: 1.05, duration: 0.25 })}
               onMouseLeave={(e) => gsap.to(e.currentTarget, { scale: 1, duration: 0.25 })}
               className="bg-black text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all magnet"

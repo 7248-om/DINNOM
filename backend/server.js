@@ -21,6 +21,8 @@ import paymentRoutes from './routes/payment.js';
 
 import addressRoutes from './routes/addressRoutes.js';
 import userRoutes from './routes/user.js';
+import newArrivalRoutes from './routes/newArrivalRoutes.js';
+
 
 
 
@@ -51,6 +53,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/new-arrivals', newArrivalRoutes);
 //app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/coupons', couponRoutes);
