@@ -6,8 +6,8 @@ import { storage } from '../../firebaseStorage'; // adjust path as needed
 
 // A simple, comprehensive list of categories for each gender for the form
 const staticCategories = {
-  Male: ['Shirts', 'Trousers', 'Jeans', 'T-Shirts', 'Jackets', 'Shoes'],
-  Female: ['Dresses', 'Tops', 'Skirts', 'Jeans', 'Jackets', 'Shoes'],
+  Male: ['Shirts', 'Pants', 'Hoodies', 'Footwear', 'Caps & Accessories'],
+  Female: ['Dresses', 'Footwear', 'Caps & Accessories', 'Shirts and Tees', 'Pants and Skirts', 'Sweatshirts'],
 };
 
 const PRODUCTS_PER_PAGE = 10;
