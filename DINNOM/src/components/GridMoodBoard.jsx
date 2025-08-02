@@ -6,26 +6,24 @@ import fabricImg from '../assets/videos/fabric.jpeg';
 const GridMoodBoard = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  
-  // Words array for rotation
+
   const words = ['ESSENCE.', 'ELEGANCE.', 'EXCLUSIVE.', 'ELEVATE.', 'EMBRACE.'];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   const yText = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
-  // Auto-rotate words every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [words.length]);
+  }, []);
 
   return (
     <section
       ref={ref}
-      className="relative w-full h-[100vh] flex items-center justify-center overflow-hidden"
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Background Fabric Image */}
       <img
@@ -37,13 +35,10 @@ const GridMoodBoard = () => {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/60 z-10" />
 
-      {/* Perfectly Centered Text with Enhanced Animation */}
-      <div className="absolute inset-0 z-30 flex items-center justify-center">
-        <Motion.div
-          style={{ y: yText }}
-          className="flex items-center justify-center"
-        >
-          <div className="relative overflow-hidden">
+      {/* Centered Animated Text */}
+      <div className="absolute inset-0 z-30 flex items-center justify-center px-4">
+        <Motion.div style={{ y: yText }} className="flex items-center justify-center w-full">
+          <div className="relative overflow-hidden w-full text-center">
             <AnimatePresence mode="wait">
               <Motion.span
                 key={currentWordIndex}
@@ -52,33 +47,34 @@ const GridMoodBoard = () => {
                   opacity: 0,
                   scale: 0.7,
                   rotateX: -90,
-                  filter: "blur(8px)"
+                  filter: 'blur(8px)',
                 }}
                 animate={{
                   y: 0,
                   opacity: 1,
                   scale: 1,
                   rotateX: 0,
-                  filter: "blur(0px)"
+                  filter: 'blur(0px)',
                 }}
                 exit={{
                   y: -120,
                   opacity: 0,
                   scale: 0.7,
                   rotateX: 90,
-                  filter: "blur(8px)"
+                  filter: 'blur(8px)',
                 }}
                 transition={{
                   duration: 1.2,
                   ease: [0.25, 0.46, 0.45, 0.94],
-                  type: "spring",
+                  type: 'spring',
                   stiffness: 80,
-                  damping: 20
+                  damping: 20,
                 }}
-                className="block text-white font-bold text-7xl md:text-8xl lg:text-9xl tracking-[0.4em] text-center uppercase whitespace-nowrap"
+                className="block text-white font-bold font-playfair tracking-[0.15em] uppercase whitespace-nowrap"
                 style={{
+                  fontSize: 'clamp(2.5rem, 6vw, 9rem)', // 👈 Responsive font size
                   transformStyle: 'preserve-3d',
-                  transformOrigin: 'center center'
+                  transformOrigin: 'center center',
                 }}
               >
                 {words[currentWordIndex]}

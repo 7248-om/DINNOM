@@ -141,10 +141,10 @@ const Footer = () => {
         }
       `}</style>
 
-      <footer className="footer">
-        <div className="footer-container">
+      <footer className="footer font-playfair">
+        <div className="footer-container font-playfair">
           {/* Subscribe Section */}
-          <div className="footer-col subscribe-section">
+          <div className="footer-col text-2xl subscribe-section font-playfair">
             <h4>See It First</h4>
             <form onSubmit={handleSubmit}>
               <input
@@ -228,7 +228,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="footer-bottom">
+        <div className="footer-bottom font-playfair">
           © {currentYear} Noiré, Inc. |
           <a href="#">Privacy Policy</a> |
           <a href="#">Your Privacy Choices</a> |

@@ -101,12 +101,17 @@ export default function ScrollGallery() {
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="absolute"
               >
-                <h1 className="text-8xl font-sans font-extrabold font-playfair uppercase leading-[1.1] tracking-tight">
-                  {sections[activeIndex].title}
-                </h1>
-                <p className="text-3xl mt-4 font-playfair opacity-80">
-                  {sections[activeIndex].subtitle}
-                </p>
+                <h1
+  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-extrabold font-playfair uppercase leading-[1.1] tracking-tight"
+>
+  {sections[activeIndex].title}
+</h1>
+<p
+  className="text-lg sm:text-xl md:text-2xl lg:text-3xl mt-2 sm:mt-3 md:mt-4 font-playfair opacity-80"
+>
+  {sections[activeIndex].subtitle}
+</p>
+
               </Motion.div>
             </AnimatePresence>
           </div>
