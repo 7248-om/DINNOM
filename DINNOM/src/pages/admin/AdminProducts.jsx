@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../firebaseStorage'; // adjust path as needed
+import ImageKit from 'imagekit-javascript';
 
 // A simple, comprehensive list of categories for each gender for the form
 const staticCategories = {
@@ -11,6 +10,13 @@ const staticCategories = {
 };
 
 const PRODUCTS_PER_PAGE = 10;
+
+// Initialize ImageKit
+const imagekit = new ImageKit({
+  publicKey: import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY,
+  urlEndpoint: import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT,
+  // authenticationEndpoint is removed. We will fetch auth params manually.
+});
 
 const AdminProducts = () => {
   const [product, setProduct] = useState({
@@ -63,41 +69,62 @@ const AdminProducts = () => {
     if (e.target.files[0]) setHoverImageFile(e.target.files[0]);
   };
 
-  const uploadImage = (file, folder) => {
-    return new Promise((resolve, reject) => {
-      if (!file) resolve('');
+  const uploadImage = (file, folderName, authToken) => {
+    return new Promise(async (resolve, reject) => {
+      if (!file) {
+        resolve('');
+        return;
+      }
 
-      const timestamp = Date.now();
-      const storageRef = ref(storage, `${folder}/${timestamp}_${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      try {
+        // 1. Fetch authentication parameters from our backend
+        const authResponse = await fetch('http://localhost:5050/api/imagekit/auth', {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
 
-      uploadTask.on('state_changed',
-        (snapshot) => {
-          // Optional: Handle progress
-        },
-        (error) => {
-          toast.error('Image upload failed');
-          reject(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            resolve(downloadURL);
-          });
+        if (!authResponse.ok) {
+          const errorData = await authResponse.json();
+          throw new Error(errorData.message || 'Failed to get upload token.');
         }
-      );
+
+        const authParams = await authResponse.json();
+
+        // 2. Use the fetched parameters to upload the file to ImageKit
+        imagekit.upload({
+          file: file,
+          fileName: file.name,
+          folder: `/DINNOM/${folderName}/`,
+          useUniqueFileName: true,
+          ...authParams, // Pass the token, expire, and signature
+        }, (error, result) => {
+          if (error) {
+            return reject(error); // The toast will be handled in the catch block
+          }
+          resolve(result.url);
+        });
+      } catch (error) {
+        toast.error(`Image upload failed: ${error.message}`);
+        reject(error);
+      }
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (uploading) return;
-
     setUploading(true);
-
     try {
-      const mainImageUrl = mainImageFile ? await uploadImage(mainImageFile, 'products/mainImages') : product.mainImage;
-      const hoverImageUrl = hoverImageFile ? await uploadImage(hoverImageFile, 'products/hoverImages') : product.hoverImage;
+      const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error('Authentication error. Please log in again.');
+        setUploading(false);
+        return;
+      }
+
+      const mainImageUrl = mainImageFile ? await uploadImage(mainImageFile, 'mainImages', token) : product.mainImage;
+      const hoverImageUrl = hoverImageFile ? await uploadImage(hoverImageFile, 'hoverImages', token) : product.hoverImage;
 
       const formattedProduct = {
         ...product,
@@ -316,6 +343,10 @@ const AdminProducts = () => {
             >✕</button>
             <h2 className="text-2xl font-semibold mb-6">{editingId ? 'Edit Product' : 'Add New Product'}</h2>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label className="flex flex-col">
+                <span className="font-medium mb-1">Product ID</span>
+                <input name="productId" value={product.productId} onChange={handleChange} placeholder="e.g., DNM-001" className="border p-2 rounded-lg disabled:bg-gray-200 disabled:cursor-not-allowed" required disabled={!!editingId} />
+              </label>
               <label className="flex flex-col">
                 <span className="font-medium mb-1">Name</span>
                 <input name="name" value={product.name} onChange={handleChange} placeholder="Product Name" className="border p-2 rounded-lg" required />

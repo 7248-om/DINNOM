@@ -18,6 +18,7 @@ import productRoutes from './routes/product.js';
 import chatbotRoutes from './routes/chatbot.js';
 import couponRoutes from './routes/coupons.js';
 import paymentRoutes from './routes/payment.js';
+import imagekitRoutes from './routes/imagekitRoutes.js';
 
 import addressRoutes from './routes/addressRoutes.js';
 import userRoutes from './routes/user.js';
@@ -58,6 +59,7 @@ app.use('/api/new-arrivals', newArrivalRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/coupons', couponRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/imagekit', imagekitRoutes);
 app.use('/api/addresses', addressRoutes);
 app.use('/api/users', userRoutes);
 app.get('/api', (req, res) => {
