@@ -4,7 +4,7 @@ import CategoriesExpand from '../components/CategoriesExpand';
 
 const WomenPants = () => {
   const [products, setProducts] = useState([]);
-
+//f3f
   useEffect(() => {
     const fetchProducts = async () => {
       try {
