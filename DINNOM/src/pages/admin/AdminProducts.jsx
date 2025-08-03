@@ -3,6 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import ImageKit from 'imagekit-javascript';
 
+
 // A simple, comprehensive list of categories for each gender for the form
 const staticCategories = {
   Male: ['Shirts', 'Pants', 'Hoodies', 'Footwear', 'Caps & Accessories'],
