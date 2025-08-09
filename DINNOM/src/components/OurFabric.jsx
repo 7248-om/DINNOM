@@ -66,7 +66,7 @@ const FabricSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Parallax background */}
       <div
