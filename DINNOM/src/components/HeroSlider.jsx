@@ -109,7 +109,7 @@ const HeroSlider = () => {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              India's First Monochrome Fashion Brand
+              India's First Monochrome Fashion Brand |&nbsp;
             </p>
           </Marquee>
         </Motion.div>
