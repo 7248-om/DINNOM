@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { AiOutlineEdit } from "react-icons/ai";
 import Navbar from "./navbar";
-import Footer from "./Footer";
 
 const defaultPhoto = "/images/default-profile.png";
 
@@ -81,7 +80,6 @@ const Account = () => {
         <div className="flex items-center justify-center h-72 bg-white">
           <p className="text-gray-700 text-lg">Loading profile...</p>
         </div>
-        <Footer />
       </>
     );
   }
@@ -93,7 +91,6 @@ const Account = () => {
         <div className="flex items-center justify-center h-72 bg-white">
           <p className="text-red-700 text-lg font-semibold">{error}</p>
         </div>
-        <Footer />
       </>
     );
   }
@@ -111,7 +108,7 @@ const Account = () => {
 
   return (
     <>
-      <Navbar />
+
       <main className="flex-grow min-h-screen bg-white px-6 sm:px-12 lg:px-20 py-20 flex flex-col items-center">
         <div
           className="w-full max-w-4xl p-12 rounded-2xl transition-transform duration-300 ease-in-out cursor-default"
@@ -211,7 +208,6 @@ const Account = () => {
       </main>
 
       <div className="mt-16 bg-white">
-        <Footer />
       </div>
     </>
   );
