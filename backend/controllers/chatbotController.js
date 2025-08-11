@@ -89,35 +89,33 @@ export const handleChat = async (req, res) => {
     }
 
     // 4. Construct a detailed prompt for the AI with the product data.
+    // ...existing code above...
+
+    // 4. Construct a detailed prompt for the AI with the product data.
+    // CHANGE: Add a markdownLink field for each product
+    // ...existing code above...
+
+    // Make productInfo a plain markdown list of links
     const productInfo =
       products.length > 0
-        ? JSON.stringify(
-            products.map(p => ({
-              name: p.name,
-            _id: p._id, // Add the product ID to the context
-              description: p.description,
-              price: p.price,
-              category: p.category,
-              gender: p.gender, // Add gender to context
-              tags: p.tags, // Add the product's own tags to the context
-            })),
-            null,
-            2
-          )
-        : 'No products found matching the query.';
+        ? products.map(
+            p => `- [${p.name}](http://localhost:5173/product/${p._id})`
+          ).join('\n')
+        : '';
 
-    const prompt = `You are a helpful e-commerce assistant for a store called DINNOM. Your goal is to help users find products.
-    Answer the user's query based ONLY on the following product information and context.
-    When you mention a product, ALWAYS create a markdown link for it. The link format is: Product Name. You MUST use the _id from the context for the PRODUCT_ID.
-    If the information isn't available in the context provided, say that you don't have enough information to answer. Be friendly and concise.
+    const prompt = `You are a helpful e-commerce assistant for a store called DINNOM.
+ONLY reply with a bullet list of the products below that match the user's query, using the markdown links as provided.
+If there are no products, reply with exactly: No matching products found.
 
-    AVAILABLE TAGS for all products: ${allTags.join(', ')}
+PRODUCTS:
+${productInfo}
 
-    PRODUCT CONTEXT:
-    ${productInfo}
+USER'S QUERY:
+${query}`;
 
-    USER'S QUERY:
-    ${query}`;
+// ...rest of your code unchanged...
+
+// ...rest of your code unchanged...
 
     // 5. Call the local Ollama AI API and send the response.
     const ollamaResponse = await axios.post(OLLAMA_API_URL, {
