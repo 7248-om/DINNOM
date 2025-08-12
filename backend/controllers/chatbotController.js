@@ -96,6 +96,9 @@ export const handleChat = async (req, res) => {
     // ...existing code above...
 
     // Make productInfo a plain markdown list of links
+    // ...existing code above...
+
+    // Make productInfo a plain markdown list of links
     const productInfo =
       products.length > 0
         ? products.map(
@@ -103,15 +106,23 @@ export const handleChat = async (req, res) => {
           ).join('\n')
         : '';
 
+    // If no products, reply directly and skip AI
+    if (!productInfo) {
+      return res.json({ reply: "Sorry, I don't have information about that or can't help with this query." });
+    }
+
     const prompt = `You are a helpful e-commerce assistant for a store called DINNOM.
-ONLY reply with a bullet list of the products below that match the user's query, using the markdown links as provided.
-If there are no products, reply with exactly: No matching products found.
+You can ONLY answer about products that are in the PRODUCTS list below.
+If the PRODUCTS list is empty, reply with exactly: Sorry, I don't have information about that or can't help with this query.
+If the PRODUCTS list is not empty, ONLY reply with a bullet list of the products below, using the markdown links as provided. Do NOT add any other information or explanation.
 
 PRODUCTS:
 ${productInfo}
 
 USER'S QUERY:
 ${query}`;
+
+// ...rest of your code unchanged...
 
 // ...rest of your code unchanged...
 
