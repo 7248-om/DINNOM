@@ -335,7 +335,7 @@ const AdminOrders = () => {
                     <td
                       className="border border-black px-4 py-2 font-semibold whitespace-nowrap"
                     >
-                      ${order.totalAmount.toFixed(2)}
+                      ₹{order.totalAmount.toFixed(2)}
                     </td>
 
                     <td
