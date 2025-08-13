@@ -64,10 +64,17 @@ function App() {
   const isHome = location.pathname === '/' || location.pathname === '/home';
 
   useEffect(() => {
-    fetch('/api')
-      .then((res) => res.text())
-      .then((data) => console.log('Winners:', data));
-  }, []);
+  const API_BASE =
+    import.meta.env.MODE === 'production'
+      ? 'https://backend-dinnom-2.onrender.com/api'
+      : '/api';
+
+  fetch(API_BASE)
+    .then((res) => res.json())
+    .then((data) => console.log('Winners:', data))
+    .catch((err) => console.error('Error fetching API:', err));
+}, []);
+
 
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? 'hidden' : 'auto';
