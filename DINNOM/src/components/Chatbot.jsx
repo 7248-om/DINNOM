@@ -160,8 +160,11 @@ const Chatbot = () => {
 
       // If the last query was from voice, speak the reply
       if (lastQueryWasVoice) {
-        speak(data.reply);
-        setLastQueryWasVoice(false); // Reset for the next interaction
+        // This regex finds markdown links and extracts just the link text.
+        // For example, "[Cool Shirt](/product/123)" becomes "Cool Shirt".
+        const textToSpeak = data.reply.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+        speak(textToSpeak);
+        setLastQueryWasVoice(false);
       }
     } catch (error) {
       console.error('Chatbot error:', error);
